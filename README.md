@@ -30,8 +30,7 @@ cron, Docker, Kubernetes, or your laptop.
   scheduler, a built-in daemon with its own cron schedule, or an HTTP API
   you host yourself.
 - **Your own questions.** Add a private pack next to the built-in ones.
-- **Use it from code.** A Go library, plus JavaScript and Python versions
-  that pick the same question of the day.
+- **Use it from code.** A Go library with no dependencies.
 - **Static JSON on a CDN** for scripts, spreadsheets, Google Apps Script and
   Power Automate.
 - **Small and careful.** One binary, no runtime. Webhook URLs and tokens are
@@ -244,7 +243,7 @@ Set `selection.mode` in the config, or pass `--mode`.
 
 | Mode | Behavior |
 |---|---|
-| `daily` | The same question for everyone with the same `seed` on the same day, with **no saved state**. It hashes `seed|date|question id` and takes the smallest hash, so it gives the same answer on every machine and in the Go, JavaScript and Python versions. The day changes at midnight in `schedule.timezone`. Questions can repeat over the months. |
+| `daily` | The same question for everyone with the same `seed` on the same day, with **no saved state**. It hashes `seed|date|question id` and takes the smallest hash, so it gives the same answer on every machine. The day changes at midnight in `schedule.timezone`. Questions can repeat over the months. |
 | `random` | Any question each time. |
 | `no-repeat` | Never repeats until every question was used, then starts a new cycle. It keeps a small history file (`history.path`) with a lock, so several processes can share it. New questions from an upgrade join the pool by themselves. |
 
@@ -445,19 +444,13 @@ The layout is described in [schema/dataset.schema.json](schema/dataset.schema.js
 Working snippets for curl, Python, Node, Google Apps Script and Power Automate
 are in [examples](examples).
 
-### Libraries
+### Go library
 
-Use the same picks inside your own code:
-
-- **Go:** `go get github.com/kashifkhan0771/cuppa/pkg/cuppa`. It has `Embedded`,
-  `Load`, `Merge`, `Filter`, `Random`, `Daily` and `Next`, no network calls,
-  and no dependencies.
-- **JavaScript / TypeScript** (Node 18+, no dependencies): [packages/npm](packages/npm).
-- **Python** (3.9+, standard library only): [packages/python](packages/python).
-
-`Daily` gives the same question for the same seed and date in all three, and
-all three run the same test cases ([testdata/daily_vectors.json](testdata/daily_vectors.json)).
-See [examples/library](examples/library).
+Use the same picks inside your own Go program:
+`go get github.com/kashifkhan0771/cuppa/pkg/cuppa`. It has `Embedded`, `Load`,
+`Merge`, `Filter`, `Random`, `Daily` and `Next`, makes no network calls, and
+has no dependencies. See [examples/library/go](examples/library/go). Other
+languages can use the JSON above or the HTTP API.
 
 ## Upgrading
 

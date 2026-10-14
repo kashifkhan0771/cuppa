@@ -12,22 +12,17 @@ permissions:
 
 jobs:
   analyze:
-    name: CodeQL (${{ matrix.language }})
+    name: CodeQL (Go)
     runs-on: ubuntu-latest
     permissions:
       contents: read
       security-events: write
-    strategy:
-      fail-fast: false
-      matrix:
-        language: [go, javascript-typescript, python]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
-        if: matrix.language == 'go'
         with:
           go-version-file: go.mod
       - uses: github/codeql-action/init@v3
         with:
-          languages: ${{ matrix.language }}
+          languages: go
       - uses: github/codeql-action/analyze@v3

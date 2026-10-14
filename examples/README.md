@@ -15,8 +15,8 @@ step with the code.
 | Run my own HTTP API | [cuppa.serve.yaml](cuppa.serve.yaml) with [docker/docker-compose.serve.yaml](docker/docker-compose.serve.yaml) or [kubernetes/serve.yaml](kubernetes/serve.yaml) |
 | Use Google Apps Script | [appsscript/](appsscript/) |
 | Use Power Automate, Zapier, Make or n8n | [power-automate/](power-automate/) |
-| Use only the JSON, with curl, Python or Node | [scripts/](scripts/) |
-| Use cuppa inside my own code | [library/](library/) (Go, Node, Python) |
+| Use only the JSON, with curl, Python or Node (no package needed) | [scripts/](scripts/) |
+| Use cuppa inside my own Go code | [library/go](library/go) |
 
 ## Config files
 

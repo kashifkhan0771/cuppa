@@ -22,16 +22,13 @@ Questions are CC0 (public domain). By adding one you agree to that.
 
 ## 2. Change the code
 
-You need Go (the version is in `go.mod`). Node 18+ and Python 3.9+ are only
-needed for the packages in `packages/`.
+You need Go (the version is in `go.mod`).
 
 ```sh
 make check              # vet, lint, tests with coverage, dash check, secret scan
 make test               # tests with the race detector
 make check-data         # check the question files
 make build-data         # rebuild dist/ after editing questions/
-make sync-packages      # copy dist/ into the npm and Python packages
-make test-packages      # run the npm and Python tests
 make release-snapshot   # build all release files into build/release
 ```
 
@@ -45,7 +42,6 @@ How the code is laid out:
 | `internal/config` | reading and checking `cuppa.yaml` |
 | `internal/history`, `internal/scheduler`, `internal/selfupdate` | no-repeat history, cron, updates |
 | `internal/tools/datagen` | turns `questions/` into `dist/` and checks the rules |
-| `packages/npm`, `packages/python` | the JS and Python ports of the library |
 | `examples/` | ready-to-copy setups |
 
 ### Rules we keep
@@ -67,8 +63,8 @@ How the code is laid out:
 - **No long dashes.** Do not use the en dash or em dash anywhere (code,
   comments, docs, commit messages). Use a hyphen, colon, comma or "to".
   `make check-dashes` fails if one slips in.
-- **`daily()` must give the same answer in Go, JS and Python.** All three run
-  `testdata/daily_vectors.json`.
+- **`daily()` must not change its answers.** `testdata/daily_vectors.json` pins
+  them, and the Google Apps Script example copies the same rule.
 
 ### Pull requests
 
@@ -82,5 +78,5 @@ How the code is laid out:
 ## Releases
 
 Maintainers only. release-please keeps a release pull request open. Merging
-it creates the tag, and the Release workflow publishes binaries, the Docker
-image and the npm and PyPI packages.
+it creates the tag, and the Release workflow publishes binaries and the Docker
+image.

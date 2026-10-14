@@ -1,4 +1,4 @@
-.PHONY: build test lint fmt vet check check-data build-data cover check-dashes release-check release-snapshot sync-packages test-packages secrets
+.PHONY: build test lint fmt vet check check-data build-data cover check-dashes release-check release-snapshot secrets
 
 # total test coverage must be above this percent
 MIN_COVERAGE := 80
@@ -70,18 +70,6 @@ release-check:
 # (Docker images need a running Docker daemon)
 release-snapshot:
 	$(GORELEASER) release --snapshot --clean
-
-# copy dist/questions.json and LICENSE into the npm and Python packages
-sync-packages:
-	cd packages/npm && node scripts/sync-data.mjs
-	cp dist/questions.json packages/python/src/cuppa/questions.json
-	cp LICENSE packages/npm/LICENSE
-	cp LICENSE packages/python/LICENSE
-
-# run the npm and Python package tests (needs Node 18+ and Python 3.9+)
-test-packages:
-	cd packages/npm && npm ci && npm test
-	cd packages/python && PYTHONPATH=src python3 -m unittest discover -s tests
 
 # fail if any commit in the history or any file in the folder holds a secret
 secrets:

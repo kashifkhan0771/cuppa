@@ -27,7 +27,7 @@ body:
     id: install
     attributes:
       label: How you run cuppa
-      options: [GitHub Action, Downloaded binary, Docker, go install, Go library, npm package, Python package]
+      options: [GitHub Action, Downloaded binary, Docker, go install, Go library]
   - type: textarea
     id: config
     attributes:

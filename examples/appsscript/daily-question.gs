@@ -76,7 +76,7 @@ function todaysQuestion_() {
 
 // Same rule as cuppa's daily mode: hash "seed|date|id" with SHA-256 and take
 // the question with the smallest hash. Same seed and date, same question,
-// in Go, JavaScript, Python and here.
+// in Go and here.
 function pickDaily_(questions, seed, date) {
   var best = null;
   var bestHash = null;

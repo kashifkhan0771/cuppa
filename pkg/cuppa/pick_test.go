@@ -53,7 +53,7 @@ func TestRandom(t *testing.T) {
 	}
 }
 
-// the shared cases every language (Go, JS, Python) must agree on
+// pins the daily rule: the Apps Script example ports it and must agree
 func TestDailyVectors(t *testing.T) {
 	raw, err := os.ReadFile(filepath.Join("..", "..", "testdata", "daily_vectors.json"))
 	if err != nil {

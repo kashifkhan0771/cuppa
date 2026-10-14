@@ -2,13 +2,6 @@
 /bin/
 /build/
 
-# npm and Python package build output
-node_modules/
-/packages/npm/dist/
-__pycache__/
-*.egg-info/
-/packages/python/dist/
-
 # test and coverage output
 *.test
 *.out
