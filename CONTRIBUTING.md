@@ -70,7 +70,9 @@ How the code is laid out:
 
 - Use [Conventional Commits](https://www.conventionalcommits.org/) for the
   title, like `feat(adapters): add Zulip` or `fix(cli): handle empty config`.
-  The release notes and version numbers are made from them.
+  The release notes and version numbers are made from the title, so a title
+  without a type like `feat:` or `fix:` is left out of the release. The
+  "PR title" check tells you if yours is wrong; editing the title re-runs it.
 - Keep a pull request to one change. Tests come with the code.
 - `make check` must pass. CI runs the same checks and more (Windows and
   macOS tests, `govulncheck`, a release build, the GitHub Action dry run).

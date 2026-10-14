@@ -1,0 +1,35 @@
+name: PR title
+
+# release-please builds the version and release notes from commit messages,
+# and squash merging uses the PR title as the message. A title without a
+# type like "feat:" is silently left out of the release, so check it here.
+# Its own workflow, because it must run when a title is edited, and that
+# should not re-run the whole test suite.
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+
+permissions:
+  contents: read
+
+jobs:
+  title:
+    name: Title follows Conventional Commits
+    runs-on: ubuntu-latest
+    steps:
+      # the title goes through an env var, never into the script text,
+      # so a crafted title cannot run commands
+      - name: Check the title
+        env:
+          TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          pattern='^(feat|fix|perf|docs|test|ci|chore|build|refactor|style|revert)(\([a-z0-9._/-]+\))?!?: .+'
+          if [[ ! "$TITLE" =~ $pattern ]]; then
+            echo "::error title=PR title::Start the title with a type like 'feat:' or 'fix(cli):'. Got: $TITLE"
+            echo "Types: feat fix perf docs test ci chore build refactor style revert"
+            echo "Example: feat(adapters): add Zulip"
+            echo "A '!' after the type marks a breaking change: feat!: drop old config key"
+            echo "Why: release notes and version numbers are made from this title (see CONTRIBUTING.md)."
+            exit 1
+          fi
+          echo "ok: $TITLE"
