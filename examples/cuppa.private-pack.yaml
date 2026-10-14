@@ -1,0 +1,11 @@
+# Add your own questions next to the built-in ones.
+# Paths are relative to this file. Check the pack first: cuppa validate my-pack.yaml
+version: 1
+data:
+  extra_questions: [private-pack/my-pack.yaml]
+selection:
+  mode: no-repeat
+targets:
+  - name: team-slack
+    type: slack
+    webhook: ${SLACK_WEBHOOK}

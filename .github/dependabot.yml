@@ -10,3 +10,9 @@ updates:
     directory: /
     schedule:
       interval: weekly
+
+  # the only dev dependency of the npm package is TypeScript
+  - package-ecosystem: npm
+    directory: /packages/npm
+    schedule:
+      interval: weekly

@@ -1,0 +1,17 @@
+# Post the same question to several chats at once. Each app gets its own
+# bold style. A failed target is reported but does not stop the others.
+# Post to just one with: cuppa post --target eng-slack
+version: 1
+selection:
+  mode: no-repeat
+  categories: [icebreakers, this-or-that, would-you-rather]
+targets:
+  - name: eng-slack
+    type: slack
+    webhook: ${ENG_SLACK_WEBHOOK}
+  - name: ops-teams
+    type: teams
+    webhook: ${OPS_TEAMS_WEBHOOK}
+  - name: community-discord
+    type: discord
+    webhook: ${DISCORD_WEBHOOK}

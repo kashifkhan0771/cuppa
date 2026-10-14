@@ -1,0 +1,7 @@
+# The smallest useful config: one Slack channel, one question a day.
+# Everything else uses the defaults. Run: cuppa post
+version: 1
+targets:
+  - name: team-slack
+    type: slack
+    webhook: ${SLACK_WEBHOOK}

@@ -1,0 +1,17 @@
+# Run cuppa as a small always-on service that posts on its own schedule.
+# Put the schedule and targets in ./cuppa.yaml (see ../cuppa.daemon.yaml).
+# Put secrets in ./.env, one per line:  SLACK_WEBHOOK=https://hooks.slack.com/...
+# Start with: docker compose -f docker-compose.daemon.yaml up -d
+services:
+  cuppa:
+    image: ghcr.io/kashifkhan0771/cuppa:0
+    command: ["daemon"]
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - ./cuppa.yaml:/work/cuppa.yaml:ro
+      # keeps the no-repeat history when the container is replaced
+      - cuppa-home:/home/nonroot
+
+volumes:
+  cuppa-home:

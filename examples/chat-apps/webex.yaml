@@ -1,0 +1,14 @@
+# Post to Webex. Webex has no incoming webhooks, so a bot posts instead:
+#   1. create a bot at https://developer.webex.com/my-apps and copy its token
+#   2. add the bot to the space
+#   3. get the space's room ID (developer.webex.com > API reference > Rooms > List Rooms)
+# Then: export WEBEX_TOKEN=... WEBEX_ROOM_ID=... && cuppa post --config webex.yaml
+version: 1
+selection:
+  mode: daily
+  seed: my-team
+targets:
+  - name: webex
+    type: webex
+    token: ${WEBEX_TOKEN}
+    room_id: ${WEBEX_ROOM_ID}

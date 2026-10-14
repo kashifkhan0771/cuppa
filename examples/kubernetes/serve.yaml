@@ -1,0 +1,81 @@
+# Run your own cuppa HTTP API in a cluster (one replica, because the
+# no-repeat history is a file). Reach it inside the cluster at http://cuppa:8080
+#
+#   kubectl create secret generic cuppa-serve --from-literal=CUPPA_TOKEN="$(openssl rand -hex 24)"
+#   kubectl apply -f serve.yaml
+#
+# To share it outside the cluster, add an Ingress with HTTPS. The token only
+# protects POST /v1/post and GET /v1/questions/next; the rest is public.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cuppa-serve
+data:
+  cuppa.yaml: |
+    version: 1
+    selection:
+      mode: daily
+      seed: my-team
+    server:
+      token: ${CUPPA_TOKEN}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cuppa
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cuppa
+  template:
+    metadata:
+      labels:
+        app: cuppa
+    spec:
+      containers:
+        - name: cuppa
+          image: ghcr.io/kashifkhan0771/cuppa:0
+          args: ["serve", "--addr", "0.0.0.0:8080"]
+          envFrom:
+            - secretRef:
+                name: cuppa-serve
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: 8080
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+          volumeMounts:
+            - name: config
+              mountPath: /work/cuppa.yaml
+              subPath: cuppa.yaml
+              readOnly: true
+            - name: home
+              mountPath: /home/nonroot
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            capabilities:
+              drop: [ALL]
+      volumes:
+        - name: config
+          configMap:
+            name: cuppa-serve
+        - name: home
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cuppa
+spec:
+  selector:
+    app: cuppa
+  ports:
+    - port: 8080

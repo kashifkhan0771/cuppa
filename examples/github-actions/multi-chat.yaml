@@ -1,0 +1,40 @@
+# Post to several chat apps from one workflow, only from some categories.
+# Add each webhook as a repo secret (Settings > Secrets and variables > Actions).
+# An app without a secret is simply skipped.
+name: Watercooler
+
+on:
+  schedule:
+    - cron: "0 9 * * 1-5" # weekdays, 09:00 UTC
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: Pick a question but do not post it
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - id: cuppa
+        uses: kashifkhan0771/cuppa@v0
+        with:
+          slack_webhook: ${{ secrets.SLACK_WEBHOOK }}
+          gchat_webhook: ${{ secrets.GCHAT_WEBHOOK }}
+          teams_webhook: ${{ secrets.TEAMS_WEBHOOK }}
+          discord_webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          mattermost_webhook: ${{ secrets.MATTERMOST_WEBHOOK }}
+          webex_token: ${{ secrets.WEBEX_TOKEN }}
+          webex_room_id: ${{ secrets.WEBEX_ROOM_ID }}
+          categories: icebreakers,this-or-that
+          sfw: casual
+          # different seeds give different questions on the same day
+          seed: engineering
+          dry_run: ${{ inputs.dry_run || 'false' }}
+
+      # the picked question is available to later steps
+      - run: echo "Posted ${{ steps.cuppa.outputs.question_id }}"

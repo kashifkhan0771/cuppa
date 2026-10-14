@@ -1,0 +1,23 @@
+name: Report a question
+description: A question is unfriendly, wrong, a duplicate or not safe for work
+labels: [content]
+body:
+  - type: input
+    id: id
+    attributes:
+      label: Question ID
+      description: Like ice-0012. `cuppa list` shows IDs.
+    validations:
+      required: true
+  - type: dropdown
+    id: reason
+    attributes:
+      label: What is wrong with it
+      options: [Not inclusive, Not safe for work, Duplicate of another question, Wrong tag or category, Typo or unclear, Other]
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+      description: See QUESTION_GUIDELINES.md for what we aim for.

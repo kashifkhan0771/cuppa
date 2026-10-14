@@ -1,0 +1,15 @@
+# Runs cuppa-post.service on weekdays at 10:00 (the computer's time zone).
+# Install (with cuppa-post.service next to it):
+#   sudo cp cuppa-post.service cuppa-post.timer /etc/systemd/system/
+#   sudo systemctl enable --now cuppa-post.timer
+# See when it runs next: systemctl list-timers cuppa-post
+[Unit]
+Description=Post a cuppa question on weekdays
+
+[Timer]
+OnCalendar=Mon..Fri 10:00
+# if the computer was off at 10:00, post when it comes back
+Persistent=true
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,10 @@
+# Post to discord. Setup: Discord channel webhook: channel settings > Integrations > Webhooks
+# Then: export DISCORD_WEBHOOK='https://...' && cuppa post --config discord.yaml
+version: 1
+selection:
+  mode: daily
+  seed: my-team
+targets:
+  - name: discord
+    type: discord
+    webhook: ${DISCORD_WEBHOOK}

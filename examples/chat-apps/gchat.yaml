@@ -1,0 +1,10 @@
+# Post to gchat. Setup: Google Chat space webhook: space name > Apps & integrations > Webhooks
+# Then: export GCHAT_WEBHOOK='https://...' && cuppa post --config gchat.yaml
+version: 1
+selection:
+  mode: daily
+  seed: my-team
+targets:
+  - name: gchat
+    type: gchat
+    webhook: ${GCHAT_WEBHOOK}

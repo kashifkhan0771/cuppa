@@ -1,0 +1,11 @@
+# Get new questions without upgrading cuppa. Once a day (refresh_interval)
+# cuppa downloads the newest questions from the CDN, keeps a copy in your
+# cache folder, and falls back to that copy or the built-in set if offline.
+version: 1
+data:
+  refresh: true
+  refresh_interval: 24h
+targets:
+  - name: team-slack
+    type: slack
+    webhook: ${SLACK_WEBHOOK}

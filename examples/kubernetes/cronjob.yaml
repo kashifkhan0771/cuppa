@@ -1,0 +1,59 @@
+# Post one question every weekday at 10:00 from a Kubernetes cluster.
+# Daily mode keeps no state, so a CronJob is all you need.
+#
+#   kubectl create secret generic cuppa --from-literal=SLACK_WEBHOOK='https://hooks.slack.com/...'
+#   kubectl apply -f cronjob.yaml
+#   kubectl create job --from=cronjob/cuppa cuppa-test   # try it now
+#
+# The config lives in a ConfigMap. Secrets are only referenced as ${NAME}.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cuppa
+data:
+  cuppa.yaml: |
+    version: 1
+    selection:
+      mode: daily
+      seed: my-team
+    targets:
+      - name: team-slack
+        type: slack
+        webhook: ${SLACK_WEBHOOK}
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: cuppa
+spec:
+  schedule: "0 10 * * 1-5"
+  timeZone: Etc/UTC
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      backoffLimit: 2
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: cuppa
+              image: ghcr.io/kashifkhan0771/cuppa:0
+              args: ["post"]
+              envFrom:
+                - secretRef:
+                    name: cuppa
+              volumeMounts:
+                - name: config
+                  mountPath: /work/cuppa.yaml
+                  subPath: cuppa.yaml
+                  readOnly: true
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                runAsNonRoot: true
+                capabilities:
+                  drop: [ALL]
+          volumes:
+            - name: config
+              configMap:
+                name: cuppa

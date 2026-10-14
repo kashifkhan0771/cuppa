@@ -345,3 +345,43 @@ func TestIsLoopback(t *testing.T) {
 		}
 	}
 }
+
+// The /v1 replies are a promise: these fields must stay. New fields may be
+// added, so the test only checks that the listed ones are present.
+func TestServeV1FieldsStay(t *testing.T) {
+	isolate(t)
+	t.Setenv("HOOK_ONE", "http://x")
+	postConfig(t, "daily", "")
+	url := testServer(t, false).URL
+
+	has := func(what string, got map[string]any, keys ...string) {
+		t.Helper()
+		for _, key := range keys {
+			if _, ok := got[key]; !ok {
+				t.Errorf("%s lost the %q field: %v", what, key, got)
+			}
+		}
+	}
+	asMap := func(v any) map[string]any {
+		m, _ := v.(map[string]any)
+		return m
+	}
+
+	question := []string{"id", "category", "text", "type", "sfw", "locale", "added"}
+	r := call(t, "GET", url+"/v1/questions/today")
+	has("question", asMap(r.body["data"]), question...)
+	has("meta", asMap(r.body["meta"]), "dataset_version", "api_version")
+
+	r = call(t, "GET", url+"/v1/questions?limit=1")
+	has("list question", asMap(r.body["data"].([]any)[0]), question...)
+	has("list meta", asMap(r.body["meta"]), "dataset_version", "api_version", "total", "limit")
+
+	r = call(t, "GET", url+"/v1/categories")
+	has("category", asMap(r.body["data"].([]any)[0]), "id", "name", "count")
+
+	r = call(t, "GET", url+"/version")
+	has("version", asMap(r.body["data"]), "version", "commit", "date", "questions")
+
+	r = call(t, "GET", url+"/v1/questions/nope-0001")
+	has("error", asMap(r.body["error"]), "code", "message")
+}

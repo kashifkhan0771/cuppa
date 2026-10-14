@@ -1,0 +1,19 @@
+# Run your own cuppa HTTP API. The config is ./cuppa.yaml (see ../cuppa.serve.yaml).
+# Put secrets in ./.env:  CUPPA_TOKEN=pick-a-long-random-string
+# The port is published to this computer only; put a reverse proxy with HTTPS
+# in front of it to share it. Try it: curl localhost:8080/v1/questions/today
+services:
+  cuppa:
+    image: ghcr.io/kashifkhan0771/cuppa:0
+    # inside the container it must listen on all addresses
+    command: ["serve", "--addr", "0.0.0.0:8080"]
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - "127.0.0.1:8080:8080"
+    volumes:
+      - ./cuppa.yaml:/work/cuppa.yaml:ro
+      - cuppa-home:/home/nonroot
+
+volumes:
+  cuppa-home:

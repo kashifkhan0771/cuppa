@@ -1,0 +1,10 @@
+# Post to slack. Setup: Slack incoming webhook: https://api.slack.com/messaging/webhooks
+# Then: export SLACK_WEBHOOK='https://...' && cuppa post --config slack.yaml
+version: 1
+selection:
+  mode: daily
+  seed: my-team
+targets:
+  - name: slack
+    type: slack
+    webhook: ${SLACK_WEBHOOK}

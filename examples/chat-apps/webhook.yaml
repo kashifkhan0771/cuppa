@@ -1,0 +1,14 @@
+# Post to any service that takes JSON over HTTP: Zapier, n8n, Make, your own bot.
+# You choose the method, headers and body. The body is a template:
+#   {{ .Rendered }}   the finished message
+#   {{ .Question }}   the question: .Question.ID, .Question.Text, .Question.Options, ...
+#   {{ json X }}      writes X as a safe JSON value, with quotes
+version: 1
+targets:
+  - name: my-bot
+    type: webhook
+    url: ${MY_BOT_URL}
+    method: POST
+    headers:
+      Authorization: Bearer ${MY_BOT_TOKEN}
+    body: '{"content": {{ json .Rendered }}, "question_id": {{ json .Question.ID }}}'

@@ -1,0 +1,35 @@
+name: Bug report
+description: Something does not work the way the README says
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: And what you expected instead.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: The command you ran. Replace webhook URLs and tokens with `xxx`.
+      render: shell
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Output of `cuppa version`
+    validations:
+      required: true
+  - type: dropdown
+    id: install
+    attributes:
+      label: How you run cuppa
+      options: [GitHub Action, Downloaded binary, Docker, go install, Go library, npm package, Python package]
+  - type: textarea
+    id: config
+    attributes:
+      label: Config (with secrets removed)
+      render: yaml

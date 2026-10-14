@@ -14,6 +14,8 @@ import (
 	"io"
 	"os"
 	"path/filepath"
+	"slices"
+	"strings"
 
 	"github.com/kashifkhan0771/cuppa/internal/questions"
 )
@@ -133,14 +135,31 @@ func loadAndCheck(questionsDir, schemaDir string, stdout, stderr io.Writer) ([]q
 // printDiff compares two question folders without validating them,
 // so a broken base branch still gives a useful summary.
 // A missing base folder counts as empty: every question is "added".
+// A question that was removed but is not listed in _retired.yaml is an
+// error, because IDs must never go away without being reserved.
 func printDiff(baseDir, questionsDir string, stdout io.Writer) error {
 	oldFiles, _, err := questions.LoadDir(baseDir)
 	if err != nil {
 		return err
 	}
-	newFiles, _, err := questions.LoadDir(questionsDir)
+	newFiles, retired, err := questions.LoadDir(questionsDir)
 	if err != nil {
 		return err
 	}
-	return writeSummary(stdout, diffQuestions(questions.AllQuestions(oldFiles), questions.AllQuestions(newFiles)))
+	changes := diffQuestions(questions.AllQuestions(oldFiles), questions.AllQuestions(newFiles))
+	if err := writeSummary(stdout, changes); err != nil {
+		return err
+	}
+
+	// removed questions must be written down in _retired.yaml
+	var unretired []string
+	for _, id := range changes.removed {
+		if !slices.ContainsFunc(retired, func(r questions.Retired) bool { return r.ID == id }) {
+			unretired = append(unretired, id)
+		}
+	}
+	if len(unretired) > 0 {
+		return fmt.Errorf("removed without being added to questions/_retired.yaml: %s", strings.Join(unretired, ", "))
+	}
+	return nil
 }

@@ -1,0 +1,24 @@
+name: New chat app
+description: Ask for support for another chat app
+labels: [adapter]
+body:
+  - type: input
+    id: app
+    attributes:
+      label: Chat app
+    validations:
+      required: true
+  - type: textarea
+    id: how
+    attributes:
+      label: How do apps like this receive messages
+      description: Link the docs for incoming webhooks or the send message API. If it takes any JSON over HTTP, the generic `webhook` target may already work.
+    validations:
+      required: true
+  - type: checkboxes
+    id: help
+    attributes:
+      label: Help
+      options:
+        - label: I can test it against a real workspace
+        - label: I would like to write the adapter

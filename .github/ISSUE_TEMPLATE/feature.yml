@@ -1,0 +1,17 @@
+name: Feature request
+description: Suggest something new
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What are you trying to do
+      description: Describe the problem first, then your idea.
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: What you would like cuppa to do
+    validations:
+      required: true

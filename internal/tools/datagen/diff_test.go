@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"os"
 	"path/filepath"
 	"strings"
 	"testing"
@@ -79,5 +80,47 @@ func TestRunUsageErrors(t *testing.T) {
 		if code := run(args, &stdout, &stderr); code != 2 {
 			t.Errorf("run(%v) = %d, want 2", args, code)
 		}
+	}
+}
+
+// writeQuestions writes a category file with the given IDs, and a retired list.
+func writeQuestions(t *testing.T, dir string, ids []string, retired string) {
+	t.Helper()
+	if err := os.MkdirAll(dir, 0o750); err != nil {
+		t.Fatal(err)
+	}
+	var b strings.Builder
+	b.WriteString("category: icebreakers\nname: Icebreakers\nprefix: ice\nquestions:\n")
+	for _, id := range ids {
+		b.WriteString("  - id: " + id + "\n    text: What is your favorite snack?\n    type: open\n    sfw: safe\n    locale: en\n    added: 2026-01-01\n")
+	}
+	if err := os.WriteFile(filepath.Join(dir, "icebreakers.yaml"), []byte(b.String()), 0o600); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(dir, "_retired.yaml"), []byte(retired), 0o600); err != nil {
+		t.Fatal(err)
+	}
+}
+
+// a removed question must be listed in _retired.yaml, so its ID is never reused
+func TestDiffFailsWhenRemovedQuestionIsNotRetired(t *testing.T) {
+	root := t.TempDir()
+	base, now := filepath.Join(root, "base"), filepath.Join(root, "now")
+	writeQuestions(t, base, []string{"ice-0001", "ice-0002"}, "retired: []\n")
+
+	writeQuestions(t, now, []string{"ice-0001"}, "retired: []\n")
+	var stdout, stderr bytes.Buffer
+	if code := run([]string{"diff", "-base", base, "-questions", now}, &stdout, &stderr); code != 1 || !strings.Contains(stderr.String(), "ice-0002") {
+		t.Errorf("not retired: exit %d, stderr %q", code, stderr.String())
+	}
+	if !strings.Contains(stdout.String(), "| Removed | 1 | ice-0002 |") {
+		t.Errorf("summary should still be printed:\n%s", stdout.String())
+	}
+
+	writeQuestions(t, now, []string{"ice-0001"}, "retired:\n  - id: ice-0002\n    reason: too similar to ice-0001\n")
+	stdout.Reset()
+	stderr.Reset()
+	if code := run([]string{"diff", "-base", base, "-questions", now}, &stdout, &stderr); code != 0 {
+		t.Errorf("retired: exit %d, stderr %q", code, stderr.String())
 	}
 }

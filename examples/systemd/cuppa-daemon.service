@@ -1,0 +1,25 @@
+# Keep cuppa running and let it post on the schedule in its config.
+# Install:
+#   sudo cp cuppa-daemon.service /etc/systemd/system/cuppa.service
+#   sudo mkdir -p /etc/cuppa
+#   sudo cp ../cuppa.daemon.yaml /etc/cuppa/cuppa.yaml
+#   echo 'SLACK_WEBHOOK=https://hooks.slack.com/...' | sudo tee /etc/cuppa/env
+#   sudo chmod 600 /etc/cuppa/env
+#   sudo systemctl enable --now cuppa
+# Logs: journalctl -u cuppa -f
+[Unit]
+Description=cuppa watercooler questions
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+ExecStart=/usr/local/bin/cuppa daemon --config /etc/cuppa/cuppa.yaml
+EnvironmentFile=/etc/cuppa/env
+DynamicUser=yes
+# gives the service a writable /var/lib/cuppa for the no-repeat history
+StateDirectory=cuppa
+Environment=XDG_STATE_HOME=/var/lib
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

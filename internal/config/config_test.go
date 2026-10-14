@@ -3,6 +3,7 @@ package config
 import (
 	"os"
 	"path/filepath"
+	"reflect"
 	"strings"
 	"testing"
 	"time"
@@ -244,5 +245,71 @@ func mustWrite(t *testing.T, path string) {
 	}
 	if err := os.WriteFile(path, []byte("version: 1\n"), 0o600); err != nil {
 		t.Fatal(err)
+	}
+}
+
+// A version 1 file that sets every key must keep loading in every 1.x
+// release. This test also fails when a key is added to the structs
+// without being added to the fixture, so each new key gets a back-compat check.
+func TestLoadVersion1FullFixture(t *testing.T) {
+	cfg, _, err := Load(filepath.Join("testdata", "v1-full.yaml"))
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	// every key set in the file must come out non-zero
+	var empty []string
+	var check func(path string, v reflect.Value)
+	check = func(path string, v reflect.Value) {
+		if v.Kind() == reflect.Struct {
+			for i := range v.NumField() {
+				field := v.Type().Field(i)
+				if tag := field.Tag.Get("yaml"); tag == "-" || tag == "" {
+					continue
+				}
+				check(path+"."+field.Name, v.Field(i))
+			}
+			return
+		}
+		if v.Kind() == reflect.Slice && v.Len() > 0 && v.Index(0).Kind() == reflect.Struct {
+			check(path+"[0]", v.Index(0))
+			return
+		}
+		if v.IsZero() {
+			empty = append(empty, path)
+		}
+	}
+	check("Config", reflect.ValueOf(*cfg))
+	if len(empty) > 0 {
+		t.Errorf("keys missing from testdata/v1-full.yaml: %v", empty)
+	}
+
+	// and the values must mean what they always meant
+	if cfg.Schedule.Cron != "30 9 * * 1-5" || cfg.Selection.Mode != ModeNoRepeat ||
+		cfg.Data.RefreshInterval != 6*time.Hour || cfg.Targets[0].Headers["X-Test"] != "1" ||
+		cfg.Server.CORSOrigins[0] != "https://example.com" || cfg.Location.String() != "Asia/Karachi" {
+		t.Errorf("values changed: %+v", cfg)
+	}
+}
+
+// every config in examples/ must load, so the examples never go stale
+func TestLoadAllExampleConfigs(t *testing.T) {
+	root := filepath.Join("..", "..", "examples")
+	var paths []string
+	for _, pattern := range []string{"cuppa*.yaml", filepath.Join("chat-apps", "*.yaml")} {
+		found, err := filepath.Glob(filepath.Join(root, pattern))
+		if err != nil {
+			t.Fatal(err)
+		}
+		paths = append(paths, found...)
+	}
+	if len(paths) < 10 {
+		t.Fatalf("expected the example configs, found %v", paths)
+	}
+
+	for _, path := range paths {
+		if _, _, err := Load(path); err != nil {
+			t.Errorf("%s: %v", path, err)
+		}
 	}
 }

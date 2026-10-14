@@ -1,0 +1,31 @@
+# A private question pack: same format as the files in questions/, kept in
+# your own repo. IDs must not collide with built-in ones, so use your own
+# prefix (2 to 5 lowercase letters). Check it with: cuppa validate my-pack.yaml
+category: our-team
+name: "Our Team"
+prefix: acme
+questions:
+  - id: acme-0001
+    text: "What is the best thing our team shipped this year?"
+    type: open
+    tags: [work]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+
+  - id: acme-0002
+    text: "Which meeting should become an email?"
+    type: open
+    tags: [work]
+    sfw: casual
+    locale: en
+    added: 2026-10-14
+
+  - id: acme-0003
+    text: "Standup in the morning or in the afternoon?"
+    type: this-or-that
+    options: ["Morning", "Afternoon"]
+    tags: [work]
+    sfw: safe
+    locale: en
+    added: 2026-10-14

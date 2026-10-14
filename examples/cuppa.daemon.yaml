@@ -1,0 +1,17 @@
+# For "cuppa daemon": posts on its own schedule, no cron or CI needed.
+# Run: cuppa daemon --config cuppa.daemon.yaml   (check first with: cuppa validate)
+version: 1
+schedule:
+  cron: "0 10 * * 1-5"    # 10:00, Monday to Friday (numbers only)
+  timezone: Europe/London # empty means the computer's own
+  skip_weekends: true
+  skip_dates: ["2026-12-25", "2026-12-28"]
+selection:
+  mode: no-repeat
+  categories: [icebreakers, fun-facts-about-you]
+history:
+  path: /var/lib/cuppa/history.json
+targets:
+  - name: team-slack
+    type: slack
+    webhook: ${SLACK_WEBHOOK}

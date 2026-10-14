@@ -142,3 +142,28 @@ func readRaw(t *testing.T, path string) fileData {
 	}
 	return data
 }
+
+// a version 1 history file from an earlier release must keep loading
+func TestVersion1FixtureStillLoads(t *testing.T) {
+	raw, err := os.ReadFile(filepath.Join("testdata", "v1.json"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	path := filepath.Join(t.TempDir(), "history.json")
+	if err := os.WriteFile(path, raw, 0o600); err != nil {
+		t.Fatal(err)
+	}
+
+	h := NewFile(path)
+	used, err := h.Used()
+	if err != nil || len(used) != 2 || used["wyr-0003"].IsZero() {
+		t.Fatalf("got %v, %v", used, err)
+	}
+	if err := h.MarkUsed("ice-0002", time.Now()); err != nil {
+		t.Fatal(err)
+	}
+	// saving keeps the old data and the cycle count
+	if data := readRaw(t, path); len(data.Used) != 3 || data.Cycles != 2 || data.Version != 1 {
+		t.Errorf("after save: %+v", data)
+	}
+}

@@ -1,0 +1,11 @@
+# Change how the message looks. Templates are Go templates.
+# {{ .Bold "x" }} writes bold the way each chat app wants it.
+# Other fields: .Text .Category .Type .Tags .Options .Emojis .ID
+version: 1
+message:
+  template: "{{ .Bold \"Coffee break question\" }}\n{{ .Text }}"
+  poll_template: "{{ .Bold \"Coffee break poll\" }}\n{{ .Text }}\n{{ range $i, $o := .Options }}{{ index $.Emojis $i }} {{ $o }}\n{{ end }}"
+targets:
+  - name: team-slack
+    type: slack
+    webhook: ${SLACK_WEBHOOK}

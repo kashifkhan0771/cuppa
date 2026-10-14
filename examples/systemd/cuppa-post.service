@@ -1,0 +1,13 @@
+# Post one question and exit. Started by cuppa-post.timer.
+[Unit]
+Description=Post a cuppa watercooler question
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/cuppa post --config /etc/cuppa/cuppa.yaml
+EnvironmentFile=/etc/cuppa/env
+DynamicUser=yes
+StateDirectory=cuppa
+Environment=XDG_STATE_HOME=/var/lib

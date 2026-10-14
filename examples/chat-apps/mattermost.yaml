@@ -1,0 +1,10 @@
+# Post to mattermost. Setup: Mattermost incoming webhook: Integrations > Incoming Webhooks
+# Then: export MATTERMOST_WEBHOOK='https://...' && cuppa post --config mattermost.yaml
+version: 1
+selection:
+  mode: daily
+  seed: my-team
+targets:
+  - name: mattermost
+    type: mattermost
+    webhook: ${MATTERMOST_WEBHOOK}

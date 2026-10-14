@@ -1,0 +1,28 @@
+# Never repeat a question until every question was used.
+# The history file has to survive between runs, so it is kept in the Actions
+# cache. Each run saves a new copy and the next run restores the newest one.
+# Caches unused for 7 days are deleted; a daily run keeps it alive. If it is
+# ever lost, cuppa just starts a new cycle.
+name: Watercooler
+
+on:
+  schedule:
+    - cron: "0 10 * * 1-5"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/cache@v4
+        with:
+          path: ~/.local/state/cuppa
+          key: cuppa-history-${{ github.run_id }}
+          restore-keys: cuppa-history-
+      - uses: kashifkhan0771/cuppa@v0
+        with:
+          slack_webhook: ${{ secrets.SLACK_WEBHOOK }}
+          mode: no-repeat

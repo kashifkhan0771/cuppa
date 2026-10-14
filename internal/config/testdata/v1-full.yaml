@@ -1,0 +1,41 @@
+# A version 1 config that sets every key. It must load unchanged in every
+# 1.x release. Never edit existing lines: only add lines for new keys.
+version: 1
+schedule:
+  cron: "30 9 * * 1-5"
+  timezone: Asia/Karachi
+  skip_weekends: true
+  skip_dates: ["2026-12-25"]
+selection:
+  mode: no-repeat
+  seed: team-alpha
+  categories: [icebreakers]
+  tags: [fun]
+  exclude_tags: [politics]
+  sfw: casual
+  locale: en
+data:
+  extra_questions: [my-pack.yaml]
+  refresh: true
+  refresh_url: https://example.com/questions.json
+  refresh_interval: 6h
+history:
+  path: /tmp/cuppa-history.json
+message:
+  template: "Hello {{ .Text }}"
+  poll_template: "Poll {{ .Text }}"
+targets:
+  - name: one
+    type: webhook
+    webhook: https://example.com/hook
+    url: https://example.com/url
+    method: PUT
+    headers:
+      X-Test: "1"
+    body: '{"text": {{ json .Rendered }}}'
+    token: abc
+    room_id: room-1
+server:
+  addr: 127.0.0.1:9090
+  token: secret
+  cors_origins: ["https://example.com"]

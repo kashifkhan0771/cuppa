@@ -1,0 +1,9 @@
+# Add with: crontab -e
+# Post every weekday at 10:00 (the computer's time zone).
+# cron has a bare environment, so give the full path and the secrets.
+SLACK_WEBHOOK=https://hooks.slack.com/services/...
+0 10 * * 1-5 /usr/local/bin/cuppa post --config /home/me/cuppa.yaml >> /home/me/cuppa.log 2>&1
+
+# Daily mode needs no saved state, so this is all you need. For no-repeat mode
+# set mode: no-repeat in cuppa.yaml; the history file is kept in
+# ~/.local/state/cuppa/history.json.
