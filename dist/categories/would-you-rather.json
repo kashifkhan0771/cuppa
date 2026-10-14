@@ -1,0 +1,538 @@
+{
+  "schema_version": 1,
+  "dataset_version": "2026.10.14",
+  "categories": [
+    {
+      "id": "would-you-rather",
+      "name": "Would You Rather",
+      "count": 30
+    }
+  ],
+  "questions": [
+    {
+      "id": "wyr-0001",
+      "category": "would-you-rather",
+      "text": "Would you rather have a 4-day work week or work from anywhere forever?",
+      "type": "this-or-that",
+      "options": [
+        "4-day week",
+        "Work from anywhere"
+      ],
+      "tags": [
+        "work",
+        "remote"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "wyr-0002",
+      "category": "would-you-rather",
+      "text": "Would you rather be able to fly or be invisible?",
+      "type": "this-or-that",
+      "options": [
+        "Fly",
+        "Be invisible"
+      ],
+      "tags": [
+        "superpowers"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "wyr-0003",
+      "category": "would-you-rather",
+      "text": "Would you rather explore deep space or the deep ocean?",
+      "type": "this-or-that",
+      "options": [
+        "Deep space",
+        "Deep ocean"
+      ],
+      "tags": [
+        "space",
+        "nature"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "wyr-0004",
+      "category": "would-you-rather",
+      "text": "Would you rather only have meetings in the morning or only in the afternoon?",
+      "type": "this-or-that",
+      "options": [
+        "Morning",
+        "Afternoon"
+      ],
+      "tags": [
+        "work"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "wyr-0005",
+      "category": "would-you-rather",
+      "text": "Would you rather have unlimited books or unlimited movies?",
+      "type": "this-or-that",
+      "options": [
+        "Books",
+        "Movies"
+      ],
+      "tags": [
+        "books",
+        "movies"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "wyr-0006",
+      "category": "would-you-rather",
+      "text": "Would you rather speak every language or play every instrument?",
+      "type": "this-or-that",
+      "options": [
+        "Every language",
+        "Every instrument"
+      ],
+      "tags": [
+        "learning",
+        "music"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "wyr-0007",
+      "category": "would-you-rather",
+      "text": "Would you rather travel to the past or to the future?",
+      "type": "this-or-that",
+      "options": [
+        "The past",
+        "The future"
+      ],
+      "tags": [
+        "time-travel"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "wyr-0008",
+      "category": "would-you-rather",
+      "text": "Would you rather live where it is always spring or always autumn?",
+      "type": "this-or-that",
+      "options": [
+        "Always spring",
+        "Always autumn"
+      ],
+      "tags": [
+        "seasons"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "wyr-0009",
+      "category": "would-you-rather",
+      "text": "Would you rather have a personal chef or a personal driver?",
+      "type": "this-or-that",
+      "options": [
+        "Personal chef",
+        "Personal driver"
+      ],
+      "tags": [
+        "food"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "wyr-0010",
+      "category": "would-you-rather",
+      "text": "Would you rather give up music or give up movies for a year?",
+      "type": "this-or-that",
+      "options": [
+        "Give up music",
+        "Give up movies"
+      ],
+      "tags": [
+        "music",
+        "movies"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "wyr-0011",
+      "category": "would-you-rather",
+      "text": "Would you rather work in a treehouse or on a houseboat?",
+      "type": "this-or-that",
+      "options": [
+        "Treehouse",
+        "Houseboat"
+      ],
+      "tags": [
+        "work",
+        "fun"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "wyr-0012",
+      "category": "would-you-rather",
+      "text": "Would you rather be able to talk to animals or read minds?",
+      "type": "this-or-that",
+      "options": [
+        "Talk to animals",
+        "Read minds"
+      ],
+      "tags": [
+        "superpowers",
+        "animals"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "wyr-0013",
+      "category": "would-you-rather",
+      "text": "Would you rather have a rewind button or a pause button for your life?",
+      "type": "this-or-that",
+      "options": [
+        "Rewind",
+        "Pause"
+      ],
+      "tags": [
+        "time-travel"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "wyr-0014",
+      "category": "would-you-rather",
+      "text": "Would you rather always know the right thing to say or the right time to leave?",
+      "type": "this-or-that",
+      "options": [
+        "Right words",
+        "Right time to leave"
+      ],
+      "tags": [
+        "fun"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "wyr-0015",
+      "category": "would-you-rather",
+      "text": "Would you rather have every email answered for you or every meeting summarized for you?",
+      "type": "this-or-that",
+      "options": [
+        "Emails answered",
+        "Meetings summarized"
+      ],
+      "tags": [
+        "work",
+        "productivity"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "wyr-0016",
+      "category": "would-you-rather",
+      "text": "Would you rather be the funniest person in the room or the smartest?",
+      "type": "this-or-that",
+      "options": [
+        "Funniest",
+        "Smartest"
+      ],
+      "tags": [
+        "fun"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "wyr-0017",
+      "category": "would-you-rather",
+      "text": "Would you rather eat only sweet food or only savory food for a week?",
+      "type": "this-or-that",
+      "options": [
+        "Sweet",
+        "Savory"
+      ],
+      "tags": [
+        "food"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "wyr-0018",
+      "category": "would-you-rather",
+      "text": "Would you rather be able to teleport or breathe underwater?",
+      "type": "this-or-that",
+      "options": [
+        "Teleport",
+        "Breathe underwater"
+      ],
+      "tags": [
+        "superpowers"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "wyr-0019",
+      "category": "would-you-rather",
+      "text": "Would you rather spend a day in a museum or a day in a theme park?",
+      "type": "this-or-that",
+      "options": [
+        "Museum",
+        "Theme park"
+      ],
+      "tags": [
+        "hobbies"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "wyr-0020",
+      "category": "would-you-rather",
+      "text": "Would you rather have a robot that cooks or a robot that cleans?",
+      "type": "this-or-that",
+      "options": [
+        "Cooks",
+        "Cleans"
+      ],
+      "tags": [
+        "tech",
+        "home"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "wyr-0021",
+      "category": "would-you-rather",
+      "text": "Would you rather write a best-selling book or direct a hit movie?",
+      "type": "this-or-that",
+      "options": [
+        "Write a book",
+        "Direct a movie"
+      ],
+      "tags": [
+        "books",
+        "movies",
+        "creativity"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "wyr-0022",
+      "category": "would-you-rather",
+      "text": "Would you rather work with a view of the mountains or the sea?",
+      "type": "this-or-that",
+      "options": [
+        "Mountains",
+        "Sea"
+      ],
+      "tags": [
+        "work",
+        "nature"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "wyr-0023",
+      "category": "would-you-rather",
+      "text": "Would you rather have a desk that is always tidy or a calendar that is always clear?",
+      "type": "this-or-that",
+      "options": [
+        "Tidy desk",
+        "Clear calendar"
+      ],
+      "tags": [
+        "work"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "wyr-0024",
+      "category": "would-you-rather",
+      "text": "Would you rather know how every story ends or how every magic trick works?",
+      "type": "this-or-that",
+      "options": [
+        "Story endings",
+        "Magic tricks"
+      ],
+      "tags": [
+        "fun"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "wyr-0025",
+      "category": "would-you-rather",
+      "text": "Would you rather camp under the stars or stay in a cozy cabin?",
+      "type": "this-or-that",
+      "options": [
+        "Camp under the stars",
+        "Cozy cabin"
+      ],
+      "tags": [
+        "outdoors"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "wyr-0026",
+      "category": "would-you-rather",
+      "text": "Would you rather be a master gardener or a master baker?",
+      "type": "this-or-that",
+      "options": [
+        "Gardener",
+        "Baker"
+      ],
+      "tags": [
+        "hobbies",
+        "food"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "wyr-0027",
+      "category": "would-you-rather",
+      "text": "Would you rather visit every country or every planet in the solar system?",
+      "type": "this-or-that",
+      "options": [
+        "Every country",
+        "Every planet"
+      ],
+      "tags": [
+        "travel",
+        "space"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "wyr-0028",
+      "category": "would-you-rather",
+      "text": "Would you rather have your own theme song or your own laugh track?",
+      "type": "this-or-that",
+      "options": [
+        "Theme song",
+        "Laugh track"
+      ],
+      "tags": [
+        "music",
+        "fun"
+      ],
+      "sfw": "casual",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "wyr-0029",
+      "category": "would-you-rather",
+      "text": "Would you rather only use a keyboard or only use a mouse for a week?",
+      "type": "this-or-that",
+      "options": [
+        "Keyboard only",
+        "Mouse only"
+      ],
+      "tags": [
+        "tech"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "wyr-0030",
+      "category": "would-you-rather",
+      "text": "Would you rather be an expert at chess or at a video game of your choice?",
+      "type": "this-or-that",
+      "options": [
+        "Chess",
+        "Video game"
+      ],
+      "tags": [
+        "games"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    }
+  ]
+}

@@ -1,0 +1,275 @@
+category: icebreakers
+name: "Icebreakers"
+prefix: ice
+questions:
+  - id: ice-0001
+    text: "What is the best piece of advice you have ever received?"
+    type: open
+    tags: [learning]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: ice-0002
+    text: "What is a small thing that always makes your day better?"
+    type: open
+    tags: [fun]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: ice-0003
+    text: "What song do you have on repeat lately?"
+    type: open
+    tags: [music]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: ice-0004
+    text: "What is a skill you would love to learn this year?"
+    type: open
+    tags: [learning, hobbies]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: ice-0005
+    text: "What is your go-to snack while working?"
+    type: open
+    tags: [food, work]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: ice-0006
+    text: "What is the most useful app on your phone?"
+    type: open
+    tags: [tech]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: ice-0007
+    text: "What book, show, or podcast would you recommend to the team right now?"
+    type: open
+    tags: [books, movies]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: ice-0008
+    text: "What did you want to be when you grew up?"
+    type: open
+    tags: [fun]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: ice-0009
+    text: "What is your favorite way to spend a free afternoon?"
+    type: open
+    tags: [hobbies, weekend]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: ice-0010
+    text: "What is one thing on your desk right now that tells a story?"
+    type: open
+    tags: [work, fun]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: ice-0011
+    text: "What is a hobby you picked up recently?"
+    type: open
+    tags: [hobbies]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: ice-0012
+    text: "What is your favorite comfort food?"
+    type: open
+    tags: [food]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: ice-0013
+    text: "What sound do you find most relaxing?"
+    type: open
+    tags: [fun]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: ice-0014
+    text: "What is a word or phrase you use way too often?"
+    type: open
+    tags: [fun]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: ice-0015
+    text: "What time of day do you do your best work?"
+    type: poll
+    options: ["Early morning", "Late morning", "Afternoon", "Evening"]
+    tags: [work, productivity]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: ice-0016
+    text: "What is the most interesting thing you learned this week?"
+    type: open
+    tags: [learning]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: ice-0017
+    text: "What is a movie you can watch again and again?"
+    type: open
+    tags: [movies]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: ice-0018
+    text: "If you could master any instrument, which one would it be?"
+    type: open
+    tags: [music]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: ice-0019
+    text: "What is your favorite season, and why?"
+    type: open
+    tags: [seasons]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: ice-0020
+    text: "What is a tiny win you had this week?"
+    type: open
+    tags: [work]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: ice-0021
+    text: "What is the most underrated food?"
+    type: open
+    tags: [food]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: ice-0022
+    text: "What tab is always open in your browser?"
+    type: open
+    tags: [tech, work]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: ice-0023
+    text: "What is your favorite word in any language?"
+    type: open
+    tags: [learning]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: ice-0024
+    text: "How do you take your coffee or tea?"
+    type: poll
+    options: ["Plain", "With milk", "Sweet", "Neither for me"]
+    tags: [food]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: ice-0025
+    text: "What game did you play the most as a kid?"
+    type: open
+    tags: [games]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: ice-0026
+    text: "What is a place nearby that you think everyone should visit?"
+    type: open
+    tags: [travel]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: ice-0027
+    text: "What is your favorite way to recharge after a busy day?"
+    type: open
+    tags: [hobbies]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: ice-0028
+    text: "What is a song that instantly puts you in a good mood?"
+    type: open
+    tags: [music]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: ice-0029
+    text: "What is a podcast or video channel you have learned a lot from?"
+    type: open
+    tags: [learning]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: ice-0030
+    text: "What is the best thing you have made with your hands?"
+    type: open
+    tags: [creativity]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771

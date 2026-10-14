@@ -1,0 +1,30 @@
+# Allowed question tags, one per line, lowercase kebab-case.
+# Add a tag here in the same PR that first uses it.
+animals
+art
+books
+creativity
+food
+fun
+games
+history
+hobbies
+home
+learning
+movies
+music
+nature
+outdoors
+productivity
+remote
+science
+seasons
+space
+sports
+superpowers
+tech
+time-travel
+travel
+weather
+weekend
+work

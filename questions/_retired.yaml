@@ -1,0 +1,6 @@
+# Questions removed from the active set.
+# Their IDs stay here forever so they are never reused.
+# Entry format:
+#   - id: wyr-0007
+#     reason: too similar to wyr-0003
+retired: []

@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Cuppa question",
+  "description": "One watercooler question. The datagen tool enforces the same rules in Go; keep both in step.",
+  "type": "object",
+  "required": ["id", "text", "type", "sfw", "locale", "added"],
+  "properties": {
+    "id": {
+      "description": "Category prefix, a hyphen, then at least 4 digits. Never changed or reused.",
+      "type": "string",
+      "pattern": "^[a-z]{2,5}-[0-9]{4,}$"
+    },
+    "category": {
+      "description": "Category ID. Present in compiled JSON, taken from the file in YAML.",
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+    },
+    "text": {
+      "type": "string",
+      "minLength": 10,
+      "maxLength": 200
+    },
+    "type": {
+      "enum": ["open", "poll", "this-or-that"]
+    },
+    "options": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 6,
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1, "maxLength": 40 }
+    },
+    "tags": {
+      "description": "Tags from schema/tags.txt.",
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" }
+    },
+    "sfw": {
+      "enum": ["safe", "casual"]
+    },
+    "locale": {
+      "type": "string",
+      "pattern": "^[a-z]{2,3}(-[A-Z]{2})?$"
+    },
+    "added": {
+      "type": "string",
+      "format": "date"
+    },
+    "author": {
+      "description": "GitHub handle.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9-]{1,39}$"
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "type": { "const": "open" } } },
+      "then": { "not": { "required": ["options"] } }
+    },
+    {
+      "if": { "properties": { "type": { "const": "poll" } } },
+      "then": { "required": ["options"] }
+    },
+    {
+      "if": { "properties": { "type": { "const": "this-or-that" } } },
+      "then": {
+        "required": ["options"],
+        "properties": { "options": { "minItems": 2, "maxItems": 2 } }
+      }
+    }
+  ]
+}

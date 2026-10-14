@@ -1,0 +1,273 @@
+category: hypotheticals
+name: "Hypotheticals"
+prefix: hyp
+questions:
+  - id: hyp-0001
+    text: "If you could have dinner with any historical figure, who would it be?"
+    type: open
+    tags: [history]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: hyp-0002
+    text: "If you could instantly become an expert in one subject, what would you pick?"
+    type: open
+    tags: [learning]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: hyp-0003
+    text: "If you had to teach a class on anything, what would it be about?"
+    type: open
+    tags: [learning]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: hyp-0004
+    text: "If animals could talk, which one would be the rudest?"
+    type: open
+    tags: [animals, fun]
+    sfw: casual
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: hyp-0005
+    text: "If you could live in any time period for a week, which would you pick?"
+    type: open
+    tags: [history, time-travel]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: hyp-0006
+    text: "If you could add one holiday to the calendar, what would it celebrate?"
+    type: open
+    tags: [fun]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: hyp-0007
+    text: "If you were a kitchen appliance, which one would you be?"
+    type: open
+    tags: [fun, home]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: hyp-0008
+    text: "If you could have any view from your desk, what would it be?"
+    type: open
+    tags: [work]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: hyp-0009
+    text: "If you could invent one gadget to make work easier, what would it do?"
+    type: open
+    tags: [tech, work]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: hyp-0010
+    text: "If you could swap jobs with anyone for a day, who would it be?"
+    type: open
+    tags: [work]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: hyp-0011
+    text: "If your week were a movie genre, which one would it be?"
+    type: open
+    tags: [movies, fun]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: hyp-0012
+    text: "If you could master one sport overnight, which would it be?"
+    type: open
+    tags: [sports]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: hyp-0013
+    text: "If you could live inside any painting, which would you choose?"
+    type: open
+    tags: [art]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: hyp-0014
+    text: "If you could make one rule everyone had to follow, what would it be?"
+    type: open
+    tags: [fun]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: hyp-0015
+    text: "If you could only eat one cuisine for the rest of your life, which would it be?"
+    type: open
+    tags: [food]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: hyp-0016
+    text: "If you could shrink to the size of an ant for a day, where would you go?"
+    type: open
+    tags: [fun]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: hyp-0017
+    text: "If you could bring back one discontinued snack, what would it be?"
+    type: open
+    tags: [food]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: hyp-0018
+    text: "If you could be any animal for a day, which would you choose?"
+    type: open
+    tags: [animals]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: hyp-0019
+    text: "If you could design the perfect office, what is one thing it would have?"
+    type: open
+    tags: [work]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: hyp-0020
+    text: "If you had a robot assistant, what is the first task you would give it?"
+    type: open
+    tags: [tech]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: hyp-0021
+    text: "If you could solve one everyday annoyance, what would it be?"
+    type: open
+    tags: [fun]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: hyp-0022
+    text: "If you could name a new color, what would you call it?"
+    type: open
+    tags: [art, creativity]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: hyp-0023
+    text: "If you woke up with a superpower, how would you use it at work?"
+    type: open
+    tags: [superpowers, work]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: hyp-0024
+    text: "If you could visit any planet, which would you pick and why?"
+    type: open
+    tags: [space]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: hyp-0025
+    text: "If you could start a small business just for fun, what would it be?"
+    type: open
+    tags: [creativity]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: hyp-0026
+    text: "If you wrote a book about your life, what would the title be?"
+    type: open
+    tags: [books]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: hyp-0027
+    text: "If you could learn the answer to one mystery, which would you choose?"
+    type: open
+    tags: [science, history]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: hyp-0028
+    text: "If you could build a secret room in your home, what would it be for?"
+    type: open
+    tags: [home]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: hyp-0029
+    text: "If you had an extra hour every day, how would you spend it?"
+    type: open
+    tags: [productivity]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: hyp-0030
+    text: "If you could talk to your future self, what would you ask?"
+    type: open
+    tags: [fun, time-travel]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771

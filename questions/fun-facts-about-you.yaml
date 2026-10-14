@@ -1,0 +1,273 @@
+category: fun-facts-about-you
+name: "Fun Facts About You"
+prefix: ffy
+questions:
+  - id: ffy-0001
+    text: "What is a hidden talent most people here don't know about?"
+    type: open
+    tags: [fun]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: ffy-0002
+    text: "What is the most unusual job or role you have ever had?"
+    type: open
+    tags: [work]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: ffy-0003
+    text: "What is something you are surprisingly good at?"
+    type: open
+    tags: [fun]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: ffy-0004
+    text: "What is a food you could eat every day?"
+    type: open
+    tags: [food]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: ffy-0005
+    text: "What is a fact about you that sounds made up but is true?"
+    type: open
+    tags: [fun]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: ffy-0006
+    text: "What is the strangest thing you have ever collected?"
+    type: open
+    tags: [hobbies]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: ffy-0007
+    text: "What is your favorite fact about space or nature?"
+    type: open
+    tags: [space, nature, science]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: ffy-0008
+    text: "What is a skill you taught yourself?"
+    type: open
+    tags: [learning]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: ffy-0009
+    text: "What is the best compliment you have ever received?"
+    type: open
+    tags: [fun]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: ffy-0010
+    text: "What is a movie or book that changed how you think?"
+    type: open
+    tags: [books, movies]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: ffy-0011
+    text: "What is the most memorable view you have ever seen?"
+    type: open
+    tags: [nature, travel]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: ffy-0012
+    text: "What is your most used emoji?"
+    type: open
+    tags: [tech, fun]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: ffy-0013
+    text: "What is a small habit that makes your work better?"
+    type: open
+    tags: [productivity, work]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: ffy-0014
+    text: "What is a goal you are working toward outside of work?"
+    type: open
+    tags: [hobbies]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: ffy-0015
+    text: "What is a song you know every word to?"
+    type: open
+    tags: [music]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: ffy-0016
+    text: "What is the most interesting place you have worked from?"
+    type: open
+    tags: [remote, work]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: ffy-0017
+    text: "What is a random topic you could talk about for an hour?"
+    type: open
+    tags: [fun]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: ffy-0018
+    text: "What is your favorite thing about the city or town you live in?"
+    type: open
+    tags: [home]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: ffy-0019
+    text: "What is the last thing that made you laugh out loud?"
+    type: open
+    tags: [fun]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: ffy-0020
+    text: "What is a tradition you would like to start?"
+    type: open
+    tags: [fun]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: ffy-0021
+    text: "What is a game you are unbeatable at?"
+    type: open
+    tags: [games]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: ffy-0022
+    text: "What is a smell that brings back good memories?"
+    type: open
+    tags: [fun]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: ffy-0023
+    text: "What is a dish you are proud of cooking?"
+    type: open
+    tags: [food]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: ffy-0024
+    text: "What is a plant you are proud of keeping alive?"
+    type: open
+    tags: [home, nature]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: ffy-0025
+    text: "What is your favorite notification sound or sound effect?"
+    type: open
+    tags: [tech]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: ffy-0026
+    text: "What is a weird food combination you love?"
+    type: open
+    tags: [food]
+    sfw: casual
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: ffy-0027
+    text: "What is a fictional world you would love to visit?"
+    type: open
+    tags: [books, movies]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: ffy-0028
+    text: "What is something you changed your mind about recently?"
+    type: open
+    tags: [learning]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: ffy-0029
+    text: "What is a rule you always follow at work?"
+    type: open
+    tags: [work]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: ffy-0030
+    text: "What is a nickname you have had, and how did you get it?"
+    type: open
+    tags: [fun]
+    sfw: casual
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771

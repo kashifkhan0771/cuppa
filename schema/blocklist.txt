@@ -1,0 +1,41 @@
+# Words that must never appear in a question or its options.
+# Matched as whole words, case does not matter.
+# Covers swearing and topics the question guidelines rule out.
+
+# swearing
+ass
+asshole
+bastard
+bitch
+crap
+damn
+fuck
+fucking
+hell
+shit
+
+# alcohol
+alcohol
+beer
+cocktail
+drunk
+tequila
+vodka
+whiskey
+wine
+
+# politics and religion
+election
+political
+politics
+religion
+religious
+
+# money
+paycheck
+salary
+
+# dating
+dating
+sex
+sexy

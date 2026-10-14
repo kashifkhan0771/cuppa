@@ -1,0 +1,38 @@
+name: content-lint
+
+on:
+  pull_request:
+    paths:
+      - questions/**
+      - schema/**
+      - internal/tools/datagen/**
+      - pkg/cuppa/**
+
+# read-only on purpose: works the same for PRs from forks
+permissions:
+  contents: read
+
+jobs:
+  questions:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # the base branch, to compare questions against
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          path: base
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+
+      - name: check questions
+        run: go run ./internal/tools/datagen check
+
+      # show added/changed/removed questions on the run page,
+      # even when the check above failed
+      - name: summarize changes
+        if: always()
+        run: go run ./internal/tools/datagen diff -base base/questions >> "$GITHUB_STEP_SUMMARY"

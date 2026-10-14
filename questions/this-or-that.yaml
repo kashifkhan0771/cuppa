@@ -1,0 +1,303 @@
+category: this-or-that
+name: "This or That"
+prefix: tot
+questions:
+  - id: tot-0001
+    text: "Coffee or tea?"
+    type: this-or-that
+    options: ["Coffee", "Tea"]
+    tags: [food]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: tot-0002
+    text: "Beach or mountains?"
+    type: this-or-that
+    options: ["Beach", "Mountains"]
+    tags: [travel, nature]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: tot-0003
+    text: "Early bird or night owl?"
+    type: this-or-that
+    options: ["Early bird", "Night owl"]
+    tags: [productivity]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: tot-0004
+    text: "Cats or dogs?"
+    type: this-or-that
+    options: ["Cats", "Dogs"]
+    tags: [animals]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: tot-0005
+    text: "Books or podcasts?"
+    type: this-or-that
+    options: ["Books", "Podcasts"]
+    tags: [books]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: tot-0006
+    text: "Sweet or salty snacks?"
+    type: this-or-that
+    options: ["Sweet", "Salty"]
+    tags: [food]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: tot-0007
+    text: "Summer or winter?"
+    type: this-or-that
+    options: ["Summer", "Winter"]
+    tags: [seasons]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: tot-0008
+    text: "Text or call?"
+    type: this-or-that
+    options: ["Text", "Call"]
+    tags: [tech]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: tot-0009
+    text: "Pizza or tacos?"
+    type: this-or-that
+    options: ["Pizza", "Tacos"]
+    tags: [food]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: tot-0010
+    text: "Sunrise or sunset?"
+    type: this-or-that
+    options: ["Sunrise", "Sunset"]
+    tags: [nature]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: tot-0011
+    text: "Board games or video games?"
+    type: this-or-that
+    options: ["Board games", "Video games"]
+    tags: [games]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: tot-0012
+    text: "City break or countryside escape?"
+    type: this-or-that
+    options: ["City break", "Countryside escape"]
+    tags: [travel]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: tot-0013
+    text: "Movies at home or at the cinema?"
+    type: this-or-that
+    options: ["At home", "At the cinema"]
+    tags: [movies]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: tot-0014
+    text: "Headphones or speakers?"
+    type: this-or-that
+    options: ["Headphones", "Speakers"]
+    tags: [music, tech]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: tot-0015
+    text: "Plan everything or go with the flow?"
+    type: this-or-that
+    options: ["Plan everything", "Go with the flow"]
+    tags: [productivity]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: tot-0016
+    text: "Paper notebook or notes app?"
+    type: this-or-that
+    options: ["Paper notebook", "Notes app"]
+    tags: [productivity, tech]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: tot-0017
+    text: "Rain or sunshine?"
+    type: this-or-that
+    options: ["Rain", "Sunshine"]
+    tags: [weather]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: tot-0018
+    text: "Breakfast or dinner?"
+    type: this-or-that
+    options: ["Breakfast", "Dinner"]
+    tags: [food]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: tot-0019
+    text: "Cook at home or order in?"
+    type: this-or-that
+    options: ["Cook at home", "Order in"]
+    tags: [food, home]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: tot-0020
+    text: "Window seat or aisle seat?"
+    type: this-or-that
+    options: ["Window seat", "Aisle seat"]
+    tags: [travel]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: tot-0021
+    text: "Fiction or nonfiction?"
+    type: this-or-that
+    options: ["Fiction", "Nonfiction"]
+    tags: [books]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: tot-0022
+    text: "Puzzles or sports?"
+    type: this-or-that
+    options: ["Puzzles", "Sports"]
+    tags: [games, sports]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: tot-0023
+    text: "Light mode or dark mode?"
+    type: this-or-that
+    options: ["Light mode", "Dark mode"]
+    tags: [tech]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: tot-0024
+    text: "Walk or bike?"
+    type: this-or-that
+    options: ["Walk", "Bike"]
+    tags: [outdoors]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: tot-0025
+    text: "Spreadsheets or slides?"
+    type: this-or-that
+    options: ["Spreadsheets", "Slides"]
+    tags: [work]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: tot-0026
+    text: "Stars or city lights?"
+    type: this-or-that
+    options: ["Stars", "City lights"]
+    tags: [nature]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: tot-0027
+    text: "Chocolate or vanilla?"
+    type: this-or-that
+    options: ["Chocolate", "Vanilla"]
+    tags: [food]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: tot-0028
+    text: "Emoji or GIF reactions?"
+    type: this-or-that
+    options: ["Emoji", "GIFs"]
+    tags: [work, fun]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: tot-0029
+    text: "Road trip or flight?"
+    type: this-or-that
+    options: ["Road trip", "Flight"]
+    tags: [travel]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771
+
+  - id: tot-0030
+    text: "Popcorn or nachos?"
+    type: this-or-that
+    options: ["Popcorn", "Nachos"]
+    tags: [food, movies]
+    sfw: safe
+    locale: en
+    added: 2026-10-14
+    author: kashifkhan0771

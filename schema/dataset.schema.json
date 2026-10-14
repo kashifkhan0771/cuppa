@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Cuppa dataset",
+  "description": "Layout of dist/questions.json and dist/categories/<id>.json. Unknown fields may appear in newer versions and should be ignored.",
+  "type": "object",
+  "required": ["schema_version", "dataset_version", "categories", "questions"],
+  "properties": {
+    "schema_version": {
+      "description": "Layout version. Consumers should refuse versions they do not know.",
+      "const": 1
+    },
+    "dataset_version": {
+      "description": "Content version as YYYY.MM.DD, the newest added date.",
+      "type": "string",
+      "pattern": "^[0-9]{4}\\.[0-9]{2}\\.[0-9]{2}$"
+    },
+    "categories": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "count"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+          "name": { "type": "string", "minLength": 1 },
+          "count": { "type": "integer", "minimum": 0 }
+        }
+      }
+    },
+    "questions": {
+      "type": "array",
+      "items": {
+        "allOf": [
+          { "$ref": "question.schema.json" },
+          { "required": ["category"] }
+        ]
+      }
+    }
+  }
+}
