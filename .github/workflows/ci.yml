@@ -112,6 +112,22 @@ jobs:
       - name: No long dashes
         run: make check-dashes
 
+  secrets:
+    name: No leaked secrets (gitleaks)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # every commit, so a secret hidden in the middle of a PR is found
+          fetch-depth: 0
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      # --redact keeps the secret itself out of the public log;
+      # the version is pinned in the Makefile
+      - name: Scan history and files
+        run: make secrets
+
   npm-package:
     name: npm package works
     runs-on: ubuntu-latest

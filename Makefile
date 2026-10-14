@@ -1,4 +1,4 @@
-.PHONY: build test lint fmt vet check check-data build-data cover check-dashes release-check release-snapshot sync-packages test-packages
+.PHONY: build test lint fmt vet check check-data build-data cover check-dashes release-check release-snapshot sync-packages test-packages secrets
 
 # total test coverage must be above this percent
 MIN_COVERAGE := 80
@@ -6,6 +6,10 @@ MIN_COVERAGE := 80
 # golangci-lint is built from source with this repo's Go version, so it
 # always understands the code it checks; CI uses this same target
 GOLANGCI_LINT_VERSION := v2.14.0
+
+# gitleaks looks for committed secrets. Pinned here and in nothing else,
+# so update it by hand: Dependabot does not bump "go run" versions.
+GITLEAKS_VERSION := v8.30.1
 
 # GoReleaser v2 must be installed (brew install goreleaser); building it
 # with go run is too slow. CI pins its version in the workflows.
@@ -31,7 +35,7 @@ vet:
 	go vet ./...
 
 # the main checks CI runs, in the same order
-check: vet lint cover check-dashes
+check: vet lint cover check-dashes secrets
 
 # run all tests, then fail if total coverage is not above MIN_COVERAGE
 cover:
@@ -78,3 +82,8 @@ sync-packages:
 test-packages:
 	cd packages/npm && npm ci && npm test
 	cd packages/python && PYTHONPATH=src python3 -m unittest discover -s tests
+
+# fail if any commit in the history or any file in the folder holds a secret
+secrets:
+	go run github.com/zricethezav/gitleaks/v8@$(GITLEAKS_VERSION) git --redact --no-banner .
+	go run github.com/zricethezav/gitleaks/v8@$(GITLEAKS_VERSION) dir --redact --no-banner .

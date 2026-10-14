@@ -26,7 +26,7 @@ You need Go (the version is in `go.mod`). Node 18+ and Python 3.9+ are only
 needed for the packages in `packages/`.
 
 ```sh
-make check              # vet, lint, tests with coverage, dash check
+make check              # vet, lint, tests with coverage, dash check, secret scan
 make test               # tests with the race detector
 make check-data         # check the question files
 make build-data         # rebuild dist/ after editing questions/
@@ -56,7 +56,11 @@ How the code is laid out:
   and the README, and a line in `internal/config/testdata/v1-full.yaml`.
 - **Every new chat app** gets a golden test of the exact payload it sends
   (see `pkg/adapters`), a row in the README table and an example config.
-- **Never log** webhook URLs or tokens.
+- **Never log** webhook URLs or tokens, and never commit one. CI scans every
+  commit with [gitleaks](https://github.com/gitleaks/gitleaks); run the same
+  scan with `make secrets`. A real secret in a commit stays in the history even
+  if you delete it later, so if one slips in, revoke it first, then ask a
+  maintainer how to clean up.
 - **The compatibility promise** in the README is tested. Config keys are
   only added, `/v1` fields stay, question IDs are never reused. If a test
   that protects the promise fails, change your code, not the test.

@@ -1,0 +1,12 @@
+# Settings for gitleaks, the secret scanner that CI runs (make secrets).
+# It uses gitleaks' built-in rules for API keys, tokens, private keys and
+# webhook URLs. Nothing is allowed by default.
+#
+# A false alarm? Prefer changing the text (use an obviously fake value like
+# https://hooks.slack.com/services/xxx). If that is not possible, add the
+# finding's fingerprint, printed in the report, to a .gitleaksignore file
+# with a comment saying why.
+title = "cuppa"
+
+[extend]
+useDefault = true
