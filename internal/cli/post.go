@@ -16,9 +16,11 @@ import (
 // history is only updated once at least one target got the message.
 // A dry run never touches the history and never sends anything.
 func runPost(a *app, args []string) error {
-	fs := a.newFlagSet("post", "post [--target name] [--dry-run]")
+	fs := a.newFlagSet("post", "post [--target name] [--dry-run] [--json] [--category a,b] [--tag x,y] [--mode m]")
 	only := fs.String("target", "", "post to this target only (default: all)")
 	dryRun := fs.Bool("dry-run", false, "show what would be posted, without posting")
+	asJSON := fs.Bool("json", false, "print the posted question as JSON")
+	selectionFlags := addSelectionFlags(fs)
 	if err := a.parse(fs, args); err != nil {
 		return err
 	}
@@ -39,7 +41,11 @@ func runPost(a *app, args []string) error {
 	if err != nil {
 		return err
 	}
-	dataset, err := a.questionsFor(a.cfg.Selection)
+	selection, err := a.selectionFrom(selectionFlags)
+	if err != nil {
+		return err
+	}
+	dataset, err := a.questionsFor(selection)
 	if err != nil {
 		return err
 	}
@@ -49,7 +55,7 @@ func runPost(a *app, args []string) error {
 	if err != nil {
 		return err
 	}
-	q, err := a.pick(dataset, a.cfg.Selection, scratch)
+	q, err := a.pick(dataset, selection, scratch)
 	if err != nil {
 		return err
 	}
@@ -59,6 +65,9 @@ func runPost(a *app, args []string) error {
 	}
 
 	if *dryRun {
+		if *asJSON {
+			return printJSON(a, q)
+		}
 		for _, t := range targets {
 			fmt.Fprintf(a.stdout, "would post to %s:\n%s\n\n", t.name, message)
 		}
@@ -76,8 +85,14 @@ func runPost(a *app, args []string) error {
 		posted++
 	}
 
-	if posted > 0 && a.cfg.Selection.Mode == config.ModeNoRepeat {
+	if posted > 0 && selection.Mode == config.ModeNoRepeat {
 		if err := a.saveUsed(saved, scratch, usedBefore, q.ID); err != nil {
+			return err
+		}
+	}
+	// the question went out somewhere, so report it even if a target failed
+	if posted > 0 && *asJSON {
+		if err := printJSON(a, q); err != nil {
 			return err
 		}
 	}

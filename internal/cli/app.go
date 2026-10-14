@@ -3,6 +3,7 @@ package cli
 import (
 	"context"
 	"errors"
+	"flag"
 	"fmt"
 	"io"
 	"log/slog"
@@ -116,6 +117,25 @@ func (a *app) questionsFor(s config.Selection) (*cuppa.Dataset, error) {
 		SFW:         s.SFW,
 		Locale:      s.Locale,
 	}), nil
+}
+
+// selectionFlags are the flags that narrow down or change how a
+// question is picked. next and post share them.
+type selectionFlags struct {
+	categories, tags, mode *string
+}
+
+func addSelectionFlags(fs *flag.FlagSet) selectionFlags {
+	return selectionFlags{
+		categories: fs.String("category", "", "only these categories, comma separated"),
+		tags:       fs.String("tag", "", "only questions with one of these tags, comma separated"),
+		mode:       fs.String("mode", "", "daily, random or no-repeat (default from config)"),
+	}
+}
+
+// selectionFrom is the config's selection with these flags applied.
+func (a *app) selectionFrom(f selectionFlags) (config.Selection, error) {
+	return a.selection(*f.categories, *f.tags, *f.mode)
 }
 
 // selection is the config's selection with command-line overrides.

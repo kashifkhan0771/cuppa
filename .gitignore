@@ -1,5 +1,6 @@
 # build output
 /bin/
+/build/
 
 # test and coverage output
 *.test

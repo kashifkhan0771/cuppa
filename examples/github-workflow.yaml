@@ -1,0 +1,27 @@
+# Copy to .github/workflows/watercooler.yml in any repo.
+# Posts a question to Slack every weekday at 10:00 UTC.
+#
+# Setup: create a Slack incoming webhook, then add it as a repo secret
+# named SLACK_WEBHOOK (Settings > Secrets and variables > Actions).
+name: Watercooler
+
+on:
+  schedule:
+    - cron: "0 10 * * 1-5"
+  # lets you post right now from the Actions tab
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: kashifkhan0771/cuppa@v0
+        with:
+          slack_webhook: ${{ secrets.SLACK_WEBHOOK }}
+          # optional:
+          # gchat_webhook: ${{ secrets.GCHAT_WEBHOOK }}
+          # categories: icebreakers,this-or-that
+          # sfw: casual

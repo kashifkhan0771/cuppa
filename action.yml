@@ -1,0 +1,132 @@
+name: cuppa watercooler
+description: Post a watercooler question to team chat (Slack, Google Chat or any webhook).
+author: kashifkhan0771
+branding:
+  icon: message-circle
+  color: orange
+
+inputs:
+  config:
+    description: Path to a cuppa.yaml. When set, it decides everything and the inputs below (except categories and dry_run) are ignored.
+    required: false
+  slack_webhook:
+    description: Slack incoming webhook URL. Pass it from a secret.
+    required: false
+  gchat_webhook:
+    description: Google Chat space webhook URL. Pass it from a secret.
+    required: false
+  webhook_url:
+    description: Any webhook URL; receives {"text":"..."} as JSON. Pass it from a secret.
+    required: false
+  mode:
+    description: How to pick questions. daily (same question for everyone with the same seed), random, or no-repeat (needs the history file kept between runs).
+    required: false
+    default: daily
+  seed:
+    description: Daily mode seed. Different seeds get different questions on the same day.
+    required: false
+    default: ${{ github.repository }}
+  categories:
+    description: Comma separated categories to pick from, like icebreakers,this-or-that.
+    required: false
+  sfw:
+    description: safe (any workplace) or casual (adds lighter questions).
+    required: false
+    default: safe
+  dry_run:
+    description: Pick and print the question without posting it.
+    required: false
+    default: "false"
+
+outputs:
+  question_id:
+    description: ID of the posted question.
+    value: ${{ steps.post.outputs.question_id }}
+  question_text:
+    description: Text of the posted question.
+    value: ${{ steps.post.outputs.question_text }}
+
+runs:
+  using: composite
+  steps:
+    # cuppa is built from the action's own source, so the version always
+    # matches the tag in "uses: kashifkhan0771/cuppa@<tag>"
+    - uses: actions/setup-go@v5
+      with:
+        go-version-file: ${{ github.action_path }}/go.mod
+        cache-dependency-path: ${{ github.action_path }}/go.sum
+
+    - name: Build cuppa
+      shell: bash
+      working-directory: ${{ github.action_path }}
+      env:
+        ACTION_REF: ${{ github.action_ref }}
+      run: |
+        go build -trimpath -o "$RUNNER_TEMP/cuppa/" \
+          -ldflags "-X github.com/kashifkhan0771/cuppa/internal/cli.Version=${ACTION_REF:-dev}" \
+          ./cmd/cuppa
+
+    - id: post
+      name: Post a question
+      shell: bash
+      # every input arrives as an env var; the generated config only
+      # refers to them as ${NAME}, so no input text lands in the YAML
+      env:
+        INPUT_CONFIG: ${{ inputs.config }}
+        CUPPA_SLACK_WEBHOOK: ${{ inputs.slack_webhook }}
+        CUPPA_GCHAT_WEBHOOK: ${{ inputs.gchat_webhook }}
+        CUPPA_WEBHOOK_URL: ${{ inputs.webhook_url }}
+        CUPPA_MODE: ${{ inputs.mode }}
+        CUPPA_SEED: ${{ inputs.seed }}
+        CUPPA_SFW: ${{ inputs.sfw }}
+        CUPPA_CATEGORIES: ${{ inputs.categories }}
+        CUPPA_DRY_RUN: ${{ inputs.dry_run }}
+      run: |
+        work="$RUNNER_TEMP/cuppa"
+        config="$INPUT_CONFIG"
+
+        # no config given: write one from the inputs
+        if [ -z "$config" ]; then
+          config="$work/cuppa.yaml"
+          {
+            echo 'version: 1'
+            echo 'selection:'
+            echo '  mode: ${CUPPA_MODE}'
+            echo '  seed: ${CUPPA_SEED}'
+            echo '  sfw: ${CUPPA_SFW}'
+            echo 'targets:'
+            if [ -n "$CUPPA_SLACK_WEBHOOK" ]; then
+              printf '  - name: slack\n    type: slack\n    webhook: ${CUPPA_SLACK_WEBHOOK}\n'
+            fi
+            if [ -n "$CUPPA_GCHAT_WEBHOOK" ]; then
+              printf '  - name: gchat\n    type: gchat\n    webhook: ${CUPPA_GCHAT_WEBHOOK}\n'
+            fi
+            if [ -n "$CUPPA_WEBHOOK_URL" ]; then
+              printf '  - name: webhook\n    type: webhook\n    url: ${CUPPA_WEBHOOK_URL}\n'
+            fi
+          } > "$config"
+        fi
+
+        args=(post --config "$config" --json)
+        if [ "$CUPPA_DRY_RUN" = "true" ]; then
+          args+=(--dry-run)
+        fi
+        if [ -n "$CUPPA_CATEGORIES" ]; then
+          args+=(--category "$CUPPA_CATEGORIES")
+        fi
+
+        # keep going on failure, so outputs are still set when some
+        # targets worked (exit code 3); then fail the step at the end
+        status=0
+        "$work/cuppa" "${args[@]}" > "$work/question.json" || status=$?
+
+        if [ -s "$work/question.json" ]; then
+          echo "question: $(jq -r '.text' "$work/question.json")"
+          {
+            echo "question_id=$(jq -r '.id' "$work/question.json")"
+            echo "question_text<<CUPPA_EOF"
+            jq -r '.text' "$work/question.json"
+            echo "CUPPA_EOF"
+          } >> "$GITHUB_OUTPUT"
+        fi
+        exit "$status"

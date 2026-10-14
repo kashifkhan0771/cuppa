@@ -1,0 +1,69 @@
+# Builds release binaries, archives, checksums and Docker images.
+# Run locally with: make release-snapshot
+version: 2
+
+project_name: cuppa
+
+# GoReleaser's default output folder is dist/, which holds our question
+# data. Using --clean there would delete it, so write somewhere else.
+dist: build/release
+
+builds:
+  - id: cuppa
+    main: ./cmd/cuppa
+    binary: cuppa
+    env:
+      - CGO_ENABLED=0
+    goos: [linux, darwin, windows]
+    goarch: [amd64, arm64]
+    flags:
+      - -trimpath
+    ldflags:
+      - -s -w
+      - -X github.com/kashifkhan0771/cuppa/internal/cli.Version={{ .Version }}
+      - -X github.com/kashifkhan0771/cuppa/internal/cli.Commit={{ .ShortCommit }}
+      - -X github.com/kashifkhan0771/cuppa/internal/cli.Date={{ .CommitDate }}
+    # same commit, same bytes
+    mod_timestamp: "{{ .CommitTimestamp }}"
+
+archives:
+  - formats: [tar.gz]
+    format_overrides:
+      - goos: windows
+        formats: [zip]
+    files:
+      - LICENSE
+      - README.md
+
+checksum:
+  name_template: checksums.txt
+
+# release-please writes the release notes and creates the release;
+# GoReleaser only adds files to it
+changelog:
+  disable: true
+
+release:
+  mode: keep-existing
+  # the question data, so scripts can download it from the release too
+  extra_files:
+    - glob: dist/questions.json
+    - glob: dist/categories/*.json
+
+dockers_v2:
+  - images:
+      - ghcr.io/kashifkhan0771/cuppa
+    tags:
+      - "{{ .Version }}"
+      - "{{ if not .Prerelease }}{{ .Major }}.{{ .Minor }}{{ end }}"
+      - "{{ if not .Prerelease }}{{ .Major }}{{ end }}"
+      - "{{ if not .Prerelease }}latest{{ end }}"
+    platforms:
+      - linux/amd64
+      - linux/arm64
+    labels:
+      org.opencontainers.image.source: https://github.com/kashifkhan0771/cuppa
+      org.opencontainers.image.description: Watercooler questions for team chat
+      org.opencontainers.image.licenses: Apache-2.0
+      org.opencontainers.image.version: "{{ .Version }}"
+      org.opencontainers.image.revision: "{{ .FullCommit }}"

@@ -1,7 +1,6 @@
 package cli
 
 import (
-	"encoding/json"
 	"fmt"
 
 	"github.com/kashifkhan0771/cuppa/internal/history"
@@ -11,9 +10,7 @@ import (
 // as used, so scripts can do their own posting.
 func runNext(a *app, args []string) error {
 	fs := a.newFlagSet("next", "next [--category a,b] [--tag x,y] [--mode daily|random|no-repeat] [--json]")
-	categories := fs.String("category", "", "only these categories, comma separated")
-	tags := fs.String("tag", "", "only questions with one of these tags, comma separated")
-	mode := fs.String("mode", "", "daily, random or no-repeat (default from config)")
+	selectionFlags := addSelectionFlags(fs)
 	asJSON := fs.Bool("json", false, "print the question as JSON instead of the message")
 	if err := a.parse(fs, args); err != nil {
 		return err
@@ -22,7 +19,7 @@ func runNext(a *app, args []string) error {
 		return err
 	}
 
-	selection, err := a.selection(*categories, *tags, *mode)
+	selection, err := a.selectionFrom(selectionFlags)
 	if err != nil {
 		return err
 	}
@@ -36,9 +33,7 @@ func runNext(a *app, args []string) error {
 	}
 
 	if *asJSON {
-		enc := json.NewEncoder(a.stdout)
-		enc.SetIndent("", "  ")
-		return enc.Encode(q)
+		return printJSON(a, q)
 	}
 	r, err := newRenderer(a.cfg.Message)
 	if err != nil {

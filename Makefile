@@ -1,4 +1,4 @@
-.PHONY: build test lint fmt vet check check-data build-data cover check-dashes
+.PHONY: build test lint fmt vet check check-data build-data cover check-dashes release-check release-snapshot
 
 # total test coverage must be above this percent
 MIN_COVERAGE := 80
@@ -6,6 +6,10 @@ MIN_COVERAGE := 80
 # golangci-lint is built from source with this repo's Go version, so it
 # always understands the code it checks; CI uses this same target
 GOLANGCI_LINT_VERSION := v2.14.0
+
+# GoReleaser v2 must be installed (brew install goreleaser); building it
+# with go run is too slow. CI pins its version in the workflows.
+GORELEASER ?= goreleaser
 
 # compile every package; binaries go to bin/
 build:
@@ -53,3 +57,12 @@ check-data:
 # validate, then write dist/questions.json and dist/categories/
 build-data:
 	go run ./internal/tools/datagen build
+
+# check .goreleaser.yaml for mistakes
+release-check:
+	$(GORELEASER) check
+
+# build every release file into build/release without publishing
+# (Docker images need a running Docker daemon)
+release-snapshot:
+	$(GORELEASER) release --snapshot --clean

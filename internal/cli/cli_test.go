@@ -518,3 +518,38 @@ func TestSplitList(t *testing.T) {
 func configMessage(template, poll string) config.Message {
 	return config.Message{Template: template, PollTemplate: poll}
 }
+
+func TestPostJSONAndSelectionFlags(t *testing.T) {
+	isolate(t)
+	chat := newChat(t, http.StatusOK)
+	t.Setenv("HOOK_ONE", chat.url)
+	postConfig(t, "no-repeat", "")
+
+	// flags override the config: random mode, only this-or-that questions
+	r := run(t, "", "post", "--json", "--mode", "random", "--category", "team", "--tag", "nope-no-such-tag")
+	if r.code != exitNoMatch {
+		t.Fatalf("tag filter should leave nothing: %+v", r)
+	}
+
+	r = run(t, "", "post", "--json", "--mode", "random")
+	var q cuppa.Question
+	if err := json.Unmarshal([]byte(r.stdout), &q); err != nil || q.Category != "team" {
+		t.Fatalf("post --json: %+v %v", r, err)
+	}
+	// random mode never touches the history
+	if _, err := os.Stat("h.json"); err == nil {
+		t.Error("random mode wrote the history")
+	}
+
+	r = run(t, "", "post", "--json", "--dry-run")
+	if err := json.Unmarshal([]byte(r.stdout), &q); err != nil || q.ID == "" {
+		t.Fatalf("dry run --json: %+v %v", r, err)
+	}
+	if len(chat.received()) != 1 {
+		t.Errorf("chat got %d messages, want 1", len(chat.received()))
+	}
+
+	if r := run(t, "", "post", "--mode", "weekly"); r.code != exitConfig {
+		t.Errorf("bad mode: %+v", r)
+	}
+}

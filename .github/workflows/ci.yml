@@ -101,3 +101,44 @@ jobs:
 
       - name: No long dashes
         run: make check-dashes
+
+  release-build:
+    name: Release build works
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      # every binary and archive, nothing published; Docker images are
+      # only built in the real release
+      - uses: goreleaser/goreleaser-action@v7
+        with:
+          distribution: goreleaser
+          version: v2.18.3
+          args: release --snapshot --clean --skip=docker
+
+  action:
+    name: GitHub Action works (dry run)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - id: cuppa
+        uses: ./
+        with:
+          slack_webhook: https://hooks.slack.com/services/not/a/real/hook
+          categories: this-or-that
+          dry_run: "true"
+      - name: Outputs are set
+        env:
+          ID: ${{ steps.cuppa.outputs.question_id }}
+          TEXT: ${{ steps.cuppa.outputs.question_text }}
+        run: |
+          echo "picked $ID: $TEXT"
+          case "$ID" in
+            tot-*) ;;
+            *) echo "expected a this-or-that question id, got '$ID'"; exit 1 ;;
+          esac
+          test -n "$TEXT"
