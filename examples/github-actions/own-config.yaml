@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: kashifkhan0771/cuppa@v0
+      - uses: kashifkhan0771/cuppa@v1
         with:
           config: cuppa.yaml
         env:

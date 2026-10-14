@@ -22,7 +22,7 @@ jobs:
           path: ~/.local/state/cuppa
           key: cuppa-history-${{ github.run_id }}
           restore-keys: cuppa-history-
-      - uses: kashifkhan0771/cuppa@v0
+      - uses: kashifkhan0771/cuppa@v1
         with:
           slack_webhook: ${{ secrets.SLACK_WEBHOOK }}
           mode: no-repeat

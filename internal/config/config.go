@@ -34,8 +34,8 @@ const (
 var Modes = []string{ModeDaily, ModeRandom, ModeNoRepeat}
 
 // DefaultRefreshURL is where data.refresh gets questions: the newest
-// release of this major version. Change the @v0 when the major changes.
-const DefaultRefreshURL = "https://cdn.jsdelivr.net/gh/kashifkhan0771/cuppa@v0/dist/questions.json"
+// release of this major version. Change the @v1 when the major changes.
+const DefaultRefreshURL = "https://cdn.jsdelivr.net/gh/kashifkhan0771/cuppa@v1/dist/questions.json"
 
 // Default message templates. Emojis numbers the poll options, and
 // .Bold writes bold text the way each chat app expects it.

@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - id: cuppa
-        uses: kashifkhan0771/cuppa@v0
+        uses: kashifkhan0771/cuppa@v1
         with:
           slack_webhook: ${{ secrets.SLACK_WEBHOOK }}
           gchat_webhook: ${{ secrets.GCHAT_WEBHOOK }}

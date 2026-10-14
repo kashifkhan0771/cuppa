@@ -4,7 +4,7 @@
 # in front of it to share it. Try it: curl localhost:8080/v1/questions/today
 services:
   cuppa:
-    image: ghcr.io/kashifkhan0771/cuppa:0
+    image: ghcr.io/kashifkhan0771/cuppa:1
     # inside the container it must listen on all addresses
     command: ["serve", "--addr", "0.0.0.0:8080"]
     restart: unless-stopped

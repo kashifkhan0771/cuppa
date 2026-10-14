@@ -55,7 +55,7 @@ jobs:
   post:
     runs-on: ubuntu-latest
     steps:
-      - uses: kashifkhan0771/cuppa@v0
+      - uses: kashifkhan0771/cuppa@v1
         with:
           slack_webhook: ${{ secrets.SLACK_WEBHOOK }}
 ```
@@ -435,8 +435,8 @@ Every release publishes the questions as JSON on a CDN, so scripts,
 spreadsheets, Google Apps Script or Power Automate can use them with no
 install:
 
-- Latest 0.x: `https://cdn.jsdelivr.net/gh/kashifkhan0771/cuppa@v0/dist/questions.json`
-- A fixed version: `https://cdn.jsdelivr.net/gh/kashifkhan0771/cuppa@v0.1.0/dist/questions.json`
+- Latest 1.x: `https://cdn.jsdelivr.net/gh/kashifkhan0771/cuppa@v1/dist/questions.json`
+- A fixed version: `https://cdn.jsdelivr.net/gh/kashifkhan0771/cuppa@v1.0.0/dist/questions.json`
 - One category: `.../dist/categories/icebreakers.json`
 
 The same files are attached to each [release](https://github.com/kashifkhan0771/cuppa/releases).
@@ -456,11 +456,11 @@ languages can use the JSON above or the HTTP API.
 
 | You use | To upgrade |
 |---|---|
-| GitHub Action `@v0` | nothing: `@v0` always points to the newest 0.x release |
-| Docker `:0` or `:latest` | `docker pull ghcr.io/kashifkhan0771/cuppa:0` |
+| GitHub Action `@v1` | nothing: `@v1` always points to the newest 1.x release |
+| Docker `:1` or `:latest` | `docker pull ghcr.io/kashifkhan0771/cuppa:1` |
 | A downloaded binary | `cuppa self-update` (checks the checksum first) |
 | `go install` | run the same command again |
-| The CDN JSON `@v0` | nothing |
+| The CDN JSON `@v1` | nothing |
 | Just the questions | set `data.refresh: true` in the config |
 
 `cuppa version --check` tells you if a newer release exists; cuppa never

@@ -4,7 +4,7 @@
 # Start with: docker compose -f docker-compose.daemon.yaml up -d
 services:
   cuppa:
-    image: ghcr.io/kashifkhan0771/cuppa:0
+    image: ghcr.io/kashifkhan0771/cuppa:1
     command: ["daemon"]
     restart: unless-stopped
     env_file: .env

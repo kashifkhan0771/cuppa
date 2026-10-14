@@ -63,7 +63,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # "uses: kashifkhan0771/cuppa@v0" follows the newest 0.x release
+      # "uses: kashifkhan0771/cuppa@v1" follows the newest 1.x release
       - name: Move the floating major tag
         env:
           TAG: ${{ needs.release-please.outputs.tag_name }}
