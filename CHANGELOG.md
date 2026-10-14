@@ -12,7 +12,6 @@
 * **cli:** add version --check, self-update and data.refresh ([29109eb](https://github.com/kashifkhan0771/cuppa/commit/29109ebf6eef7cf9328ef2dac82135bc7df9fdca))
 * **core:** add dataset loading, filters, pickers and file history ([bce1f62](https://github.com/kashifkhan0771/cuppa/commit/bce1f62fa34de6ee0b3e80af6747b334d591639a))
 * **data:** add question schema, datagen tool and 150 seed questions ([dfbc8d5](https://github.com/kashifkhan0771/cuppa/commit/dfbc8d5bdcea31e24c6aed5ca4ef87aaf7aaf277))
-* **packages:** add npm and PyPI packages with shared daily vectors ([a28dc3e](https://github.com/kashifkhan0771/cuppa/commit/a28dc3e109b0009ce9065ac7c87683726638926e))
 * **release:** add GoReleaser, Docker image, GitHub Action and release-please ([6ce135e](https://github.com/kashifkhan0771/cuppa/commit/6ce135eb28e6163a92afde3b10d23bdbbe43eb9f))
 
 
