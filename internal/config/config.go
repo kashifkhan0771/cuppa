@@ -33,6 +33,10 @@ const (
 // Modes lists every selection mode, for checks and help text.
 var Modes = []string{ModeDaily, ModeRandom, ModeNoRepeat}
 
+// DefaultRefreshURL is where data.refresh gets questions: the newest
+// release of this major version. Change the @v0 when the major changes.
+const DefaultRefreshURL = "https://cdn.jsdelivr.net/gh/kashifkhan0771/cuppa@v0/dist/questions.json"
+
 // Default message templates. Emojis numbers the poll options, and
 // .Bold writes bold text the way each chat app expects it.
 const (
@@ -78,6 +82,12 @@ type Selection struct {
 
 type Data struct {
 	ExtraQuestions []string `yaml:"extra_questions"` // private YAML question packs
+
+	// Refresh fetches newer questions from RefreshURL, at most once per
+	// RefreshInterval, so questions stay fresh without upgrading cuppa
+	Refresh         bool          `yaml:"refresh"`
+	RefreshURL      string        `yaml:"refresh_url"`
+	RefreshInterval time.Duration `yaml:"refresh_interval"` // like 24h
 }
 
 type History struct {
@@ -121,6 +131,7 @@ func Defaults() *Config {
 			SFW:    "safe",
 			Locale: "en",
 		},
+		Data:     Data{RefreshURL: DefaultRefreshURL, RefreshInterval: 24 * time.Hour},
 		History:  History{Path: DefaultHistoryPath()},
 		Message:  Message{Template: DefaultTemplate, PollTemplate: DefaultPollTemplate},
 		Server:   Server{Addr: "127.0.0.1:8080"},
@@ -185,6 +196,13 @@ func (c *Config) check() error {
 	}
 	if c.Selection.SFW != "safe" && c.Selection.SFW != "casual" {
 		return fmt.Errorf("selection.sfw %q must be safe or casual", c.Selection.SFW)
+	}
+	// https only, so nobody on the network can swap in other questions
+	if c.Data.Refresh && !strings.HasPrefix(c.Data.RefreshURL, "https://") {
+		return fmt.Errorf("data.refresh_url %q must start with https://", c.Data.RefreshURL)
+	}
+	if c.Data.RefreshInterval < time.Minute {
+		return fmt.Errorf("data.refresh_interval %s must be at least 1m", c.Data.RefreshInterval)
 	}
 
 	// no timezone keeps the computer's own (from Defaults);

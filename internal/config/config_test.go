@@ -61,6 +61,16 @@ func TestLoadKeepsDefaultsForMissingKeys(t *testing.T) {
 	}
 }
 
+func TestLoadRefresh(t *testing.T) {
+	cfg, _, err := Load(writeConfig(t, "data:\n  refresh: true\n  refresh_interval: 6h\n"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !cfg.Data.Refresh || cfg.Data.RefreshInterval != 6*time.Hour || cfg.Data.RefreshURL != DefaultRefreshURL {
+		t.Errorf("got %+v", cfg.Data)
+	}
+}
+
 func TestLoadEmptyFile(t *testing.T) {
 	cfg, _, err := Load(writeConfig(t, ""))
 	if err != nil || cfg.Selection.Mode != ModeDaily {
@@ -79,6 +89,9 @@ func TestLoadErrors(t *testing.T) {
 		{"bad mode", "selection:\n  mode: weekly\n", `selection.mode "weekly"`},
 		{"bad sfw", "selection:\n  sfw: spicy\n", `selection.sfw "spicy"`},
 		{"bad timezone", "schedule:\n  timezone: Mars/Base\n", `schedule.timezone "Mars/Base"`},
+		{"http refresh", "data:\n  refresh: true\n  refresh_url: http://x/q.json\n", "must start with https://"},
+		{"short interval", "data:\n  refresh_interval: 10s\n", "at least 1m"},
+		{"bad interval", "data:\n  refresh_interval: daily\n", "into time.Duration"},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

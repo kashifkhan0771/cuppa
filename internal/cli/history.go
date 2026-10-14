@@ -41,19 +41,3 @@ func runHistory(a *app, args []string) error {
 		return configError(fmt.Errorf("unknown history action %q: use show or reset", action))
 	}
 }
-
-// runVersion prints the build and dataset versions.
-func runVersion(a *app, args []string) error {
-	fs := a.newFlagSet("version", "version")
-	if err := a.parse(fs, args); err != nil {
-		return err
-	}
-
-	fmt.Fprintf(a.stdout, "cuppa %s", Version)
-	if Commit != "" {
-		fmt.Fprintf(a.stdout, " (commit %s, built %s)", Commit, Date)
-	}
-	d := cuppa.Embedded()
-	fmt.Fprintf(a.stdout, "\nquestions %s (%d built in)\n", d.Version(), d.Len())
-	return nil
-}

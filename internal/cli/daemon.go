@@ -83,6 +83,14 @@ func (a *app) runSchedule(schedule *scheduler.Schedule, p *poster, dryRun bool) 
 			a.log.Warn("missed a post time, skipping it", "due", due.Format(time.RFC3339), "late", late.Round(time.Minute).String())
 			continue
 		}
+
+		// build the questions again, so refreshed questions and edited
+		// packs are used without a restart; on a problem keep the old set
+		if fresh, err := a.newPoster("", a.cfg.Selection); err != nil {
+			a.log.Warn("could not reload questions, using the ones from before", "error", err)
+		} else {
+			p = fresh
+		}
 		a.postScheduled(p, dryRun)
 	}
 }

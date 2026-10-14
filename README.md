@@ -72,7 +72,8 @@ Other commands:
 | `cuppa list` / `cuppa categories` | browse the questions |
 | `cuppa validate [file]` | check a config file or a question pack |
 | `cuppa history show\|reset` | the no-repeat history |
-| `cuppa version` | version of cuppa and of the questions |
+| `cuppa version` | version of cuppa and of the questions (`--check` for a newer release) |
+| `cuppa self-update` | replace a downloaded binary with the newest release (`--yes`) |
 
 Exit codes: `0` ok, `1` error, `2` config or usage error, `3` posting failed
 on at least one target, `4` no question matches the filter.
@@ -229,9 +230,21 @@ new fields may be added, so ignore fields you don't know.
 |---|---|
 | GitHub Action `@v0` | nothing: `@v0` always points to the newest 0.x release |
 | Docker `:0` or `:latest` | `docker pull ghcr.io/kashifkhan0771/cuppa:0` |
-| A downloaded binary | download the new one from the releases page |
+| A downloaded binary | `cuppa self-update` (checks the checksum first) |
 | `go install` | run the same command again |
 | The CDN JSON `@v0` | nothing |
+
+| Just the questions | set `data.refresh: true` in the config |
+
+`cuppa version --check` tells you if a newer release exists; cuppa never
+checks on its own. `self-update` stays within your major version (say 0.x),
+because a new major may need config changes; it tells you when one is out.
+
+`data.refresh` downloads the newest questions of your major version from
+the CDN at most once a day (`data.refresh_interval`), keeps a copy in your
+cache folder, and falls back to that copy or the built-in questions when
+offline. `cuppa daemon` picks up refreshed questions before each post;
+`cuppa serve` loads them when it starts.
 
 Question IDs never change or get reused, so saved histories keep working.
 

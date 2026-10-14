@@ -64,7 +64,7 @@ func (a *app) loadConfig() error {
 // allQuestions returns the built-in questions plus any private packs
 // from the config, with nothing filtered out.
 func (a *app) allQuestions() (*cuppa.Dataset, error) {
-	sets := []*cuppa.Dataset{cuppa.Embedded()}
+	sets := []*cuppa.Dataset{a.builtInQuestions()}
 	for _, path := range a.cfg.Data.ExtraQuestions {
 		pack, problems, err := loadPack(path)
 		for _, p := range problems {

@@ -81,7 +81,8 @@ func init() {
 		{"validate", "check a config file or a question pack", runValidate},
 		{"history", "show or reset the no-repeat history", runHistory},
 		{"init", "create a cuppa.yaml by answering a few questions", runInit},
-		{"version", "print version information", runVersion},
+		{"version", "print version information (--check for a newer one)", runVersion},
+		{"self-update", "replace this cuppa with the newest release", runSelfUpdate},
 		{"help", "show this help", runHelp},
 	}
 }
