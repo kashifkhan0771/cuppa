@@ -1,0 +1,15 @@
+# build output
+/bin/
+
+# test and coverage output
+*.test
+*.out
+coverage.*
+
+# OS and editor junk
+.DS_Store
+.idea/
+.vscode/
+
+# local planning notes, not part of the repo
+/cuppa-plan.md

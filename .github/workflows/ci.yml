@@ -1,0 +1,30 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # use the Go version written in go.mod
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+
+      - name: vet
+        run: go vet ./...
+
+      - uses: golangci/golangci-lint-action@v8
+        with:
+          version: v2.13.2
+
+      - name: test
+        run: go test -race ./...
