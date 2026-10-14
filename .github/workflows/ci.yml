@@ -99,8 +99,49 @@ jobs:
             exit 1
           fi
 
+      # the npm and Python packages embed a copy of dist/
+      - name: Package copies match dist/
+        run: |
+          make sync-packages
+          if [ -n "$(git status --porcelain -- packages)" ]; then
+            git status --short -- packages
+            echo "package copies are out of date: run 'make sync-packages' and commit the result"
+            exit 1
+          fi
+
       - name: No long dashes
         run: make check-dashes
+
+  npm-package:
+    name: npm package works
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      # builds ESM and CommonJS, then runs the tests with the shared daily() vectors
+      - name: Build and test
+        working-directory: packages/npm
+        run: |
+          npm ci
+          npm test
+
+  python-package:
+    name: Python package works (${{ matrix.python }})
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.9", "3.14"]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Run tests with the shared daily() vectors
+        working-directory: packages/python
+        run: PYTHONPATH=src python -m unittest discover -s tests
 
   release-build:
     name: Release build works

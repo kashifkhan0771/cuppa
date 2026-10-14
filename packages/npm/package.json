@@ -1,0 +1,33 @@
+{
+  "name": "cuppa",
+  "version": "0.0.0",
+  "description": "Watercooler questions for team chat: filter, random, daily and no-repeat picks.",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kashifkhan0771/cuppa.git",
+    "directory": "packages/npm"
+  },
+  "keywords": ["icebreaker", "questions", "slack", "teams", "watercooler"],
+  "engines": { "node": ">=18" },
+  "sideEffects": false,
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/esm/index.d.ts",
+  "exports": {
+    ".": {
+      "import": { "types": "./dist/esm/index.d.ts", "default": "./dist/esm/index.js" },
+      "require": { "types": "./dist/cjs/index.d.ts", "default": "./dist/cjs/index.js" }
+    }
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "sync": "node scripts/sync-data.mjs",
+    "test": "npm run build && node --test test/",
+    "prepack": "npm run build"
+  },
+  "devDependencies": {
+    "typescript": "7.0.2"
+  }
+}

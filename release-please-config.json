@@ -6,7 +6,29 @@
       "package-name": "cuppa",
       "bump-minor-pre-major": true,
       "bump-patch-for-minor-pre-major": false,
-      "include-component-in-tag": false
+      "include-component-in-tag": false,
+      "extra-files": [
+        {
+          "type": "json",
+          "path": "packages/npm/package.json",
+          "jsonpath": "$.version"
+        },
+        {
+          "type": "json",
+          "path": "packages/npm/package-lock.json",
+          "jsonpath": "$.version"
+        },
+        {
+          "type": "json",
+          "path": "packages/npm/package-lock.json",
+          "jsonpath": "$.packages[''].version"
+        },
+        {
+          "type": "toml",
+          "path": "packages/python/pyproject.toml",
+          "jsonpath": "$.project.version"
+        }
+      ]
     }
   }
 }

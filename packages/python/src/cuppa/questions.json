@@ -1,0 +1,2282 @@
+{
+  "schema_version": 1,
+  "dataset_version": "2026.10.14",
+  "categories": [
+    {
+      "id": "fun-facts-about-you",
+      "name": "Fun Facts About You",
+      "count": 30
+    },
+    {
+      "id": "hypotheticals",
+      "name": "Hypotheticals",
+      "count": 30
+    },
+    {
+      "id": "icebreakers",
+      "name": "Icebreakers",
+      "count": 30
+    },
+    {
+      "id": "this-or-that",
+      "name": "This or That",
+      "count": 30
+    },
+    {
+      "id": "would-you-rather",
+      "name": "Would You Rather",
+      "count": 30
+    }
+  ],
+  "questions": [
+    {
+      "id": "ffy-0001",
+      "category": "fun-facts-about-you",
+      "text": "What is a hidden talent most people here don't know about?",
+      "type": "open",
+      "tags": [
+        "fun"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "ffy-0002",
+      "category": "fun-facts-about-you",
+      "text": "What is the most unusual job or role you have ever had?",
+      "type": "open",
+      "tags": [
+        "work"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "ffy-0003",
+      "category": "fun-facts-about-you",
+      "text": "What is something you are surprisingly good at?",
+      "type": "open",
+      "tags": [
+        "fun"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "ffy-0004",
+      "category": "fun-facts-about-you",
+      "text": "What is a food you could eat every day?",
+      "type": "open",
+      "tags": [
+        "food"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "ffy-0005",
+      "category": "fun-facts-about-you",
+      "text": "What is a fact about you that sounds made up but is true?",
+      "type": "open",
+      "tags": [
+        "fun"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "ffy-0006",
+      "category": "fun-facts-about-you",
+      "text": "What is the strangest thing you have ever collected?",
+      "type": "open",
+      "tags": [
+        "hobbies"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "ffy-0007",
+      "category": "fun-facts-about-you",
+      "text": "What is your favorite fact about space or nature?",
+      "type": "open",
+      "tags": [
+        "space",
+        "nature",
+        "science"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "ffy-0008",
+      "category": "fun-facts-about-you",
+      "text": "What is a skill you taught yourself?",
+      "type": "open",
+      "tags": [
+        "learning"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "ffy-0009",
+      "category": "fun-facts-about-you",
+      "text": "What is the best compliment you have ever received?",
+      "type": "open",
+      "tags": [
+        "fun"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "ffy-0010",
+      "category": "fun-facts-about-you",
+      "text": "What is a movie or book that changed how you think?",
+      "type": "open",
+      "tags": [
+        "books",
+        "movies"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "ffy-0011",
+      "category": "fun-facts-about-you",
+      "text": "What is the most memorable view you have ever seen?",
+      "type": "open",
+      "tags": [
+        "nature",
+        "travel"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "ffy-0012",
+      "category": "fun-facts-about-you",
+      "text": "What is your most used emoji?",
+      "type": "open",
+      "tags": [
+        "tech",
+        "fun"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "ffy-0013",
+      "category": "fun-facts-about-you",
+      "text": "What is a small habit that makes your work better?",
+      "type": "open",
+      "tags": [
+        "productivity",
+        "work"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "ffy-0014",
+      "category": "fun-facts-about-you",
+      "text": "What is a goal you are working toward outside of work?",
+      "type": "open",
+      "tags": [
+        "hobbies"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "ffy-0015",
+      "category": "fun-facts-about-you",
+      "text": "What is a song you know every word to?",
+      "type": "open",
+      "tags": [
+        "music"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "ffy-0016",
+      "category": "fun-facts-about-you",
+      "text": "What is the most interesting place you have worked from?",
+      "type": "open",
+      "tags": [
+        "remote",
+        "work"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "ffy-0017",
+      "category": "fun-facts-about-you",
+      "text": "What is a random topic you could talk about for an hour?",
+      "type": "open",
+      "tags": [
+        "fun"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "ffy-0018",
+      "category": "fun-facts-about-you",
+      "text": "What is your favorite thing about the city or town you live in?",
+      "type": "open",
+      "tags": [
+        "home"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "ffy-0019",
+      "category": "fun-facts-about-you",
+      "text": "What is the last thing that made you laugh out loud?",
+      "type": "open",
+      "tags": [
+        "fun"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "ffy-0020",
+      "category": "fun-facts-about-you",
+      "text": "What is a tradition you would like to start?",
+      "type": "open",
+      "tags": [
+        "fun"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "ffy-0021",
+      "category": "fun-facts-about-you",
+      "text": "What is a game you are unbeatable at?",
+      "type": "open",
+      "tags": [
+        "games"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "ffy-0022",
+      "category": "fun-facts-about-you",
+      "text": "What is a smell that brings back good memories?",
+      "type": "open",
+      "tags": [
+        "fun"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "ffy-0023",
+      "category": "fun-facts-about-you",
+      "text": "What is a dish you are proud of cooking?",
+      "type": "open",
+      "tags": [
+        "food"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "ffy-0024",
+      "category": "fun-facts-about-you",
+      "text": "What is a plant you are proud of keeping alive?",
+      "type": "open",
+      "tags": [
+        "home",
+        "nature"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "ffy-0025",
+      "category": "fun-facts-about-you",
+      "text": "What is your favorite notification sound or sound effect?",
+      "type": "open",
+      "tags": [
+        "tech"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "ffy-0026",
+      "category": "fun-facts-about-you",
+      "text": "What is a weird food combination you love?",
+      "type": "open",
+      "tags": [
+        "food"
+      ],
+      "sfw": "casual",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "ffy-0027",
+      "category": "fun-facts-about-you",
+      "text": "What is a fictional world you would love to visit?",
+      "type": "open",
+      "tags": [
+        "books",
+        "movies"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "ffy-0028",
+      "category": "fun-facts-about-you",
+      "text": "What is something you changed your mind about recently?",
+      "type": "open",
+      "tags": [
+        "learning"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "ffy-0029",
+      "category": "fun-facts-about-you",
+      "text": "What is a rule you always follow at work?",
+      "type": "open",
+      "tags": [
+        "work"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "ffy-0030",
+      "category": "fun-facts-about-you",
+      "text": "What is a nickname you have had, and how did you get it?",
+      "type": "open",
+      "tags": [
+        "fun"
+      ],
+      "sfw": "casual",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "hyp-0001",
+      "category": "hypotheticals",
+      "text": "If you could have dinner with any historical figure, who would it be?",
+      "type": "open",
+      "tags": [
+        "history"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "hyp-0002",
+      "category": "hypotheticals",
+      "text": "If you could instantly become an expert in one subject, what would you pick?",
+      "type": "open",
+      "tags": [
+        "learning"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "hyp-0003",
+      "category": "hypotheticals",
+      "text": "If you had to teach a class on anything, what would it be about?",
+      "type": "open",
+      "tags": [
+        "learning"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "hyp-0004",
+      "category": "hypotheticals",
+      "text": "If animals could talk, which one would be the rudest?",
+      "type": "open",
+      "tags": [
+        "animals",
+        "fun"
+      ],
+      "sfw": "casual",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "hyp-0005",
+      "category": "hypotheticals",
+      "text": "If you could live in any time period for a week, which would you pick?",
+      "type": "open",
+      "tags": [
+        "history",
+        "time-travel"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "hyp-0006",
+      "category": "hypotheticals",
+      "text": "If you could add one holiday to the calendar, what would it celebrate?",
+      "type": "open",
+      "tags": [
+        "fun"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "hyp-0007",
+      "category": "hypotheticals",
+      "text": "If you were a kitchen appliance, which one would you be?",
+      "type": "open",
+      "tags": [
+        "fun",
+        "home"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "hyp-0008",
+      "category": "hypotheticals",
+      "text": "If you could have any view from your desk, what would it be?",
+      "type": "open",
+      "tags": [
+        "work"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "hyp-0009",
+      "category": "hypotheticals",
+      "text": "If you could invent one gadget to make work easier, what would it do?",
+      "type": "open",
+      "tags": [
+        "tech",
+        "work"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "hyp-0010",
+      "category": "hypotheticals",
+      "text": "If you could swap jobs with anyone for a day, who would it be?",
+      "type": "open",
+      "tags": [
+        "work"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "hyp-0011",
+      "category": "hypotheticals",
+      "text": "If your week were a movie genre, which one would it be?",
+      "type": "open",
+      "tags": [
+        "movies",
+        "fun"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "hyp-0012",
+      "category": "hypotheticals",
+      "text": "If you could master one sport overnight, which would it be?",
+      "type": "open",
+      "tags": [
+        "sports"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "hyp-0013",
+      "category": "hypotheticals",
+      "text": "If you could live inside any painting, which would you choose?",
+      "type": "open",
+      "tags": [
+        "art"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "hyp-0014",
+      "category": "hypotheticals",
+      "text": "If you could make one rule everyone had to follow, what would it be?",
+      "type": "open",
+      "tags": [
+        "fun"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "hyp-0015",
+      "category": "hypotheticals",
+      "text": "If you could only eat one cuisine for the rest of your life, which would it be?",
+      "type": "open",
+      "tags": [
+        "food"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "hyp-0016",
+      "category": "hypotheticals",
+      "text": "If you could shrink to the size of an ant for a day, where would you go?",
+      "type": "open",
+      "tags": [
+        "fun"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "hyp-0017",
+      "category": "hypotheticals",
+      "text": "If you could bring back one discontinued snack, what would it be?",
+      "type": "open",
+      "tags": [
+        "food"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "hyp-0018",
+      "category": "hypotheticals",
+      "text": "If you could be any animal for a day, which would you choose?",
+      "type": "open",
+      "tags": [
+        "animals"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "hyp-0019",
+      "category": "hypotheticals",
+      "text": "If you could design the perfect office, what is one thing it would have?",
+      "type": "open",
+      "tags": [
+        "work"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "hyp-0020",
+      "category": "hypotheticals",
+      "text": "If you had a robot assistant, what is the first task you would give it?",
+      "type": "open",
+      "tags": [
+        "tech"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "hyp-0021",
+      "category": "hypotheticals",
+      "text": "If you could solve one everyday annoyance, what would it be?",
+      "type": "open",
+      "tags": [
+        "fun"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "hyp-0022",
+      "category": "hypotheticals",
+      "text": "If you could name a new color, what would you call it?",
+      "type": "open",
+      "tags": [
+        "art",
+        "creativity"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "hyp-0023",
+      "category": "hypotheticals",
+      "text": "If you woke up with a superpower, how would you use it at work?",
+      "type": "open",
+      "tags": [
+        "superpowers",
+        "work"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "hyp-0024",
+      "category": "hypotheticals",
+      "text": "If you could visit any planet, which would you pick and why?",
+      "type": "open",
+      "tags": [
+        "space"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "hyp-0025",
+      "category": "hypotheticals",
+      "text": "If you could start a small business just for fun, what would it be?",
+      "type": "open",
+      "tags": [
+        "creativity"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "hyp-0026",
+      "category": "hypotheticals",
+      "text": "If you wrote a book about your life, what would the title be?",
+      "type": "open",
+      "tags": [
+        "books"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "hyp-0027",
+      "category": "hypotheticals",
+      "text": "If you could learn the answer to one mystery, which would you choose?",
+      "type": "open",
+      "tags": [
+        "science",
+        "history"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "hyp-0028",
+      "category": "hypotheticals",
+      "text": "If you could build a secret room in your home, what would it be for?",
+      "type": "open",
+      "tags": [
+        "home"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "hyp-0029",
+      "category": "hypotheticals",
+      "text": "If you had an extra hour every day, how would you spend it?",
+      "type": "open",
+      "tags": [
+        "productivity"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "hyp-0030",
+      "category": "hypotheticals",
+      "text": "If you could talk to your future self, what would you ask?",
+      "type": "open",
+      "tags": [
+        "fun",
+        "time-travel"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "ice-0001",
+      "category": "icebreakers",
+      "text": "What is the best piece of advice you have ever received?",
+      "type": "open",
+      "tags": [
+        "learning"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "ice-0002",
+      "category": "icebreakers",
+      "text": "What is a small thing that always makes your day better?",
+      "type": "open",
+      "tags": [
+        "fun"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "ice-0003",
+      "category": "icebreakers",
+      "text": "What song do you have on repeat lately?",
+      "type": "open",
+      "tags": [
+        "music"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "ice-0004",
+      "category": "icebreakers",
+      "text": "What is a skill you would love to learn this year?",
+      "type": "open",
+      "tags": [
+        "learning",
+        "hobbies"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "ice-0005",
+      "category": "icebreakers",
+      "text": "What is your go-to snack while working?",
+      "type": "open",
+      "tags": [
+        "food",
+        "work"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "ice-0006",
+      "category": "icebreakers",
+      "text": "What is the most useful app on your phone?",
+      "type": "open",
+      "tags": [
+        "tech"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "ice-0007",
+      "category": "icebreakers",
+      "text": "What book, show, or podcast would you recommend to the team right now?",
+      "type": "open",
+      "tags": [
+        "books",
+        "movies"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "ice-0008",
+      "category": "icebreakers",
+      "text": "What did you want to be when you grew up?",
+      "type": "open",
+      "tags": [
+        "fun"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "ice-0009",
+      "category": "icebreakers",
+      "text": "What is your favorite way to spend a free afternoon?",
+      "type": "open",
+      "tags": [
+        "hobbies",
+        "weekend"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "ice-0010",
+      "category": "icebreakers",
+      "text": "What is one thing on your desk right now that tells a story?",
+      "type": "open",
+      "tags": [
+        "work",
+        "fun"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "ice-0011",
+      "category": "icebreakers",
+      "text": "What is a hobby you picked up recently?",
+      "type": "open",
+      "tags": [
+        "hobbies"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "ice-0012",
+      "category": "icebreakers",
+      "text": "What is your favorite comfort food?",
+      "type": "open",
+      "tags": [
+        "food"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "ice-0013",
+      "category": "icebreakers",
+      "text": "What sound do you find most relaxing?",
+      "type": "open",
+      "tags": [
+        "fun"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "ice-0014",
+      "category": "icebreakers",
+      "text": "What is a word or phrase you use way too often?",
+      "type": "open",
+      "tags": [
+        "fun"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "ice-0015",
+      "category": "icebreakers",
+      "text": "What time of day do you do your best work?",
+      "type": "poll",
+      "options": [
+        "Early morning",
+        "Late morning",
+        "Afternoon",
+        "Evening"
+      ],
+      "tags": [
+        "work",
+        "productivity"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "ice-0016",
+      "category": "icebreakers",
+      "text": "What is the most interesting thing you learned this week?",
+      "type": "open",
+      "tags": [
+        "learning"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "ice-0017",
+      "category": "icebreakers",
+      "text": "What is a movie you can watch again and again?",
+      "type": "open",
+      "tags": [
+        "movies"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "ice-0018",
+      "category": "icebreakers",
+      "text": "If you could master any instrument, which one would it be?",
+      "type": "open",
+      "tags": [
+        "music"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "ice-0019",
+      "category": "icebreakers",
+      "text": "What is your favorite season, and why?",
+      "type": "open",
+      "tags": [
+        "seasons"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "ice-0020",
+      "category": "icebreakers",
+      "text": "What is a tiny win you had this week?",
+      "type": "open",
+      "tags": [
+        "work"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "ice-0021",
+      "category": "icebreakers",
+      "text": "What is the most underrated food?",
+      "type": "open",
+      "tags": [
+        "food"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "ice-0022",
+      "category": "icebreakers",
+      "text": "What tab is always open in your browser?",
+      "type": "open",
+      "tags": [
+        "tech",
+        "work"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "ice-0023",
+      "category": "icebreakers",
+      "text": "What is your favorite word in any language?",
+      "type": "open",
+      "tags": [
+        "learning"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "ice-0024",
+      "category": "icebreakers",
+      "text": "How do you take your coffee or tea?",
+      "type": "poll",
+      "options": [
+        "Plain",
+        "With milk",
+        "Sweet",
+        "Neither for me"
+      ],
+      "tags": [
+        "food"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "ice-0025",
+      "category": "icebreakers",
+      "text": "What game did you play the most as a kid?",
+      "type": "open",
+      "tags": [
+        "games"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "ice-0026",
+      "category": "icebreakers",
+      "text": "What is a place nearby that you think everyone should visit?",
+      "type": "open",
+      "tags": [
+        "travel"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "ice-0027",
+      "category": "icebreakers",
+      "text": "What is your favorite way to recharge after a busy day?",
+      "type": "open",
+      "tags": [
+        "hobbies"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "ice-0028",
+      "category": "icebreakers",
+      "text": "What is a song that instantly puts you in a good mood?",
+      "type": "open",
+      "tags": [
+        "music"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "ice-0029",
+      "category": "icebreakers",
+      "text": "What is a podcast or video channel you have learned a lot from?",
+      "type": "open",
+      "tags": [
+        "learning"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "ice-0030",
+      "category": "icebreakers",
+      "text": "What is the best thing you have made with your hands?",
+      "type": "open",
+      "tags": [
+        "creativity"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "tot-0001",
+      "category": "this-or-that",
+      "text": "Coffee or tea?",
+      "type": "this-or-that",
+      "options": [
+        "Coffee",
+        "Tea"
+      ],
+      "tags": [
+        "food"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "tot-0002",
+      "category": "this-or-that",
+      "text": "Beach or mountains?",
+      "type": "this-or-that",
+      "options": [
+        "Beach",
+        "Mountains"
+      ],
+      "tags": [
+        "travel",
+        "nature"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "tot-0003",
+      "category": "this-or-that",
+      "text": "Early bird or night owl?",
+      "type": "this-or-that",
+      "options": [
+        "Early bird",
+        "Night owl"
+      ],
+      "tags": [
+        "productivity"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "tot-0004",
+      "category": "this-or-that",
+      "text": "Cats or dogs?",
+      "type": "this-or-that",
+      "options": [
+        "Cats",
+        "Dogs"
+      ],
+      "tags": [
+        "animals"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "tot-0005",
+      "category": "this-or-that",
+      "text": "Books or podcasts?",
+      "type": "this-or-that",
+      "options": [
+        "Books",
+        "Podcasts"
+      ],
+      "tags": [
+        "books"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "tot-0006",
+      "category": "this-or-that",
+      "text": "Sweet or salty snacks?",
+      "type": "this-or-that",
+      "options": [
+        "Sweet",
+        "Salty"
+      ],
+      "tags": [
+        "food"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "tot-0007",
+      "category": "this-or-that",
+      "text": "Summer or winter?",
+      "type": "this-or-that",
+      "options": [
+        "Summer",
+        "Winter"
+      ],
+      "tags": [
+        "seasons"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "tot-0008",
+      "category": "this-or-that",
+      "text": "Text or call?",
+      "type": "this-or-that",
+      "options": [
+        "Text",
+        "Call"
+      ],
+      "tags": [
+        "tech"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "tot-0009",
+      "category": "this-or-that",
+      "text": "Pizza or tacos?",
+      "type": "this-or-that",
+      "options": [
+        "Pizza",
+        "Tacos"
+      ],
+      "tags": [
+        "food"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "tot-0010",
+      "category": "this-or-that",
+      "text": "Sunrise or sunset?",
+      "type": "this-or-that",
+      "options": [
+        "Sunrise",
+        "Sunset"
+      ],
+      "tags": [
+        "nature"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "tot-0011",
+      "category": "this-or-that",
+      "text": "Board games or video games?",
+      "type": "this-or-that",
+      "options": [
+        "Board games",
+        "Video games"
+      ],
+      "tags": [
+        "games"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "tot-0012",
+      "category": "this-or-that",
+      "text": "City break or countryside escape?",
+      "type": "this-or-that",
+      "options": [
+        "City break",
+        "Countryside escape"
+      ],
+      "tags": [
+        "travel"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "tot-0013",
+      "category": "this-or-that",
+      "text": "Movies at home or at the cinema?",
+      "type": "this-or-that",
+      "options": [
+        "At home",
+        "At the cinema"
+      ],
+      "tags": [
+        "movies"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "tot-0014",
+      "category": "this-or-that",
+      "text": "Headphones or speakers?",
+      "type": "this-or-that",
+      "options": [
+        "Headphones",
+        "Speakers"
+      ],
+      "tags": [
+        "music",
+        "tech"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "tot-0015",
+      "category": "this-or-that",
+      "text": "Plan everything or go with the flow?",
+      "type": "this-or-that",
+      "options": [
+        "Plan everything",
+        "Go with the flow"
+      ],
+      "tags": [
+        "productivity"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "tot-0016",
+      "category": "this-or-that",
+      "text": "Paper notebook or notes app?",
+      "type": "this-or-that",
+      "options": [
+        "Paper notebook",
+        "Notes app"
+      ],
+      "tags": [
+        "productivity",
+        "tech"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "tot-0017",
+      "category": "this-or-that",
+      "text": "Rain or sunshine?",
+      "type": "this-or-that",
+      "options": [
+        "Rain",
+        "Sunshine"
+      ],
+      "tags": [
+        "weather"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "tot-0018",
+      "category": "this-or-that",
+      "text": "Breakfast or dinner?",
+      "type": "this-or-that",
+      "options": [
+        "Breakfast",
+        "Dinner"
+      ],
+      "tags": [
+        "food"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "tot-0019",
+      "category": "this-or-that",
+      "text": "Cook at home or order in?",
+      "type": "this-or-that",
+      "options": [
+        "Cook at home",
+        "Order in"
+      ],
+      "tags": [
+        "food",
+        "home"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "tot-0020",
+      "category": "this-or-that",
+      "text": "Window seat or aisle seat?",
+      "type": "this-or-that",
+      "options": [
+        "Window seat",
+        "Aisle seat"
+      ],
+      "tags": [
+        "travel"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "tot-0021",
+      "category": "this-or-that",
+      "text": "Fiction or nonfiction?",
+      "type": "this-or-that",
+      "options": [
+        "Fiction",
+        "Nonfiction"
+      ],
+      "tags": [
+        "books"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "tot-0022",
+      "category": "this-or-that",
+      "text": "Puzzles or sports?",
+      "type": "this-or-that",
+      "options": [
+        "Puzzles",
+        "Sports"
+      ],
+      "tags": [
+        "games",
+        "sports"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "tot-0023",
+      "category": "this-or-that",
+      "text": "Light mode or dark mode?",
+      "type": "this-or-that",
+      "options": [
+        "Light mode",
+        "Dark mode"
+      ],
+      "tags": [
+        "tech"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "tot-0024",
+      "category": "this-or-that",
+      "text": "Walk or bike?",
+      "type": "this-or-that",
+      "options": [
+        "Walk",
+        "Bike"
+      ],
+      "tags": [
+        "outdoors"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "tot-0025",
+      "category": "this-or-that",
+      "text": "Spreadsheets or slides?",
+      "type": "this-or-that",
+      "options": [
+        "Spreadsheets",
+        "Slides"
+      ],
+      "tags": [
+        "work"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "tot-0026",
+      "category": "this-or-that",
+      "text": "Stars or city lights?",
+      "type": "this-or-that",
+      "options": [
+        "Stars",
+        "City lights"
+      ],
+      "tags": [
+        "nature"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "tot-0027",
+      "category": "this-or-that",
+      "text": "Chocolate or vanilla?",
+      "type": "this-or-that",
+      "options": [
+        "Chocolate",
+        "Vanilla"
+      ],
+      "tags": [
+        "food"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "tot-0028",
+      "category": "this-or-that",
+      "text": "Emoji or GIF reactions?",
+      "type": "this-or-that",
+      "options": [
+        "Emoji",
+        "GIFs"
+      ],
+      "tags": [
+        "work",
+        "fun"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "tot-0029",
+      "category": "this-or-that",
+      "text": "Road trip or flight?",
+      "type": "this-or-that",
+      "options": [
+        "Road trip",
+        "Flight"
+      ],
+      "tags": [
+        "travel"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "tot-0030",
+      "category": "this-or-that",
+      "text": "Popcorn or nachos?",
+      "type": "this-or-that",
+      "options": [
+        "Popcorn",
+        "Nachos"
+      ],
+      "tags": [
+        "food",
+        "movies"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "wyr-0001",
+      "category": "would-you-rather",
+      "text": "Would you rather have a 4-day work week or work from anywhere forever?",
+      "type": "this-or-that",
+      "options": [
+        "4-day week",
+        "Work from anywhere"
+      ],
+      "tags": [
+        "work",
+        "remote"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "wyr-0002",
+      "category": "would-you-rather",
+      "text": "Would you rather be able to fly or be invisible?",
+      "type": "this-or-that",
+      "options": [
+        "Fly",
+        "Be invisible"
+      ],
+      "tags": [
+        "superpowers"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "wyr-0003",
+      "category": "would-you-rather",
+      "text": "Would you rather explore deep space or the deep ocean?",
+      "type": "this-or-that",
+      "options": [
+        "Deep space",
+        "Deep ocean"
+      ],
+      "tags": [
+        "space",
+        "nature"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "wyr-0004",
+      "category": "would-you-rather",
+      "text": "Would you rather only have meetings in the morning or only in the afternoon?",
+      "type": "this-or-that",
+      "options": [
+        "Morning",
+        "Afternoon"
+      ],
+      "tags": [
+        "work"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "wyr-0005",
+      "category": "would-you-rather",
+      "text": "Would you rather have unlimited books or unlimited movies?",
+      "type": "this-or-that",
+      "options": [
+        "Books",
+        "Movies"
+      ],
+      "tags": [
+        "books",
+        "movies"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "wyr-0006",
+      "category": "would-you-rather",
+      "text": "Would you rather speak every language or play every instrument?",
+      "type": "this-or-that",
+      "options": [
+        "Every language",
+        "Every instrument"
+      ],
+      "tags": [
+        "learning",
+        "music"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "wyr-0007",
+      "category": "would-you-rather",
+      "text": "Would you rather travel to the past or to the future?",
+      "type": "this-or-that",
+      "options": [
+        "The past",
+        "The future"
+      ],
+      "tags": [
+        "time-travel"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "wyr-0008",
+      "category": "would-you-rather",
+      "text": "Would you rather live where it is always spring or always autumn?",
+      "type": "this-or-that",
+      "options": [
+        "Always spring",
+        "Always autumn"
+      ],
+      "tags": [
+        "seasons"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "wyr-0009",
+      "category": "would-you-rather",
+      "text": "Would you rather have a personal chef or a personal driver?",
+      "type": "this-or-that",
+      "options": [
+        "Personal chef",
+        "Personal driver"
+      ],
+      "tags": [
+        "food"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "wyr-0010",
+      "category": "would-you-rather",
+      "text": "Would you rather give up music or give up movies for a year?",
+      "type": "this-or-that",
+      "options": [
+        "Give up music",
+        "Give up movies"
+      ],
+      "tags": [
+        "music",
+        "movies"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "wyr-0011",
+      "category": "would-you-rather",
+      "text": "Would you rather work in a treehouse or on a houseboat?",
+      "type": "this-or-that",
+      "options": [
+        "Treehouse",
+        "Houseboat"
+      ],
+      "tags": [
+        "work",
+        "fun"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "wyr-0012",
+      "category": "would-you-rather",
+      "text": "Would you rather be able to talk to animals or read minds?",
+      "type": "this-or-that",
+      "options": [
+        "Talk to animals",
+        "Read minds"
+      ],
+      "tags": [
+        "superpowers",
+        "animals"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "wyr-0013",
+      "category": "would-you-rather",
+      "text": "Would you rather have a rewind button or a pause button for your life?",
+      "type": "this-or-that",
+      "options": [
+        "Rewind",
+        "Pause"
+      ],
+      "tags": [
+        "time-travel"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "wyr-0014",
+      "category": "would-you-rather",
+      "text": "Would you rather always know the right thing to say or the right time to leave?",
+      "type": "this-or-that",
+      "options": [
+        "Right words",
+        "Right time to leave"
+      ],
+      "tags": [
+        "fun"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "wyr-0015",
+      "category": "would-you-rather",
+      "text": "Would you rather have every email answered for you or every meeting summarized for you?",
+      "type": "this-or-that",
+      "options": [
+        "Emails answered",
+        "Meetings summarized"
+      ],
+      "tags": [
+        "work",
+        "productivity"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "wyr-0016",
+      "category": "would-you-rather",
+      "text": "Would you rather be the funniest person in the room or the smartest?",
+      "type": "this-or-that",
+      "options": [
+        "Funniest",
+        "Smartest"
+      ],
+      "tags": [
+        "fun"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "wyr-0017",
+      "category": "would-you-rather",
+      "text": "Would you rather eat only sweet food or only savory food for a week?",
+      "type": "this-or-that",
+      "options": [
+        "Sweet",
+        "Savory"
+      ],
+      "tags": [
+        "food"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "wyr-0018",
+      "category": "would-you-rather",
+      "text": "Would you rather be able to teleport or breathe underwater?",
+      "type": "this-or-that",
+      "options": [
+        "Teleport",
+        "Breathe underwater"
+      ],
+      "tags": [
+        "superpowers"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "wyr-0019",
+      "category": "would-you-rather",
+      "text": "Would you rather spend a day in a museum or a day in a theme park?",
+      "type": "this-or-that",
+      "options": [
+        "Museum",
+        "Theme park"
+      ],
+      "tags": [
+        "hobbies"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "wyr-0020",
+      "category": "would-you-rather",
+      "text": "Would you rather have a robot that cooks or a robot that cleans?",
+      "type": "this-or-that",
+      "options": [
+        "Cooks",
+        "Cleans"
+      ],
+      "tags": [
+        "tech",
+        "home"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "wyr-0021",
+      "category": "would-you-rather",
+      "text": "Would you rather write a best-selling book or direct a hit movie?",
+      "type": "this-or-that",
+      "options": [
+        "Write a book",
+        "Direct a movie"
+      ],
+      "tags": [
+        "books",
+        "movies",
+        "creativity"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "wyr-0022",
+      "category": "would-you-rather",
+      "text": "Would you rather work with a view of the mountains or the sea?",
+      "type": "this-or-that",
+      "options": [
+        "Mountains",
+        "Sea"
+      ],
+      "tags": [
+        "work",
+        "nature"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "wyr-0023",
+      "category": "would-you-rather",
+      "text": "Would you rather have a desk that is always tidy or a calendar that is always clear?",
+      "type": "this-or-that",
+      "options": [
+        "Tidy desk",
+        "Clear calendar"
+      ],
+      "tags": [
+        "work"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "wyr-0024",
+      "category": "would-you-rather",
+      "text": "Would you rather know how every story ends or how every magic trick works?",
+      "type": "this-or-that",
+      "options": [
+        "Story endings",
+        "Magic tricks"
+      ],
+      "tags": [
+        "fun"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "wyr-0025",
+      "category": "would-you-rather",
+      "text": "Would you rather camp under the stars or stay in a cozy cabin?",
+      "type": "this-or-that",
+      "options": [
+        "Camp under the stars",
+        "Cozy cabin"
+      ],
+      "tags": [
+        "outdoors"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "wyr-0026",
+      "category": "would-you-rather",
+      "text": "Would you rather be a master gardener or a master baker?",
+      "type": "this-or-that",
+      "options": [
+        "Gardener",
+        "Baker"
+      ],
+      "tags": [
+        "hobbies",
+        "food"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "wyr-0027",
+      "category": "would-you-rather",
+      "text": "Would you rather visit every country or every planet in the solar system?",
+      "type": "this-or-that",
+      "options": [
+        "Every country",
+        "Every planet"
+      ],
+      "tags": [
+        "travel",
+        "space"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "wyr-0028",
+      "category": "would-you-rather",
+      "text": "Would you rather have your own theme song or your own laugh track?",
+      "type": "this-or-that",
+      "options": [
+        "Theme song",
+        "Laugh track"
+      ],
+      "tags": [
+        "music",
+        "fun"
+      ],
+      "sfw": "casual",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "wyr-0029",
+      "category": "would-you-rather",
+      "text": "Would you rather only use a keyboard or only use a mouse for a week?",
+      "type": "this-or-that",
+      "options": [
+        "Keyboard only",
+        "Mouse only"
+      ],
+      "tags": [
+        "tech"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    },
+    {
+      "id": "wyr-0030",
+      "category": "would-you-rather",
+      "text": "Would you rather be an expert at chess or at a video game of your choice?",
+      "type": "this-or-that",
+      "options": [
+        "Chess",
+        "Video game"
+      ],
+      "tags": [
+        "games"
+      ],
+      "sfw": "safe",
+      "locale": "en",
+      "added": "2026-10-14",
+      "author": "kashifkhan0771"
+    }
+  ]
+}

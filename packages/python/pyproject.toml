@@ -1,0 +1,25 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "cuppa"
+version = "0.0.0"
+description = "Watercooler questions for team chat: filter, random, daily and no-repeat picks."
+readme = "README.md"
+license = "Apache-2.0"
+requires-python = ">=3.9"
+keywords = ["icebreaker", "questions", "slack", "teams", "watercooler"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Typing :: Typed",
+]
+
+[project.urls]
+Repository = "https://github.com/kashifkhan0771/cuppa"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/cuppa"]
+
+[tool.hatch.build.targets.sdist]
+include = ["src/cuppa", "tests", "README.md"]
