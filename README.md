@@ -67,6 +67,7 @@ Other commands:
 |---|---|
 | `cuppa next` | print a question without posting (`--json`, `--category`, `--tag`, `--mode`) |
 | `cuppa post` | post to every target in the config (`--target`, `--dry-run`, `--json`) |
+| `cuppa daemon` | keep running and post on `schedule.cron` (`--dry-run`) |
 | `cuppa list` / `cuppa categories` | browse the questions |
 | `cuppa validate [file]` | check a config file or a question pack |
 | `cuppa history show\|reset` | the no-repeat history |
@@ -96,6 +97,51 @@ docker run --rm -e SLACK_WEBHOOK -v "$PWD/cuppa.yaml:/work/cuppa.yaml:ro" \
 
 Teams uses Workflows because Microsoft is retiring the older Office 365
 connector webhooks. Discord posts never ping `@everyone` or anyone else.
+
+## Run as a daemon
+
+Instead of cron or GitHub Actions, cuppa can keep running and post on its
+own schedule. Add this to `cuppa.yaml`:
+
+```yaml
+schedule:
+  cron: "0 10 * * 1-5"      # 10:00, Monday to Friday
+  timezone: Asia/Karachi    # empty means the computer's own
+  skip_dates: ["2026-12-25"]
+```
+
+Then run `cuppa daemon`. `cuppa validate` shows when the next post will be.
+The cron line takes numbers only (no `MON` or `JAN`). If the computer was
+asleep or off at post time and wakes up more than an hour late, that post
+is skipped rather than sent late. A failed post is logged and the daemon
+keeps going. It stops cleanly on Ctrl+C or SIGTERM.
+
+With Docker (the `cuppa-home` volume keeps the no-repeat history):
+
+```sh
+docker run -d --restart unless-stopped -e SLACK_WEBHOOK \
+  -v "$PWD/cuppa.yaml:/work/cuppa.yaml:ro" -v cuppa-home:/home/nonroot \
+  ghcr.io/kashifkhan0771/cuppa daemon
+```
+
+As a systemd service (`/etc/systemd/system/cuppa.service`):
+
+```ini
+[Unit]
+Description=cuppa watercooler questions
+After=network-online.target
+
+[Service]
+ExecStart=/usr/local/bin/cuppa daemon --config /etc/cuppa/cuppa.yaml
+EnvironmentFile=/etc/cuppa/env
+DynamicUser=yes
+StateDirectory=cuppa
+Environment=XDG_STATE_HOME=/var/lib
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+```
 
 ## Config
 

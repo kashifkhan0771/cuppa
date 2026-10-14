@@ -23,6 +23,7 @@ type app struct {
 	stdout io.Writer
 	stderr io.Writer
 	now    func() time.Time // tests swap this for a fixed time
+	sleep  func(ctx context.Context, d time.Duration) error
 
 	// global flags
 	configPath string

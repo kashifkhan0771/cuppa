@@ -30,81 +30,127 @@ func runPost(a *app, args []string) error {
 	if a.cfg.Path == "" {
 		return configError(errNoConfig)
 	}
-
-	// build everything first, so a config mistake stops us before
-	// anything is picked or sent
-	targets, err := a.buildTargets(*only)
-	if err != nil {
-		return err
-	}
-	r, err := newRenderer(a.cfg.Message)
-	if err != nil {
-		return err
-	}
 	selection, err := a.selectionFrom(selectionFlags)
 	if err != nil {
 		return err
 	}
-	dataset, err := a.questionsFor(selection)
+	p, err := a.newPoster(*only, selection)
 	if err != nil {
 		return err
 	}
 
-	saved := history.NewFile(a.cfg.History.Path)
-	scratch, usedBefore, err := copyHistory(saved)
+	out, err := a.prepare(p)
 	if err != nil {
 		return err
 	}
-	q, err := a.pick(dataset, selection, scratch)
-	if err != nil {
-		return err
-	}
-
-	// each chat app writes bold its own way, so render per target,
-	// all before sending anything
-	messages := make([]string, len(targets))
-	for i, t := range targets {
-		if messages[i], err = r.render(q, t.bold); err != nil {
-			return err
-		}
-	}
-
 	if *dryRun {
 		if *asJSON {
-			return printJSON(a, q)
+			return printJSON(a, out.question)
 		}
-		for i, t := range targets {
-			fmt.Fprintf(a.stdout, "would post to %s:\n%s\n\n", t.name, messages[i])
+		for i, t := range p.targets {
+			fmt.Fprintf(a.stdout, "would post to %s:\n%s\n\n", t.name, out.messages[i])
 		}
 		return nil
 	}
 
-	// post to every target, even if one fails
+	posted, err := a.send(p, out)
+	// the question went out somewhere, so report it even if a target failed
+	if posted > 0 && *asJSON {
+		if err := printJSON(a, out.question); err != nil {
+			return err
+		}
+	}
+	return err
+}
+
+// poster is everything needed to post, built once from the config so
+// a mistake stops cuppa before anything is picked or sent. The daemon
+// keeps one for its whole run.
+type poster struct {
+	targets   []target
+	renderer  *renderer
+	selection config.Selection
+	dataset   *cuppa.Dataset
+	history   *history.File
+}
+
+func (a *app) newPoster(only string, selection config.Selection) (*poster, error) {
+	targets, err := a.buildTargets(only)
+	if err != nil {
+		return nil, err
+	}
+	r, err := newRenderer(a.cfg.Message)
+	if err != nil {
+		return nil, err
+	}
+	dataset, err := a.questionsFor(selection)
+	if err != nil {
+		return nil, err
+	}
+	return &poster{
+		targets:   targets,
+		renderer:  r,
+		selection: selection,
+		dataset:   dataset,
+		history:   history.NewFile(a.cfg.History.Path),
+	}, nil
+}
+
+// outgoing is a picked question with its message for each target,
+// ready to send.
+type outgoing struct {
+	question   cuppa.Question
+	messages   []string // same order as poster.targets
+	scratch    *cuppa.MemoryHistory
+	usedBefore int
+}
+
+// prepare picks a question against a copy of the history and renders
+// it for every target. Nothing is saved or sent yet.
+func (a *app) prepare(p *poster) (*outgoing, error) {
+	scratch, usedBefore, err := copyHistory(p.history)
+	if err != nil {
+		return nil, err
+	}
+	q, err := a.pick(p.dataset, p.selection, scratch)
+	if err != nil {
+		return nil, err
+	}
+
+	// each chat app writes bold its own way, so render per target,
+	// all before sending anything
+	messages := make([]string, len(p.targets))
+	for i, t := range p.targets {
+		if messages[i], err = p.renderer.render(q, t.bold); err != nil {
+			return nil, err
+		}
+	}
+	return &outgoing{question: q, messages: messages, scratch: scratch, usedBefore: usedBefore}, nil
+}
+
+// send posts to every target, even if one fails, and saves the
+// history once at least one target got it. It returns how many
+// targets got it, and an exit-code-3 error if any failed.
+func (a *app) send(p *poster, out *outgoing) (int, error) {
 	posted := 0
-	for i, t := range targets {
-		if err := t.adapter.Post(a.ctx, adapters.Message{Question: q, Rendered: messages[i]}); err != nil {
+	for i, t := range p.targets {
+		if err := t.adapter.Post(a.ctx, adapters.Message{Question: out.question, Rendered: out.messages[i]}); err != nil {
 			a.log.Error("post failed", "target", t.name, "error", err)
 			continue
 		}
-		a.log.Info("posted", "target", t.name, "question", q.ID)
+		a.log.Info("posted", "target", t.name, "question", out.question.ID)
 		posted++
 	}
 
-	if posted > 0 && selection.Mode == config.ModeNoRepeat {
-		if err := a.saveUsed(saved, scratch, usedBefore, q.ID); err != nil {
-			return err
+	if posted > 0 && p.selection.Mode == config.ModeNoRepeat {
+		if err := a.saveUsed(p.history, out.scratch, out.usedBefore, out.question.ID); err != nil {
+			return posted, err
 		}
 	}
-	// the question went out somewhere, so report it even if a target failed
-	if posted > 0 && *asJSON {
-		if err := printJSON(a, q); err != nil {
-			return err
-		}
+	if posted < len(p.targets) {
+		return posted, &codedError{code: exitPostFailed, err: fmt.Errorf("posted to %d of %d targets", posted, len(p.targets))}
 	}
-	if posted < len(targets) {
-		return &codedError{code: exitPostFailed, err: fmt.Errorf("posted to %d of %d targets", posted, len(targets))}
-	}
-	return nil
+	return posted, nil
 }
 
 // copyHistory loads the saved history into memory, so picking a

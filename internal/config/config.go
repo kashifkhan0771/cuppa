@@ -56,8 +56,13 @@ type Config struct {
 	MissingEnv []string       `yaml:"-"` // ${VARS} that were not set
 }
 
+// Schedule is when the daemon posts. Only Timezone matters to the
+// other commands (it decides when the day changes in daily mode).
 type Schedule struct {
-	Timezone string `yaml:"timezone"` // like Asia/Karachi; empty means the computer's own
+	Cron         string   `yaml:"cron"`          // like "0 10 * * 1-5"; needed by the daemon
+	Timezone     string   `yaml:"timezone"`      // like Asia/Karachi; empty means the computer's own
+	SkipWeekends bool     `yaml:"skip_weekends"` // never post on Saturday or Sunday
+	SkipDates    []string `yaml:"skip_dates"`    // never post on these days, as YYYY-MM-DD
 }
 
 type Selection struct {
@@ -173,11 +178,15 @@ func (c *Config) check() error {
 		return fmt.Errorf("selection.sfw %q must be safe or casual", c.Selection.SFW)
 	}
 
-	location, err := time.LoadLocation(c.Schedule.Timezone)
-	if err != nil {
-		return fmt.Errorf("schedule.timezone %q: %w", c.Schedule.Timezone, err)
+	// no timezone keeps the computer's own (from Defaults);
+	// time.LoadLocation("") would give UTC instead
+	if c.Schedule.Timezone != "" {
+		location, err := time.LoadLocation(c.Schedule.Timezone)
+		if err != nil {
+			return fmt.Errorf("schedule.timezone %q: %w", c.Schedule.Timezone, err)
+		}
+		c.Location = location
 	}
-	c.Location = location
 	return nil
 }
 

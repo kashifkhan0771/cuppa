@@ -4,8 +4,15 @@
 version: 1
 
 schedule:
-  # whose midnight starts a new day in daily mode
+  # when "cuppa daemon" posts: minute hour day-of-month month day-of-week
+  # (numbers only; day of week 0-7, 0 and 7 are Sunday). Here: 10:00 Mon-Fri
+  cron: "0 10 * * 1-5"
+  # the clock the cron line follows, and whose midnight starts a new day
+  # in daily mode; empty means the computer's own
   timezone: Asia/Karachi
+  skip_weekends: false
+  # holidays: no post on these days
+  skip_dates: ["2026-12-25"]
 
 selection:
   # daily: same question for everyone with the same seed, no saved state

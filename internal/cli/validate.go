@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"time"
 
 	"go.yaml.in/yaml/v3"
 )
@@ -67,7 +68,22 @@ func validateConfig(a *app) error {
 		return configError(errors.New("no questions match the selection in this config"))
 	}
 
+	// the schedule only matters to the daemon, so it is optional here
+	schedule, err := a.buildSchedule()
+	if err != nil {
+		return err
+	}
+	var due time.Time
+	if schedule != nil {
+		if due, err = schedule.Next(a.now()); err != nil {
+			return configError(fmt.Errorf("schedule: %w", err))
+		}
+	}
+
 	fmt.Fprintf(a.stdout, "ok: config %s: %d questions match the selection, %d targets\n", a.cfg.Path, dataset.Len(), len(targets))
+	if schedule != nil {
+		fmt.Fprintf(a.stdout, "next daemon post: %s\n", due.Format("Mon 2006-01-02 15:04 MST"))
+	}
 	return nil
 }
 

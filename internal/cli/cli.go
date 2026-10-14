@@ -34,6 +34,19 @@ const (
 // timeNow is the clock; tests set a fixed time.
 var timeNow = time.Now
 
+// sleep waits for d, or until ctx is cancelled. Daemon tests swap it
+// for one that moves a fake clock forward instead.
+var sleep = func(ctx context.Context, d time.Duration) error {
+	timer := time.NewTimer(d)
+	defer timer.Stop()
+	select {
+	case <-ctx.Done():
+		return ctx.Err()
+	case <-timer.C:
+		return nil
+	}
+}
+
 // codedError is an error that picks its own exit code.
 type codedError struct {
 	code int
@@ -61,6 +74,7 @@ func init() {
 	commands = []command{
 		{"next", "print a question without posting it", runNext},
 		{"post", "pick a question and post it to the targets", runPost},
+		{"daemon", "keep running and post on the schedule in the config", runDaemon},
 		{"list", "list questions", runList},
 		{"categories", "list categories", runCategories},
 		{"validate", "check a config file or a question pack", runValidate},
@@ -74,7 +88,7 @@ func init() {
 // Run runs cuppa with the given arguments (without the program name)
 // and returns the exit code.
 func Run(ctx context.Context, args []string, stdin io.Reader, stdout, stderr io.Writer) int {
-	a := &app{ctx: ctx, stdin: stdin, stdout: stdout, stderr: stderr, now: timeNow}
+	a := &app{ctx: ctx, stdin: stdin, stdout: stdout, stderr: stderr, now: timeNow, sleep: sleep}
 
 	// global flags may come before the command; parsing stops at the
 	// command name, and each command parses the rest itself

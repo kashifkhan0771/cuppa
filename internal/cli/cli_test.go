@@ -604,3 +604,148 @@ func TestPostJSONAndSelectionFlags(t *testing.T) {
 		t.Errorf("bad mode: %+v", r)
 	}
 }
+
+// fakeClock lets daemon tests run for days in an instant. Each sleep
+// moves the clock forward; the first one can jump further, like a
+// laptop waking up. Sleeping past end stops the daemon.
+func fakeClock(t *testing.T, end time.Time, firstSleep time.Duration) {
+	t.Helper()
+	now := fixedNow
+	oldNow, oldSleep := timeNow, sleep
+	timeNow = func() time.Time { return now }
+	sleep = func(_ context.Context, d time.Duration) error {
+		if firstSleep > 0 {
+			d, firstSleep = firstSleep, 0
+		}
+		now = now.Add(d)
+		if now.After(end) {
+			return context.Canceled
+		}
+		return nil
+	}
+	t.Cleanup(func() { timeNow, sleep = oldNow, oldSleep })
+}
+
+// daemonConfig is postConfig with a daily 10:00 UTC schedule that
+// skips 2026-10-15. fixedNow is Wednesday 2026-10-14 09:00 UTC.
+func daemonConfig(t *testing.T, mode string) {
+	t.Helper()
+	postConfig(t, mode, "schedule:\n  cron: \"0 10 * * *\"\n  timezone: UTC\n  skip_dates: [\"2026-10-15\"]\n")
+}
+
+func TestDaemon(t *testing.T) {
+	isolate(t)
+	chat := newChat(t, http.StatusOK)
+	t.Setenv("HOOK_ONE", chat.url)
+	daemonConfig(t, "no-repeat")
+	fakeClock(t, time.Date(2026, 10, 16, 12, 0, 0, 0, time.UTC), 0)
+
+	// posts on the 14th and the 16th; the 15th is a skip date
+	r := run(t, "", "daemon")
+	if r.code != exitOK || !strings.Contains(r.stderr, "at=2026-10-16T10:00:00Z") || !strings.Contains(r.stderr, "stopped") {
+		t.Errorf("daemon: %+v", r)
+	}
+	bodies := chat.received()
+	if len(bodies) != 2 || bodies[0] == bodies[1] {
+		t.Errorf("chat got %v", bodies)
+	}
+	if used, _ := history.NewFile("h.json").Used(); len(used) != 2 {
+		t.Errorf("history: %v", used)
+	}
+}
+
+func TestDaemonSkipsMissedPost(t *testing.T) {
+	isolate(t)
+	chat := newChat(t, http.StatusOK)
+	t.Setenv("HOOK_ONE", chat.url)
+	daemonConfig(t, "daily")
+	// the computer sleeps from 09:00 to 12:00, past the 10:00 post
+	fakeClock(t, time.Date(2026, 10, 16, 9, 0, 0, 0, time.UTC), 3*time.Hour)
+
+	r := run(t, "", "daemon")
+	if r.code != exitOK || !strings.Contains(r.stderr, "missed a post time") {
+		t.Errorf("daemon: %+v", r)
+	}
+	if bodies := chat.received(); len(bodies) != 0 {
+		t.Errorf("a missed post went out: %v", bodies)
+	}
+}
+
+func TestDaemonKeepsGoingAfterFailures(t *testing.T) {
+	isolate(t)
+	chat := newChat(t, http.StatusNotFound)
+	t.Setenv("HOOK_ONE", chat.url)
+	daemonConfig(t, "daily")
+	fakeClock(t, time.Date(2026, 10, 16, 12, 0, 0, 0, time.UTC), 0)
+
+	r := run(t, "", "daemon")
+	if r.code != exitOK || strings.Count(r.stderr, "post did not fully work") != 2 {
+		t.Errorf("daemon: %+v", r)
+	}
+}
+
+func TestDaemonDryRun(t *testing.T) {
+	isolate(t)
+	chat := newChat(t, http.StatusOK)
+	t.Setenv("HOOK_ONE", chat.url)
+	daemonConfig(t, "no-repeat")
+	fakeClock(t, time.Date(2026, 10, 14, 12, 0, 0, 0, time.UTC), 0)
+
+	r := run(t, "", "daemon", "--dry-run")
+	if r.code != exitOK || !strings.Contains(r.stderr, "would post") {
+		t.Errorf("daemon: %+v", r)
+	}
+	if len(chat.received()) != 0 {
+		t.Error("dry run sent something")
+	}
+	if used, _ := history.NewFile("h.json").Used(); len(used) != 0 {
+		t.Errorf("dry run saved history: %v", used)
+	}
+}
+
+func TestDaemonConfigErrors(t *testing.T) {
+	isolate(t)
+	if r := run(t, "", "daemon"); r.code != exitConfig || !strings.Contains(r.stderr, "no config file found") {
+		t.Errorf("no config: %+v", r)
+	}
+
+	t.Setenv("HOOK_ONE", "http://x")
+	postConfig(t, "daily", "")
+	if r := run(t, "", "daemon"); r.code != exitConfig || !strings.Contains(r.stderr, "schedule.cron is empty") {
+		t.Errorf("no cron: %+v", r)
+	}
+
+	postConfig(t, "daily", "schedule:\n  cron: \"0 10 * * MON\"\n")
+	if r := run(t, "", "daemon"); r.code != exitConfig || !strings.Contains(r.stderr, "day of week") {
+		t.Errorf("bad cron: %+v", r)
+	}
+	if r := run(t, "", "validate"); r.code != exitConfig {
+		t.Errorf("validate bad cron: %+v", r)
+	}
+
+	// Feb 30 never comes
+	postConfig(t, "daily", "schedule:\n  cron: \"0 10 30 2 *\"\n")
+	if r := run(t, "", "daemon"); r.code != exitConfig || !strings.Contains(r.stderr, "no post time") {
+		t.Errorf("never fires: %+v", r)
+	}
+	if r := run(t, "", "validate"); r.code != exitConfig {
+		t.Errorf("validate never fires: %+v", r)
+	}
+
+	// fixedNow is 14:00 in Karachi, so the next weekday 10:00 is tomorrow
+	postConfig(t, "daily", "schedule:\n  cron: \"0 10 * * 1-5\"\n  timezone: Asia/Karachi\n")
+	if r := run(t, "", "validate"); r.code != exitOK || !strings.Contains(r.stdout, "next daemon post: Thu 2026-10-15 10:00 PKT") {
+		t.Errorf("validate: %+v", r)
+	}
+}
+
+func TestRealSleepStopsOnCancel(t *testing.T) {
+	ctx, cancel := context.WithCancel(context.Background())
+	cancel()
+	if err := sleep(ctx, time.Hour); err == nil {
+		t.Error("want an error from a cancelled sleep")
+	}
+	if err := sleep(context.Background(), time.Millisecond); err != nil {
+		t.Error(err)
+	}
+}

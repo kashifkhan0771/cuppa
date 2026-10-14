@@ -5,6 +5,7 @@ import (
 	"path/filepath"
 	"strings"
 	"testing"
+	"time"
 )
 
 // writeConfig writes content to a cuppa.yaml in a temp folder.
@@ -50,6 +51,10 @@ func TestLoadKeepsDefaultsForMissingKeys(t *testing.T) {
 	if cfg.Selection.Mode != ModeRandom || cfg.Selection.Seed != want.Selection.Seed ||
 		cfg.Message.PollTemplate != DefaultPollTemplate || cfg.Version != Version {
 		t.Errorf("defaults lost: %+v", cfg)
+	}
+	// no timezone means the computer's own, not UTC
+	if cfg.Location != time.Local {
+		t.Errorf("location = %v, want the local one", cfg.Location)
 	}
 }
 
