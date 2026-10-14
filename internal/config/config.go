@@ -33,10 +33,11 @@ const (
 // Modes lists every selection mode, for checks and help text.
 var Modes = []string{ModeDaily, ModeRandom, ModeNoRepeat}
 
-// Default message templates. Emojis numbers the poll options.
+// Default message templates. Emojis numbers the poll options, and
+// .Bold writes bold text the way each chat app expects it.
 const (
-	DefaultTemplate     = "☕ *Today's watercooler:* {{ .Text }}"
-	DefaultPollTemplate = "☕ *Today's watercooler:* {{ .Text }}\n{{ range $i, $o := .Options }}{{ index $.Emojis $i }} {{ $o }}\n{{ end }}"
+	DefaultTemplate     = "☕ {{ .Bold \"Today's watercooler:\" }} {{ .Text }}"
+	DefaultPollTemplate = "☕ {{ .Bold \"Today's watercooler:\" }} {{ .Text }}\n{{ range $i, $o := .Options }}{{ index $.Emojis $i }} {{ $o }}\n{{ end }}"
 )
 
 // Config is the whole cuppa.yaml file.
@@ -83,7 +84,8 @@ type Message struct {
 }
 
 // Target is one place to post. Which fields matter depends on Type:
-// slack and gchat use Webhook; webhook uses URL, Method, Headers, Body.
+// slack, gchat, teams, discord and mattermost use Webhook; webex uses
+// Token and RoomID; webhook uses URL, Method, Headers, Body.
 type Target struct {
 	Name    string            `yaml:"name"`
 	Type    string            `yaml:"type"`
@@ -92,6 +94,8 @@ type Target struct {
 	Method  string            `yaml:"method"`
 	Headers map[string]string `yaml:"headers"`
 	Body    string            `yaml:"body"`
+	Token   string            `yaml:"token"`
+	RoomID  string            `yaml:"room_id"`
 }
 
 // Defaults returns the config used when no file exists.

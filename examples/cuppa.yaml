@@ -27,9 +27,11 @@ data:
 history:
   path: ~/.local/state/cuppa/history.json
 
+# Go templates. .Bold writes bold the way each chat app expects it
+# (*x* in Slack and Google Chat, **x** in the others).
 message:
-  template: "☕ *Today's watercooler:* {{ .Text }}"
-  poll_template: "☕ *Today's watercooler:* {{ .Text }}\n{{ range $i, $o := .Options }}{{ index $.Emojis $i }} {{ $o }}\n{{ end }}"
+  template: "☕ {{ .Bold \"Today's watercooler:\" }} {{ .Text }}"
+  poll_template: "☕ {{ .Bold \"Today's watercooler:\" }} {{ .Text }}\n{{ range $i, $o := .Options }}{{ index $.Emojis $i }} {{ $o }}\n{{ end }}"
 
 targets:
   - name: team-slack
@@ -39,6 +41,25 @@ targets:
   - name: eng-gchat
     type: gchat
     webhook: ${GCHAT_WEBHOOK}
+
+  # a Workflows webhook ("Send webhook alerts to a channel")
+  - name: ops-teams
+    type: teams
+    webhook: ${TEAMS_WEBHOOK}
+
+  - name: community-discord
+    type: discord
+    webhook: ${DISCORD_WEBHOOK}
+
+  - name: dev-mattermost
+    type: mattermost
+    webhook: ${MATTERMOST_WEBHOOK}
+
+  # Webex has no webhooks: a bot posts into a space it was added to
+  - name: sales-webex
+    type: webex
+    token: ${WEBEX_TOKEN}
+    room_id: ${WEBEX_ROOM_ID}
 
   # any other service: you choose the method, headers and body
   - name: my-bot

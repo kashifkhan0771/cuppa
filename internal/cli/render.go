@@ -33,20 +33,28 @@ func newRenderer(m config.Message) (*renderer, error) {
 }
 
 // templateData is what templates see: every question field
-// (.Text, .Options, .Category, ...) plus .Emojis.
+// (.Text, .Options, .Category, ...) plus .Emojis and .Bold.
 type templateData struct {
 	cuppa.Question
 	Emojis []string
+	bold   string // see boldMark
 }
 
-func (r *renderer) render(q cuppa.Question) (string, error) {
+// Bold wraps text in the bold marks of the chat app being posted to,
+// as in {{ .Bold "Today's watercooler:" }}.
+func (d templateData) Bold(text string) string {
+	return d.bold + text + d.bold
+}
+
+// render writes the message, with bold marks from boldMark.
+func (r *renderer) render(q cuppa.Question, bold string) (string, error) {
 	t := r.plain
 	if len(q.Options) > 0 {
 		t = r.poll
 	}
 
 	var out bytes.Buffer
-	if err := t.Execute(&out, templateData{Question: q, Emojis: optionEmojis}); err != nil {
+	if err := t.Execute(&out, templateData{Question: q, Emojis: optionEmojis, bold: bold}); err != nil {
 		return "", configError(fmt.Errorf("message template: %w", err))
 	}
 	return strings.TrimSpace(out.String()), nil

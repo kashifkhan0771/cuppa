@@ -23,5 +23,10 @@ jobs:
           slack_webhook: ${{ secrets.SLACK_WEBHOOK }}
           # optional:
           # gchat_webhook: ${{ secrets.GCHAT_WEBHOOK }}
+          # teams_webhook: ${{ secrets.TEAMS_WEBHOOK }}
+          # discord_webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          # mattermost_webhook: ${{ secrets.MATTERMOST_WEBHOOK }}
+          # webex_token: ${{ secrets.WEBEX_TOKEN }}
+          # webex_room_id: ${{ secrets.WEBEX_ROOM_ID }}
           # categories: icebreakers,this-or-that
           # sfw: casual

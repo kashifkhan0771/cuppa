@@ -3,7 +3,7 @@
 *Grab a cuppa. Answer today's question.*
 
 cuppa posts a watercooler question to your team chat: Slack, Google Chat,
-or anything with a webhook. There is no central server and nothing to sign
+Microsoft Teams, Discord, Mattermost, Webex, or anything with a webhook. There is no central server and nothing to sign
 up for. The questions are plain data in this repo, and you run cuppa
 wherever you like: GitHub Actions, cron, Docker, or your laptop.
 
@@ -33,11 +33,13 @@ jobs:
           slack_webhook: ${{ secrets.SLACK_WEBHOOK }}
 ```
 
-Run it once from the Actions tab to see it work. Google Chat works the same
-way with `gchat_webhook`; any other service can use `webhook_url`.
+Run it once from the Actions tab to see it work. Other chat apps work the
+same way with their own input (see [Chat apps](#chat-apps)); any other
+service can use `webhook_url`.
 
-Action inputs: `config`, `slack_webhook`, `gchat_webhook`, `webhook_url`,
-`mode` (`daily`, `random`, `no-repeat`; default `daily`), `seed` (default:
+Action inputs: `config`, `slack_webhook`, `gchat_webhook`, `teams_webhook`,
+`discord_webhook`, `mattermost_webhook`, `webex_token` with `webex_room_id`,
+`webhook_url`, `mode` (`daily`, `random`, `no-repeat`; default `daily`), `seed` (default:
 the repo name), `categories` (comma separated), `sfw` (`safe` or `casual`),
 `dry_run`. Outputs: `question_id`, `question_text`.
 See [action.yml](action.yml) for details.
@@ -80,6 +82,21 @@ docker run --rm -e SLACK_WEBHOOK -v "$PWD/cuppa.yaml:/work/cuppa.yaml:ro" \
   ghcr.io/kashifkhan0771/cuppa post
 ```
 
+## Chat apps
+
+| App | Config `type` | What you need |
+|---|---|---|
+| Slack | `slack` | an [incoming webhook](https://api.slack.com/messaging/webhooks) URL |
+| Google Chat | `gchat` | a space webhook: space name > Apps & integrations > Webhooks |
+| Microsoft Teams | `teams` | a Workflows webhook: channel > Workflows > "Send webhook alerts to a channel" |
+| Discord | `discord` | a channel webhook: channel settings > Integrations > Webhooks |
+| Mattermost | `mattermost` | an incoming webhook: Integrations > Incoming Webhooks |
+| Webex | `webex` | a bot token from [developer.webex.com](https://developer.webex.com/my-apps), the bot added to the space, and the space's room ID |
+| Anything else | `webhook` | a URL; you choose the method, headers and JSON body |
+
+Teams uses Workflows because Microsoft is retiring the older Office 365
+connector webhooks. Discord posts never ping `@everyone` or anyone else.
+
 ## Config
 
 `cuppa init` writes a starter file. The full set of options, with comments,
@@ -89,7 +106,9 @@ is in [examples/cuppa.yaml](examples/cuppa.yaml). The main ideas:
   each day, with no saved state. `random` picks any question. `no-repeat`
   never repeats until every question was used, and keeps a small history file.
 - **Secrets** go in environment variables: write `webhook: ${SLACK_WEBHOOK}`.
-  cuppa warns if a webhook URL is pasted into the file as plain text.
+  cuppa warns if a webhook URL or token is pasted into the file as plain text.
+- **Message:** `message.template` is a Go template. `{{ .Bold "text" }}`
+  writes bold the right way for each chat app.
 - **Your own questions:** list private question files under
   `data.extra_questions`. They use the same format as the files in
   [questions/](questions/). Check them with `cuppa validate my-pack.yaml`.

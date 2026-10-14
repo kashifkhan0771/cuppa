@@ -19,8 +19,10 @@ func writeConfig(t *testing.T, content string) string {
 
 // the example config must always load, so it never goes stale
 func TestLoadExample(t *testing.T) {
+	for _, name := range []string{"GCHAT_WEBHOOK", "TEAMS_WEBHOOK", "DISCORD_WEBHOOK", "MATTERMOST_WEBHOOK", "WEBEX_TOKEN", "WEBEX_ROOM_ID"} {
+		t.Setenv(name, "x")
+	}
 	t.Setenv("SLACK_WEBHOOK", "https://hooks.slack.com/services/x")
-	t.Setenv("GCHAT_WEBHOOK", "https://chat.googleapis.com/x")
 	t.Setenv("MY_BOT_URL", "https://bot.example.com")
 	t.Setenv("MY_BOT_TOKEN", "abc")
 
@@ -31,11 +33,11 @@ func TestLoadExample(t *testing.T) {
 	if len(warnings) != 0 || len(cfg.MissingEnv) != 0 {
 		t.Errorf("warnings %v, missing %v", warnings, cfg.MissingEnv)
 	}
-	if cfg.Selection.Mode != ModeNoRepeat || cfg.Location.String() != "Asia/Karachi" || len(cfg.Targets) != 3 {
+	if cfg.Selection.Mode != ModeNoRepeat || cfg.Location.String() != "Asia/Karachi" || len(cfg.Targets) != 7 {
 		t.Errorf("unexpected config: %+v", cfg)
 	}
-	if cfg.Targets[2].Headers["Authorization"] != "Bearer abc" {
-		t.Errorf("env not filled into headers: %v", cfg.Targets[2].Headers)
+	if cfg.Targets[5].RoomID != "x" || cfg.Targets[6].Headers["Authorization"] != "Bearer abc" {
+		t.Errorf("env not filled in: %+v", cfg.Targets[5:])
 	}
 }
 

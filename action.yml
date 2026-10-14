@@ -1,5 +1,5 @@
 name: cuppa watercooler
-description: Post a watercooler question to team chat (Slack, Google Chat or any webhook).
+description: Post a watercooler question to team chat (Slack, Google Chat, Teams, Discord, Mattermost, Webex or any webhook).
 author: kashifkhan0771
 branding:
   icon: message-circle
@@ -14,6 +14,21 @@ inputs:
     required: false
   gchat_webhook:
     description: Google Chat space webhook URL. Pass it from a secret.
+    required: false
+  teams_webhook:
+    description: Microsoft Teams Workflows webhook URL. Pass it from a secret.
+    required: false
+  discord_webhook:
+    description: Discord channel webhook URL. Pass it from a secret.
+    required: false
+  mattermost_webhook:
+    description: Mattermost incoming webhook URL. Pass it from a secret.
+    required: false
+  webex_token:
+    description: Webex bot token; needs webex_room_id too. Pass it from a secret.
+    required: false
+  webex_room_id:
+    description: ID of the Webex space to post in. The bot must be a member.
     required: false
   webhook_url:
     description: Any webhook URL; receives {"text":"..."} as JSON. Pass it from a secret.
@@ -75,6 +90,11 @@ runs:
         INPUT_CONFIG: ${{ inputs.config }}
         CUPPA_SLACK_WEBHOOK: ${{ inputs.slack_webhook }}
         CUPPA_GCHAT_WEBHOOK: ${{ inputs.gchat_webhook }}
+        CUPPA_TEAMS_WEBHOOK: ${{ inputs.teams_webhook }}
+        CUPPA_DISCORD_WEBHOOK: ${{ inputs.discord_webhook }}
+        CUPPA_MATTERMOST_WEBHOOK: ${{ inputs.mattermost_webhook }}
+        CUPPA_WEBEX_TOKEN: ${{ inputs.webex_token }}
+        CUPPA_WEBEX_ROOM_ID: ${{ inputs.webex_room_id }}
         CUPPA_WEBHOOK_URL: ${{ inputs.webhook_url }}
         CUPPA_MODE: ${{ inputs.mode }}
         CUPPA_SEED: ${{ inputs.seed }}
@@ -84,6 +104,13 @@ runs:
       run: |
         work="$RUNNER_TEMP/cuppa"
         config="$INPUT_CONFIG"
+
+        # "target <type> <key> <env var>" adds a target when the var is set
+        target() {
+          if [ -n "${!3}" ]; then
+            printf '  - name: %s\n    type: %s\n    %s: ${%s}\n' "$1" "$1" "$2" "$3"
+          fi
+        }
 
         # no config given: write one from the inputs
         if [ -z "$config" ]; then
@@ -95,14 +122,15 @@ runs:
             echo '  seed: ${CUPPA_SEED}'
             echo '  sfw: ${CUPPA_SFW}'
             echo 'targets:'
-            if [ -n "$CUPPA_SLACK_WEBHOOK" ]; then
-              printf '  - name: slack\n    type: slack\n    webhook: ${CUPPA_SLACK_WEBHOOK}\n'
-            fi
-            if [ -n "$CUPPA_GCHAT_WEBHOOK" ]; then
-              printf '  - name: gchat\n    type: gchat\n    webhook: ${CUPPA_GCHAT_WEBHOOK}\n'
-            fi
-            if [ -n "$CUPPA_WEBHOOK_URL" ]; then
-              printf '  - name: webhook\n    type: webhook\n    url: ${CUPPA_WEBHOOK_URL}\n'
+            target slack webhook CUPPA_SLACK_WEBHOOK
+            target gchat webhook CUPPA_GCHAT_WEBHOOK
+            target teams webhook CUPPA_TEAMS_WEBHOOK
+            target discord webhook CUPPA_DISCORD_WEBHOOK
+            target mattermost webhook CUPPA_MATTERMOST_WEBHOOK
+            target webhook url CUPPA_WEBHOOK_URL
+            target webex token CUPPA_WEBEX_TOKEN
+            if [ -n "$CUPPA_WEBEX_TOKEN" ]; then
+              echo '    room_id: ${CUPPA_WEBEX_ROOM_ID}'
             fi
           } > "$config"
         fi

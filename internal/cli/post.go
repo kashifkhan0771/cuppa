@@ -59,25 +59,30 @@ func runPost(a *app, args []string) error {
 	if err != nil {
 		return err
 	}
-	message, err := r.render(q)
-	if err != nil {
-		return err
+
+	// each chat app writes bold its own way, so render per target,
+	// all before sending anything
+	messages := make([]string, len(targets))
+	for i, t := range targets {
+		if messages[i], err = r.render(q, t.bold); err != nil {
+			return err
+		}
 	}
 
 	if *dryRun {
 		if *asJSON {
 			return printJSON(a, q)
 		}
-		for _, t := range targets {
-			fmt.Fprintf(a.stdout, "would post to %s:\n%s\n\n", t.name, message)
+		for i, t := range targets {
+			fmt.Fprintf(a.stdout, "would post to %s:\n%s\n\n", t.name, messages[i])
 		}
 		return nil
 	}
 
 	// post to every target, even if one fails
 	posted := 0
-	for _, t := range targets {
-		if err := t.adapter.Post(a.ctx, adapters.Message{Question: q, Rendered: message}); err != nil {
+	for i, t := range targets {
+		if err := t.adapter.Post(a.ctx, adapters.Message{Question: q, Rendered: messages[i]}); err != nil {
 			a.log.Error("post failed", "target", t.name, "error", err)
 			continue
 		}

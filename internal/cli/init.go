@@ -33,21 +33,42 @@ func runInit(a *app, args []string) error {
 	if err != nil {
 		return err
 	}
-	envName, err := a.ask(in, "Environment variable that will hold the webhook URL", strings.ToUpper(platform)+"_WEBHOOK", nil)
-	if err != nil {
-		return err
+	// ask for the env vars that will hold the secrets; webex needs
+	// a bot token and a room ID, the others one webhook URL
+	secrets := []secret{{key: "webhook", hint: "webhook URL", env: strings.ToUpper(platform) + "_WEBHOOK"}}
+	switch platform {
+	case "webhook":
+		secrets[0].key = "url"
+	case "webex":
+		secrets = []secret{{key: "token", hint: "bot token", env: "WEBEX_TOKEN"}, {key: "room_id", hint: "room ID", env: "WEBEX_ROOM_ID"}}
+	}
+	for i, s := range secrets {
+		if secrets[i].env, err = a.ask(in, "Environment variable that will hold the "+s.hint, s.env, nil); err != nil {
+			return err
+		}
 	}
 	mode, err := a.ask(in, "How to pick questions ("+strings.Join(config.Modes, ", ")+")", config.ModeDaily, config.Modes)
 	if err != nil {
 		return err
 	}
 
-	content := starterConfig(platform, envName, mode)
+	content := starterConfig(platform, mode, secrets)
 	if err := os.WriteFile(*output, []byte(content), 0o600); err != nil {
 		return err
 	}
-	fmt.Fprintf(a.stdout, "\nwrote %s\n\nnext steps:\n  export %s='<your webhook URL>'\n  cuppa post --dry-run --config %s\n", *output, envName, *output)
+	fmt.Fprintf(a.stdout, "\nwrote %s\n\nnext steps:\n", *output)
+	for _, s := range secrets {
+		fmt.Fprintf(a.stdout, "  export %s='<your %s>'\n", s.env, s.hint)
+	}
+	fmt.Fprintf(a.stdout, "  cuppa post --dry-run --config %s\n", *output)
 	return nil
+}
+
+// secret is one config key that init fills from an env var.
+type secret struct {
+	key  string // config key, like webhook
+	hint string // what it holds, for the questions
+	env  string // env var that holds it
 }
 
 // ask prints a question and reads one answer line. An empty answer
@@ -69,10 +90,10 @@ func (a *app) ask(in *bufio.Scanner, question, fallback string, allowed []string
 
 // starterConfig is the text of a new cuppa.yaml, with comments
 // so people can see what else they can change.
-func starterConfig(platform, envName, mode string) string {
-	urlKey := "webhook"
-	if platform == "webhook" {
-		urlKey = "url"
+func starterConfig(platform, mode string, secrets []secret) string {
+	var keys strings.Builder
+	for _, s := range secrets {
+		fmt.Fprintf(&keys, "    %s: ${%s}\n", s.key, s.env)
 	}
 	return fmt.Sprintf(`version: 1
 
@@ -97,6 +118,5 @@ targets:
   - name: team-%s
     type: %s
     # keep secrets in environment variables, not in this file
-    %s: ${%s}
-`, mode, platform, platform, urlKey, envName)
+%s`, mode, platform, platform, keys.String())
 }

@@ -39,7 +39,8 @@ func runNext(a *app, args []string) error {
 	if err != nil {
 		return err
 	}
-	message, err := r.render(q)
+	// the terminal shows *bold*, like Slack
+	message, err := r.render(q, boldMark("slack"))
 	if err != nil {
 		return err
 	}

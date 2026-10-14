@@ -276,7 +276,16 @@ func TestInit(t *testing.T) {
 		t.Errorf("webhook config:\n%s", content)
 	}
 
-	if r := run(t, "teams\n", "init", "--output", "other.yaml"); r.code != exitConfig {
+	// webex asks for two env vars: the bot token and the room ID
+	if r := run(t, "webex\n\n\n\n", "init", "--output", "webex.yaml"); r.code != exitOK || !strings.Contains(r.stdout, "export WEBEX_ROOM_ID=") {
+		t.Errorf("webex init: %+v", r)
+	}
+	content, _ = os.ReadFile("webex.yaml")
+	if !strings.Contains(string(content), "token: ${WEBEX_TOKEN}\n    room_id: ${WEBEX_ROOM_ID}\n") {
+		t.Errorf("webex config:\n%s", content)
+	}
+
+	if r := run(t, "skype\n", "init", "--output", "other.yaml"); r.code != exitConfig {
 		t.Errorf("bad platform: %+v", r)
 	}
 }
@@ -288,8 +297,8 @@ func TestValidate(t *testing.T) {
 		t.Errorf("no config: %+v", r)
 	}
 
-	writeFile(t, "bad.yaml", "targets:\n  - name: x\n    type: teams\n    webhook: ${H}\n")
-	if r := run(t, "", "validate", "bad.yaml"); r.code != exitConfig || !strings.Contains(r.stderr, `type "teams"`) {
+	writeFile(t, "bad.yaml", "targets:\n  - name: x\n    type: skype\n    webhook: ${H}\n")
+	if r := run(t, "", "validate", "bad.yaml"); r.code != exitConfig || !strings.Contains(r.stderr, `type "skype"`) {
 		t.Errorf("bad type: %+v", r)
 	}
 
@@ -450,6 +459,47 @@ func TestPostFailures(t *testing.T) {
 	}
 }
 
+// Each chat app gets bold text in its own style: *x* for Slack,
+// **x** for markdown apps like Discord, Mattermost, Teams and Webex.
+func TestPostEveryTargetType(t *testing.T) {
+	isolate(t)
+	chat := newChat(t, http.StatusOK)
+	t.Setenv("HOOK_ONE", chat.url)
+	postConfig(t, "daily", `  - name: discord
+    type: discord
+    webhook: ${HOOK_ONE}
+  - name: mattermost
+    type: mattermost
+    webhook: ${HOOK_ONE}
+  - name: teams
+    type: teams
+    webhook: ${HOOK_ONE}
+`)
+
+	r := run(t, "", "post")
+	if r.code != exitOK {
+		t.Fatalf("post: %+v", r)
+	}
+	bodies := chat.received()
+	if len(bodies) != 4 {
+		t.Fatalf("chat got %d bodies: %v", len(bodies), bodies)
+	}
+	if !strings.Contains(bodies[0], `"text":"☕ *Today's watercooler:*`) {
+		t.Errorf("slack: %s", bodies[0])
+	}
+	for _, body := range bodies[1:] {
+		if !strings.Contains(body, `☕ **Today's watercooler:**`) {
+			t.Errorf("markdown target: %s", body)
+		}
+	}
+
+	// webex posts to its own API, so only check that it builds
+	writeFile(t, "webex.yaml", "targets:\n  - name: w\n    type: webex\n    token: ${HOOK_ONE}\n    room_id: room-1\n")
+	if r := run(t, "", "validate", "webex.yaml"); r.code != exitOK {
+		t.Errorf("webex: %+v", r)
+	}
+}
+
 func TestPostConfigErrors(t *testing.T) {
 	isolate(t)
 	if r := run(t, "", "post"); r.code != exitConfig || !strings.Contains(r.stderr, "no config file found") {
@@ -462,6 +512,7 @@ func TestPostConfigErrors(t *testing.T) {
 		"duplicate name": "targets:\n  - name: a\n    type: slack\n    webhook: http://x\n  - name: a\n    type: slack\n    webhook: http://x\n",
 		"missing env":    "targets:\n  - name: a\n    type: slack\n    webhook: ${UNSET_HOOK}\n",
 		"empty url":      "targets:\n  - name: a\n    type: webhook\n",
+		"webex no room":  "targets:\n  - name: a\n    type: webex\n    token: ${UNSET_TOKEN}\n",
 		"bad body":       "targets:\n  - name: a\n    type: webhook\n    url: http://x\n    body: '{{ .Nope'\n",
 		"bad poll":       "message:\n  poll_template: '{{ .Nope'\ntargets:\n  - name: a\n    type: webhook\n    url: http://x\n",
 		"broken pack":    "data:\n  extra_questions: [missing.yaml]\ntargets:\n  - name: a\n    type: webhook\n    url: http://x\n",
@@ -501,7 +552,7 @@ func TestRenderErrors(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if _, err := r.render(cuppa.Question{Text: "Coffee or tea?", Options: []string{"a", "b"}}); err == nil {
+	if _, err := r.render(cuppa.Question{Text: "Coffee or tea?", Options: []string{"a", "b"}}, "*"); err == nil {
 		t.Error("want error from a template that fails to run")
 	}
 }
