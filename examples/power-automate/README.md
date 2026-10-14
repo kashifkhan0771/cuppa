@@ -7,7 +7,7 @@ another app. There are two ways to get the question.
 
 1. **Recurrence** trigger: every 1 day (or weekdays), at the hour you want.
 2. **HTTP** action: `GET`
-   `https://cdn.jsdelivr.net/gh/kashifkhan0771/cuppa@v0/dist/questions.json`
+   `https://cdn.jsdelivr.net/gh/kashifkhan0771/cuppa@v1/dist/questions.json`
    (add `/dist/categories/icebreakers.json` instead for one category).
 3. **Initialize variable** `index` (Integer), value:
    `rand(0, length(body('HTTP')?['questions']))`

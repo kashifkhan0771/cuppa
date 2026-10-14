@@ -35,7 +35,7 @@ spec:
     spec:
       containers:
         - name: cuppa
-          image: ghcr.io/kashifkhan0771/cuppa:0
+          image: ghcr.io/kashifkhan0771/cuppa:1
           args: ["serve", "--addr", "0.0.0.0:8080"]
           envFrom:
             - secretRef:

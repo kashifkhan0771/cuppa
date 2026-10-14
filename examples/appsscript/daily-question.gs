@@ -19,8 +19,8 @@
  * (Project Settings > Time zone).
  */
 
-// Latest 0.x questions. Use an exact tag like @v0.1.0 to pin a version.
-var QUESTIONS_URL = 'https://cdn.jsdelivr.net/gh/kashifkhan0771/cuppa@v0/dist/questions.json';
+// Latest 1.x questions. Use an exact tag like @v1.0.0 to pin a version.
+var QUESTIONS_URL = 'https://cdn.jsdelivr.net/gh/kashifkhan0771/cuppa@v1/dist/questions.json';
 
 function postDailyQuestion() {
   var props = PropertiesService.getScriptProperties();

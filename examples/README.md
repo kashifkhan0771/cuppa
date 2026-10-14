@@ -52,5 +52,5 @@ real URL in the file.
 
 ## Versions in these files
 
-The examples use `@v0` (GitHub Action, CDN) and the `:0` Docker tag, which
-follow the newest 0.x release. After 1.0 these become `@v1` and `:1`.
+The examples use `@v1` (GitHub Action, CDN) and the `:1` Docker tag, which
+follow the newest 1.x release. To pin an exact version, use a tag like `@v1.0.0`.

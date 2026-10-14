@@ -33,7 +33,7 @@ data:
   # get new questions from the CDN without upgrading cuppa; checked at
   # most once per interval, and the built-in questions are used if it fails
   refresh: false
-  refresh_url: https://cdn.jsdelivr.net/gh/kashifkhan0771/cuppa@v0/dist/questions.json
+  refresh_url: https://cdn.jsdelivr.net/gh/kashifkhan0771/cuppa@v1/dist/questions.json
   refresh_interval: 24h
 
 history:

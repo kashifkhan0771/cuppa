@@ -37,7 +37,7 @@ spec:
           restartPolicy: Never
           containers:
             - name: cuppa
-              image: ghcr.io/kashifkhan0771/cuppa:0
+              image: ghcr.io/kashifkhan0771/cuppa:1
               args: ["post"]
               envFrom:
                 - secretRef:

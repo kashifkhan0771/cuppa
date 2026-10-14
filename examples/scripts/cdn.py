@@ -6,7 +6,7 @@ import json
 import random
 from urllib.request import urlopen
 
-URL = "https://cdn.jsdelivr.net/gh/kashifkhan0771/cuppa@v0/dist/questions.json"
+URL = "https://cdn.jsdelivr.net/gh/kashifkhan0771/cuppa@v1/dist/questions.json"
 
 with urlopen(URL, timeout=10) as response:
     data = json.load(response)
