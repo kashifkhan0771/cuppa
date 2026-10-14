@@ -1,5 +1,5 @@
 {
-  "description": "Shared test cases for daily(). For each id, hash UTF-8 'seed|YYYY-MM-DD|id' with SHA-256; the id with the smallest hash (compared as bytes) wins. Every language's implementation must pass these.",
+  "description": "Shared test cases for daily(). For each id, hash UTF-8 'seed|YYYY-MM-DD|id' with SHA-256; the id with the smallest hash (compared as bytes) wins. The Go implementation must pass these (see pkg/cuppa/pick_test.go), and the Apps Script example in examples/appsscript copies the same rule.",
   "ids": [
     "ice-0001",
     "ice-0002",
