@@ -9,6 +9,7 @@ import (
 	"log/slog"
 	"slices"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/kashifkhan0771/cuppa/internal/config"
@@ -32,6 +33,9 @@ type app struct {
 
 	log *slog.Logger
 	cfg *config.Config
+
+	// one pick-and-save of the history at a time (see pickAndSend)
+	historyMu sync.Mutex
 }
 
 // loadConfig loads the config file, or the defaults when there is none.
@@ -111,13 +115,18 @@ func (a *app) questionsFor(s config.Selection) (*cuppa.Dataset, error) {
 	if err != nil {
 		return nil, err
 	}
-	return all.Filter(cuppa.Filter{
+	return all.Filter(selectionFilter(s)), nil
+}
+
+// selectionFilter is the question filter a selection describes.
+func selectionFilter(s config.Selection) cuppa.Filter {
+	return cuppa.Filter{
 		Categories:  s.Categories,
 		Tags:        s.Tags,
 		ExcludeTags: s.ExcludeTags,
 		SFW:         s.SFW,
 		Locale:      s.Locale,
-	}), nil
+	}
 }
 
 // selectionFlags are the flags that narrow down or change how a

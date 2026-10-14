@@ -35,36 +35,55 @@ func runDaemon(a *app, args []string) error {
 		return configError(errNoConfig)
 	}
 
-	// build everything first, so a config mistake stops the daemon
-	// right away instead of at the first post time
-	schedule, err := a.buildSchedule()
+	schedule, p, err := a.scheduledPoster()
 	if err != nil {
 		return err
 	}
+	a.runSchedule(schedule, p, *dryRun)
+	return nil
+}
+
+// scheduledPoster builds everything the schedule needs, so a config
+// mistake stops cuppa right away instead of at the first post time.
+func (a *app) scheduledPoster() (*scheduler.Schedule, *poster, error) {
+	schedule, err := a.buildSchedule()
+	if err != nil {
+		return nil, nil, err
+	}
 	if schedule == nil {
-		return configError(errors.New("schedule.cron is empty; the daemon needs it to know when to post"))
+		return nil, nil, configError(errors.New("schedule.cron is empty; it is needed to know when to post"))
+	}
+	if _, err := schedule.Next(a.now()); err != nil {
+		return nil, nil, configError(fmt.Errorf("schedule: %w", err))
 	}
 	p, err := a.newPoster("", a.cfg.Selection)
 	if err != nil {
-		return err
+		return nil, nil, err
 	}
+	return schedule, p, nil
+}
 
+// runSchedule posts at every schedule time until cuppa is stopped.
+func (a *app) runSchedule(schedule *scheduler.Schedule, p *poster, dryRun bool) {
 	for {
 		due, err := schedule.Next(a.now())
 		if err != nil {
-			return configError(err)
+			// scheduledPoster checked this, so only a clock jumping
+			// years ahead gets here
+			a.log.Error("no more post times", "error", err)
+			return
 		}
 		a.log.Info("next post", "at", due.Format(time.RFC3339))
 		if err := a.waitUntil(due); err != nil {
-			a.log.Info("stopped")
-			return nil
+			a.log.Info("schedule stopped")
+			return
 		}
 
 		if late := a.now().Sub(due); late > missedAfter {
 			a.log.Warn("missed a post time, skipping it", "due", due.Format(time.RFC3339), "late", late.Round(time.Minute).String())
 			continue
 		}
-		a.postScheduled(p, *dryRun)
+		a.postScheduled(p, dryRun)
 	}
 }
 
@@ -83,20 +102,20 @@ func (a *app) waitUntil(due time.Time) error {
 }
 
 // postScheduled makes one scheduled post. Problems are logged, not
-// returned, so one bad post never stops the daemon.
+// returned, so one bad post never stops the schedule.
 func (a *app) postScheduled(p *poster, dryRun bool) {
-	out, err := a.prepare(p)
-	if err != nil {
-		a.log.Error("could not pick a question", "error", err)
-		return
-	}
 	if dryRun {
+		out, err := a.prepare(p)
+		if err != nil {
+			a.log.Error("could not pick a question", "error", err)
+			return
+		}
 		for i, t := range p.targets {
 			a.log.Info("would post", "target", t.name, "message", out.messages[i])
 		}
 		return
 	}
-	if _, err := a.send(p, out); err != nil {
+	if _, _, err := a.pickAndSend(p); err != nil {
 		a.log.Error("post did not fully work", "error", err)
 	}
 }

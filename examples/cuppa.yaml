@@ -76,3 +76,12 @@ targets:
     headers:
       Authorization: Bearer ${MY_BOT_TOKEN}
     body: '{"content": {{ json .Rendered }}, "question_id": {{ json .Question.ID }}}'
+
+# "cuppa serve": the HTTP API
+server:
+  # only this computer can reach it; use 0.0.0.0:8080 to open it up
+  addr: 127.0.0.1:8080
+  # needed for POST /v1/post and GET /v1/questions/next
+  token: ${CUPPA_TOKEN}
+  # browser sites allowed to call the API ("*" for any)
+  cors_origins: []

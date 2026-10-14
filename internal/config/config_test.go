@@ -20,7 +20,7 @@ func writeConfig(t *testing.T, content string) string {
 
 // the example config must always load, so it never goes stale
 func TestLoadExample(t *testing.T) {
-	for _, name := range []string{"GCHAT_WEBHOOK", "TEAMS_WEBHOOK", "DISCORD_WEBHOOK", "MATTERMOST_WEBHOOK", "WEBEX_TOKEN", "WEBEX_ROOM_ID"} {
+	for _, name := range []string{"GCHAT_WEBHOOK", "TEAMS_WEBHOOK", "DISCORD_WEBHOOK", "MATTERMOST_WEBHOOK", "WEBEX_TOKEN", "WEBEX_ROOM_ID", "CUPPA_TOKEN"} {
 		t.Setenv(name, "x")
 	}
 	t.Setenv("SLACK_WEBHOOK", "https://hooks.slack.com/services/x")
@@ -36,6 +36,9 @@ func TestLoadExample(t *testing.T) {
 	}
 	if cfg.Selection.Mode != ModeNoRepeat || cfg.Location.String() != "Asia/Karachi" || len(cfg.Targets) != 7 {
 		t.Errorf("unexpected config: %+v", cfg)
+	}
+	if cfg.Server.Token != "x" || cfg.Server.Addr != "127.0.0.1:8080" {
+		t.Errorf("server: %+v", cfg.Server)
 	}
 	if cfg.Targets[5].RoomID != "x" || cfg.Targets[6].Headers["Authorization"] != "Bearer abc" {
 		t.Errorf("env not filled in: %+v", cfg.Targets[5:])

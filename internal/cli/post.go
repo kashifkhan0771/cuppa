@@ -39,11 +39,11 @@ func runPost(a *app, args []string) error {
 		return err
 	}
 
-	out, err := a.prepare(p)
-	if err != nil {
-		return err
-	}
 	if *dryRun {
+		out, err := a.prepare(p)
+		if err != nil {
+			return err
+		}
 		if *asJSON {
 			return printJSON(a, out.question)
 		}
@@ -53,7 +53,10 @@ func runPost(a *app, args []string) error {
 		return nil
 	}
 
-	posted, err := a.send(p, out)
+	out, posted, err := a.pickAndSend(p)
+	if out == nil {
+		return err
+	}
 	// the question went out somewhere, so report it even if a target failed
 	if posted > 0 && *asJSON {
 		if err := printJSON(a, out.question); err != nil {
@@ -126,6 +129,22 @@ func (a *app) prepare(p *poster) (*outgoing, error) {
 		}
 	}
 	return &outgoing{question: q, messages: messages, scratch: scratch, usedBefore: usedBefore}, nil
+}
+
+// pickAndSend picks a question, posts it and saves the history. It
+// holds a lock the whole time, so in "cuppa serve" two posts (or a post
+// and /v1/questions/next) never pick the same question. The lock only
+// covers this process; the history file has its own lock for others.
+func (a *app) pickAndSend(p *poster) (*outgoing, int, error) {
+	a.historyMu.Lock()
+	defer a.historyMu.Unlock()
+
+	out, err := a.prepare(p)
+	if err != nil {
+		return nil, 0, err
+	}
+	posted, err := a.send(p, out)
+	return out, posted, err
 }
 
 // send posts to every target, even if one fails, and saves the

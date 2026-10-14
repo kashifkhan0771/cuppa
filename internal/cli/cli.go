@@ -75,6 +75,7 @@ func init() {
 		{"next", "print a question without posting it", runNext},
 		{"post", "pick a question and post it to the targets", runPost},
 		{"daemon", "keep running and post on the schedule in the config", runDaemon},
+		{"serve", "run the HTTP API", runServe},
 		{"list", "list questions", runList},
 		{"categories", "list categories", runCategories},
 		{"validate", "check a config file or a question pack", runValidate},

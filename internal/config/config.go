@@ -49,6 +49,7 @@ type Config struct {
 	History   History   `yaml:"history"`
 	Message   Message   `yaml:"message"`
 	Targets   []Target  `yaml:"targets"`
+	Server    Server    `yaml:"server"`
 
 	// filled in by Load, not read from the file
 	Path       string         `yaml:"-"` // file it came from; empty for defaults
@@ -103,6 +104,13 @@ type Target struct {
 	RoomID  string            `yaml:"room_id"`
 }
 
+// Server configures "cuppa serve".
+type Server struct {
+	Addr        string   `yaml:"addr"`         // default 127.0.0.1:8080
+	Token       string   `yaml:"token"`        // needed for POST /v1/post and /v1/questions/next
+	CORSOrigins []string `yaml:"cors_origins"` // browser sites allowed to call the API; "*" for any
+}
+
 // Defaults returns the config used when no file exists.
 func Defaults() *Config {
 	return &Config{
@@ -115,6 +123,7 @@ func Defaults() *Config {
 		},
 		History:  History{Path: DefaultHistoryPath()},
 		Message:  Message{Template: DefaultTemplate, PollTemplate: DefaultPollTemplate},
+		Server:   Server{Addr: "127.0.0.1:8080"},
 		Location: time.Local,
 	}
 }

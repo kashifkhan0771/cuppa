@@ -68,6 +68,7 @@ Other commands:
 | `cuppa next` | print a question without posting (`--json`, `--category`, `--tag`, `--mode`) |
 | `cuppa post` | post to every target in the config (`--target`, `--dry-run`, `--json`) |
 | `cuppa daemon` | keep running and post on `schedule.cron` (`--dry-run`) |
+| `cuppa serve` | run the HTTP API (`--addr`, `--with-scheduler`) |
 | `cuppa list` / `cuppa categories` | browse the questions |
 | `cuppa validate [file]` | check a config file or a question pack |
 | `cuppa history show\|reset` | the no-repeat history |
@@ -141,6 +142,53 @@ Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target
+```
+
+## HTTP API
+
+`cuppa serve` answers questions over HTTP, using the same config,
+private packs and history as the command line. It listens on
+`127.0.0.1:8080` unless you set `server.addr` or `--addr`.
+
+```sh
+curl localhost:8080/v1/questions/today
+curl 'localhost:8080/v1/questions/random?category=this-or-that'
+curl -H "Authorization: Bearer $CUPPA_TOKEN" localhost:8080/v1/questions/next
+curl -X POST -H "Authorization: Bearer $CUPPA_TOKEN" localhost:8080/v1/post
+```
+
+| Endpoint | What it does |
+|---|---|
+| `GET /v1/questions/random` | any question (filters: `category`, `tag`, `sfw`, `locale`, `type`) |
+| `GET /v1/questions/today` | question of the day (`seed`, plus the filters) |
+| `GET /v1/questions/next` | next unused question; saves it to the history |
+| `GET /v1/questions/{id}` | one question |
+| `GET /v1/questions` | list (`limit`, `offset`, plus the filters) |
+| `GET /v1/categories` | categories with counts |
+| `POST /v1/post` | pick and post, like `cuppa post` (`target`) |
+| `GET /healthz`, `/readyz`, `/version`, `/openapi.json` | health, versions, the [OpenAPI](internal/cli/openapi.json) description |
+
+Replies look like `{"data": ..., "meta": {...}}`, and errors like
+`{"error": {"code": "no_match", "message": "..."}}`.
+
+Security:
+
+- Set `server.token` (from an env var). Then `POST /v1/post` and
+  `/v1/questions/next` need `Authorization: Bearer <token>`. Without a
+  token, posting is turned off unless you start with `--insecure-allow-post`.
+- Posting is limited to 10 a minute per client address. Behind a reverse
+  proxy all clients share one address, so the proxy should limit too.
+- Browsers on other sites can only call the API if their origin is in
+  `server.cors_origins`.
+
+Add `--with-scheduler` to also post on `schedule.cron`, like `cuppa daemon`.
+With Docker, listen on all addresses inside the container and publish
+the port to this computer only:
+
+```sh
+docker run -d -p 127.0.0.1:8080:8080 -e CUPPA_TOKEN \
+  -v "$PWD/cuppa.yaml:/work/cuppa.yaml:ro" \
+  ghcr.io/kashifkhan0771/cuppa serve --addr 0.0.0.0:8080
 ```
 
 ## Config
