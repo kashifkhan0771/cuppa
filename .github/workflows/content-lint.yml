@@ -1,4 +1,4 @@
-name: content-lint
+name: Question checks
 
 on:
   pull_request:
@@ -14,6 +14,7 @@ permissions:
 
 jobs:
   questions:
+    name: Questions follow the rules (format, duplicates, blocked words)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -28,11 +29,13 @@ jobs:
         with:
           go-version-file: go.mod
 
-      - name: check questions
+      # checks every question, new and old, against schema/blocklist.txt
+      # and the other rules
+      - name: Check questions
         run: go run ./internal/tools/datagen check
 
       # show added/changed/removed questions on the run page,
       # even when the check above failed
-      - name: summarize changes
+      - name: Summarize question changes
         if: always()
         run: go run ./internal/tools/datagen diff -base base/questions >> "$GITHUB_STEP_SUMMARY"

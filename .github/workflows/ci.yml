@@ -1,4 +1,4 @@
-name: ci
+name: Code checks
 
 on:
   push:
@@ -8,29 +8,88 @@ on:
 permissions:
   contents: read
 
+# a new push to the same PR cancels the older, now pointless run
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  check:
+  lint:
+    name: Lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      # use the Go version written in go.mod
       - uses: actions/setup-go@v5
         with:
           go-version-file: go.mod
-
-      - name: vet
-        run: go vet ./...
-
+      # runs go vet, gofmt, gosec and the rest of .golangci.yml
       - uses: golangci/golangci-lint-action@v8
         with:
           version: v2.13.2
 
-      - name: test
-        run: go test -race ./...
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - name: Build all packages
+        run: go build ./...
+
+  tests:
+    name: Tests and coverage (above 80%)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - name: Run tests and check coverage
+        run: make cover
+
+  tests-other-systems:
+    name: Tests on ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      # no race detector here; it runs on Linux above
+      - name: Run tests
+        run: go test ./...
+
+  security:
+    name: Known security issues (govulncheck)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - name: Check dependencies and Go version
+        run: go run golang.org/x/vuln/cmd/govulncheck@v1.9.0 ./...
+
+  tidy:
+    name: Repo is tidy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+
+      - name: go.mod and go.sum are tidy
+        run: go mod tidy -diff
 
       # the binary embeds dist/, so it must match questions/
-      - name: dist is up to date
+      - name: dist/ matches the questions
         run: |
           make build-data
           # porcelain also lists new files that git diff would miss
@@ -39,3 +98,6 @@ jobs:
             echo "dist/ is out of date: run 'make build-data' and commit the result"
             exit 1
           fi
+
+      - name: No long dashes
+        run: make check-dashes

@@ -1,0 +1,4 @@
+# Every change needs review from the maintainer.
+# This matters most for schema/: a PR must not loosen
+# blocklist.txt or tags.txt without someone noticing.
+* @kashifkhan0771
