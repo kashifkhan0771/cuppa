@@ -1,6 +1,6 @@
-// Package cuppa holds the question data model and, later, the logic to
-// filter and pick questions. It has no network calls and no third-party
-// dependencies.
+// Package cuppa loads watercooler questions, filters them, and picks
+// one: at random, as the question of the day, or without repeats.
+// It makes no network calls and has no third-party dependencies.
 package cuppa
 
 // SchemaVersion is the shape version of questions.json.

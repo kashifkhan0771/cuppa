@@ -1,0 +1,69 @@
+{
+  "description": "Shared test cases for daily(). For each id, hash UTF-8 'seed|YYYY-MM-DD|id' with SHA-256; the id with the smallest hash (compared as bytes) wins. Every language's implementation must pass these.",
+  "ids": [
+    "ice-0001",
+    "ice-0002",
+    "ice-0003",
+    "wyr-0001",
+    "wyr-0002",
+    "tot-0001",
+    "tot-0002",
+    "ffy-0001",
+    "hyp-0001",
+    "hyp-0002",
+    "hyp-0010",
+    "ice-0100"
+  ],
+  "cases": [
+    {
+      "seed": "team-alpha",
+      "date": "2026-10-14",
+      "expected": "ice-0100"
+    },
+    {
+      "seed": "team-alpha",
+      "date": "2026-10-15",
+      "expected": "ice-0002"
+    },
+    {
+      "seed": "team-alpha",
+      "date": "2026-12-31",
+      "expected": "wyr-0002"
+    },
+    {
+      "seed": "team-alpha",
+      "date": "2027-01-01",
+      "expected": "ffy-0001"
+    },
+    {
+      "seed": "team-beta",
+      "date": "2026-10-14",
+      "expected": "tot-0002"
+    },
+    {
+      "seed": "",
+      "date": "2026-10-14",
+      "expected": "ice-0100"
+    },
+    {
+      "seed": "kashifkhan0771/cuppa",
+      "date": "2026-02-28",
+      "expected": "ice-0003"
+    },
+    {
+      "seed": "kashifkhan0771/cuppa",
+      "date": "2028-02-29",
+      "expected": "ffy-0001"
+    },
+    {
+      "seed": "café ☕",
+      "date": "2026-10-14",
+      "expected": "tot-0002"
+    },
+    {
+      "seed": "Team Alpha",
+      "date": "2026-10-14",
+      "expected": "wyr-0001"
+    }
+  ]
+}
