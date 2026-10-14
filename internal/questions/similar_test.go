@@ -1,4 +1,4 @@
-package main
+package questions
 
 import (
 	"testing"
@@ -57,8 +57,8 @@ func TestNearDuplicates(t *testing.T) {
 			second.ID = "ice-0002"
 			second.Text = tt.b
 
-			c := &checker{rules: testRules}
-			c.checkNearDuplicates([]sourceFile{goodFile(first, second)})
+			c := &checker{Rules: testRules}
+			c.checkNearDuplicates([]File{goodFile(first, second)})
 			if got := len(c.problems) > 0; got != tt.similar {
 				t.Fatalf("similar = %v, want %v (problems: %v)", got, tt.similar, c.problems)
 			}
@@ -71,8 +71,8 @@ func TestNearDuplicatesSkipsEmptyText(t *testing.T) {
 	first := cuppa.Question{ID: "ice-0001", Text: "What would you do?"}
 	second := cuppa.Question{ID: "ice-0002", Text: "What do you do?"}
 
-	c := &checker{rules: testRules}
-	c.checkNearDuplicates([]sourceFile{goodFile(first, second)})
+	c := &checker{Rules: testRules}
+	c.checkNearDuplicates([]File{goodFile(first, second)})
 	if len(c.problems) != 0 {
 		t.Fatalf("want no problems, got %v", c.problems)
 	}

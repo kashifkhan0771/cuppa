@@ -42,6 +42,11 @@ func Load(r io.Reader) (*Dataset, error) {
 	if err := json.NewDecoder(r).Decode(&file); err != nil {
 		return nil, fmt.Errorf("cuppa: read questions: %w", err)
 	}
+	return New(file)
+}
+
+// New builds a Dataset from questions already in the questions.json layout.
+func New(file DatasetFile) (*Dataset, error) {
 	if file.SchemaVersion != SchemaVersion {
 		return nil, fmt.Errorf("cuppa: questions file has schema_version %d, this version of cuppa reads %d; try upgrading cuppa",
 			file.SchemaVersion, SchemaVersion)

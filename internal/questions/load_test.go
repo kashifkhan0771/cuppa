@@ -1,4 +1,4 @@
-package main
+package questions
 
 import (
 	"os"
@@ -32,7 +32,7 @@ questions:
     reason: too similar
 `)
 
-	files, retired, err := loadQuestions(dir)
+	files, retired, err := LoadDir(dir)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -62,14 +62,14 @@ questions:
     tagz: [food]
 `)
 
-	_, _, err := loadQuestions(dir)
+	_, _, err := LoadDir(dir)
 	if err == nil || !strings.Contains(err.Error(), "tagz") {
 		t.Fatalf("want error about tagz, got %v", err)
 	}
 }
 
 func TestLoadQuestionsMissingDir(t *testing.T) {
-	files, retired, err := loadQuestions(filepath.Join(t.TempDir(), "nope"))
+	files, retired, err := LoadDir(filepath.Join(t.TempDir(), "nope"))
 	if err != nil || files != nil || retired != nil {
 		t.Fatalf("want nothing and no error, got %v %v %v", files, retired, err)
 	}
@@ -79,7 +79,7 @@ func TestReadWordList(t *testing.T) {
 	path := filepath.Join(t.TempDir(), "list.txt")
 	writeFile(t, path, "# comment\n\nFood\n  work  \n")
 
-	words, err := readWordList(path)
+	words, err := ReadWordList(path)
 	if err != nil {
 		t.Fatal(err)
 	}

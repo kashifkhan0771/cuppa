@@ -1,4 +1,7 @@
-package main
+// Package questions reads, checks and compiles the hand-written
+// question YAML files. Both the datagen tool (for questions/) and the
+// cuppa CLI (for a team's private packs) use it.
+package questions
 
 import (
 	"bufio"
@@ -18,8 +21,8 @@ import (
 // retiredFileName holds IDs of removed questions so they are never reused.
 const retiredFileName = "_retired.yaml"
 
-// sourceFile is one questions/<category>.yaml file as people write it.
-type sourceFile struct {
+// File is one questions/<category>.yaml file as people write it.
+type File struct {
 	Path      string           `yaml:"-"`
 	Category  string           `yaml:"category"`
 	Name      string           `yaml:"name"`
@@ -28,25 +31,25 @@ type sourceFile struct {
 }
 
 type retiredFile struct {
-	Retired []retiredQuestion `yaml:"retired"`
+	Retired []Retired `yaml:"retired"`
 }
 
-type retiredQuestion struct {
+type Retired struct {
 	ID     string `yaml:"id"`
 	Reason string `yaml:"reason"`
 }
 
-// loadQuestions reads every category file in dir, plus the retired list.
+// LoadDir reads every category file in dir, plus the retired list.
 // A missing dir gives no files and no error.
-func loadQuestions(dir string) ([]sourceFile, []retiredQuestion, error) {
+func LoadDir(dir string) ([]File, []Retired, error) {
 	// Glob returns names in sorted order, so output is always the same
 	paths, err := filepath.Glob(filepath.Join(dir, "*.yaml"))
 	if err != nil {
 		return nil, nil, err
 	}
 
-	var files []sourceFile
-	var retired []retiredQuestion
+	var files []File
+	var retired []Retired
 	for _, path := range paths {
 		if filepath.Base(path) == retiredFileName {
 			var r retiredFile
@@ -57,19 +60,28 @@ func loadQuestions(dir string) ([]sourceFile, []retiredQuestion, error) {
 			continue
 		}
 
-		var f sourceFile
-		if err := decodeYAML(path, &f); err != nil {
+		f, err := LoadFile(path)
+		if err != nil {
 			return nil, nil, err
-		}
-		f.Path = path
-
-		// each question gets its category from the file it lives in
-		for i := range f.Questions {
-			f.Questions[i].Category = f.Category
 		}
 		files = append(files, f)
 	}
 	return files, retired, nil
+}
+
+// LoadFile reads one question file, such as a team's private pack.
+func LoadFile(path string) (File, error) {
+	var f File
+	if err := decodeYAML(path, &f); err != nil {
+		return File{}, err
+	}
+	f.Path = path
+
+	// each question gets its category from the file it lives in
+	for i := range f.Questions {
+		f.Questions[i].Category = f.Category
+	}
+	return f, nil
 }
 
 // decodeYAML reads path into v.
@@ -87,10 +99,10 @@ func decodeYAML(path string, v any) error {
 	return nil
 }
 
-// readWordList reads a text file with one entry per line.
+// ReadWordList reads a text file with one entry per line.
 // Blank lines and lines starting with # are skipped.
 // Entries are stored lowercase.
-func readWordList(path string) (map[string]bool, error) {
+func ReadWordList(path string) (map[string]bool, error) {
 	f, err := os.Open(path) // #nosec G304 -- path comes from a command flag
 	if err != nil {
 		return nil, err
@@ -109,8 +121,8 @@ func readWordList(path string) (map[string]bool, error) {
 	return words, scanner.Err()
 }
 
-// allQuestions flattens the questions from every file into one list.
-func allQuestions(files []sourceFile) []cuppa.Question {
+// AllQuestions flattens the questions from every file into one list.
+func AllQuestions(files []File) []cuppa.Question {
 	var all []cuppa.Question
 	for _, f := range files {
 		all = append(all, f.Questions...)

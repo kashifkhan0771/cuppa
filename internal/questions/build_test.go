@@ -1,4 +1,4 @@
-package main
+package questions
 
 import (
 	"bytes"
@@ -12,7 +12,7 @@ import (
 )
 
 // testFiles gives two categories, listed out of order on purpose.
-func testFiles() []sourceFile {
+func testFiles() []File {
 	oldest := goodQuestion()
 	oldest.Category = "icebreakers"
 
@@ -26,14 +26,14 @@ func testFiles() []sourceFile {
 	other.ID = "tot-0001"
 	other.Category = "this-or-that"
 
-	return []sourceFile{
+	return []File{
 		{Category: "this-or-that", Name: "This or That", Prefix: "tot", Questions: []cuppa.Question{other}},
 		goodFile(newest, oldest),
 	}
 }
 
 func TestCompile(t *testing.T) {
-	dataset := compile(testFiles())
+	dataset := Compile(testFiles())
 
 	if dataset.SchemaVersion != cuppa.SchemaVersion {
 		t.Errorf("schema_version = %d", dataset.SchemaVersion)
@@ -66,7 +66,7 @@ func TestWriteDist(t *testing.T) {
 	}
 	writeFile(t, stale, "{}")
 
-	if err := writeDist(out, compile(files)); err != nil {
+	if err := WriteDist(out, Compile(files)); err != nil {
 		t.Fatal(err)
 	}
 	first, err := os.ReadFile(filepath.Join(out, "questions.json"))
@@ -75,7 +75,7 @@ func TestWriteDist(t *testing.T) {
 	}
 
 	// same input twice must give the exact same bytes
-	if err := writeDist(out, compile(files)); err != nil {
+	if err := WriteDist(out, Compile(files)); err != nil {
 		t.Fatal(err)
 	}
 	second, err := os.ReadFile(filepath.Join(out, "questions.json"))

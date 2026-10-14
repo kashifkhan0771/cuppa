@@ -1,4 +1,4 @@
-package main
+package questions
 
 import (
 	"bytes"
@@ -11,17 +11,17 @@ import (
 	"github.com/kashifkhan0771/cuppa/pkg/cuppa"
 )
 
-// compile turns checked source files into the questions.json layout.
+// Compile turns checked source files into the questions.json layout.
 // Categories and questions are sorted by ID so the same input
 // always gives the same output.
-func compile(files []sourceFile) cuppa.DatasetFile {
+func Compile(files []File) cuppa.DatasetFile {
 	var categories []cuppa.Category
 	for _, f := range files {
 		categories = append(categories, cuppa.Category{ID: f.Category, Name: f.Name, Count: len(f.Questions)})
 	}
 	slices.SortFunc(categories, func(a, b cuppa.Category) int { return strings.Compare(a.ID, b.ID) })
 
-	questions := allQuestions(files)
+	questions := AllQuestions(files)
 	slices.SortFunc(questions, func(a, b cuppa.Question) int { return strings.Compare(a.ID, b.ID) })
 
 	return cuppa.DatasetFile{
@@ -42,9 +42,9 @@ func datasetVersion(questions []cuppa.Question) string {
 	return strings.ReplaceAll(newest, "-", ".")
 }
 
-// writeDist writes questions.json and one file per category into outDir.
+// WriteDist writes questions.json and one file per category into outDir.
 // Old category files are removed first so deleted categories don't linger.
-func writeDist(outDir string, dataset cuppa.DatasetFile) error {
+func WriteDist(outDir string, dataset cuppa.DatasetFile) error {
 	categoriesDir := filepath.Join(outDir, "categories")
 	if err := os.RemoveAll(categoriesDir); err != nil {
 		return err

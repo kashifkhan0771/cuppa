@@ -14,6 +14,8 @@ import (
 	"io"
 	"os"
 	"path/filepath"
+
+	"github.com/kashifkhan0771/cuppa/internal/questions"
 )
 
 const usage = `usage: datagen <command> [flags]
@@ -63,7 +65,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 		if !ok {
 			return 1
 		}
-		if err := writeDist(*outDir, compile(files)); err != nil {
+		if err := questions.WriteDist(*outDir, questions.Compile(files)); err != nil {
 			fmt.Fprintln(stderr, "error:", err)
 			return 1
 		}
@@ -90,19 +92,19 @@ func run(args []string, stdout, stderr io.Writer) int {
 
 // loadAndCheck reads the word lists and question files, prints any
 // problems, and reports whether there were no errors.
-func loadAndCheck(questionsDir, schemaDir string, stdout, stderr io.Writer) ([]sourceFile, bool) {
-	var r rules
+func loadAndCheck(questionsDir, schemaDir string, stdout, stderr io.Writer) ([]questions.File, bool) {
+	r := questions.Rules{FileNames: true}
 	var err error
-	if r.tags, err = readWordList(filepath.Join(schemaDir, "tags.txt")); err != nil {
+	if r.Tags, err = questions.ReadWordList(filepath.Join(schemaDir, "tags.txt")); err != nil {
 		fmt.Fprintln(stderr, "error:", err)
 		return nil, false
 	}
-	if r.blocklist, err = readWordList(filepath.Join(schemaDir, "blocklist.txt")); err != nil {
+	if r.Blocklist, err = questions.ReadWordList(filepath.Join(schemaDir, "blocklist.txt")); err != nil {
 		fmt.Fprintln(stderr, "error:", err)
 		return nil, false
 	}
 
-	files, retired, err := loadQuestions(questionsDir)
+	files, retired, err := questions.LoadDir(questionsDir)
 	if err != nil {
 		fmt.Fprintln(stderr, "error:", err)
 		return nil, false
@@ -113,9 +115,9 @@ func loadAndCheck(questionsDir, schemaDir string, stdout, stderr io.Writer) ([]s
 	}
 
 	errorCount := 0
-	for _, p := range validate(files, retired, r) {
+	for _, p := range questions.Validate(files, retired, r) {
 		fmt.Fprintln(stderr, p)
-		if !p.warning {
+		if !p.Warning {
 			errorCount++
 		}
 	}
@@ -124,7 +126,7 @@ func loadAndCheck(questionsDir, schemaDir string, stdout, stderr io.Writer) ([]s
 		return nil, false
 	}
 
-	fmt.Fprintf(stdout, "ok: %d questions in %d categories\n", len(allQuestions(files)), len(files))
+	fmt.Fprintf(stdout, "ok: %d questions in %d categories\n", len(questions.AllQuestions(files)), len(files))
 	return files, true
 }
 
@@ -132,13 +134,13 @@ func loadAndCheck(questionsDir, schemaDir string, stdout, stderr io.Writer) ([]s
 // so a broken base branch still gives a useful summary.
 // A missing base folder counts as empty: every question is "added".
 func printDiff(baseDir, questionsDir string, stdout io.Writer) error {
-	oldFiles, _, err := loadQuestions(baseDir)
+	oldFiles, _, err := questions.LoadDir(baseDir)
 	if err != nil {
 		return err
 	}
-	newFiles, _, err := loadQuestions(questionsDir)
+	newFiles, _, err := questions.LoadDir(questionsDir)
 	if err != nil {
 		return err
 	}
-	return writeSummary(stdout, diffQuestions(allQuestions(oldFiles), allQuestions(newFiles)))
+	return writeSummary(stdout, diffQuestions(questions.AllQuestions(oldFiles), questions.AllQuestions(newFiles)))
 }

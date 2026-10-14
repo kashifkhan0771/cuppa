@@ -73,6 +73,17 @@ func (f *File) Reset() error {
 	})
 }
 
+// Cycles returns how many times every question has been used.
+func (f *File) Cycles() (int, error) {
+	var cycles int
+	err := f.withLock(func() error {
+		data, err := f.read()
+		cycles = data.Cycles
+		return err
+	})
+	return cycles, err
+}
+
 // withLock runs fn while holding both the in-process and the file lock.
 func (f *File) withLock(fn func() error) error {
 	f.mu.Lock()

@@ -1,15 +1,18 @@
 // Command cuppa posts a daily watercooler question to team chat.
-//
-// This is a placeholder so the build and CI have something to check.
-// The real CLI arrives in milestone M3.
 package main
 
-import "fmt"
+import (
+	"context"
+	"os"
+	"os/signal"
 
-// version is set at build time by the release tooling.
-// Local builds show "dev".
-var version = "dev"
+	"github.com/kashifkhan0771/cuppa/internal/cli"
+)
 
 func main() {
-	fmt.Println("cuppa " + version)
+	// Ctrl+C cancels any request in flight instead of killing it mid-write
+	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt)
+	code := cli.Run(ctx, os.Args[1:], os.Stdin, os.Stdout, os.Stderr)
+	stop()
+	os.Exit(code)
 }

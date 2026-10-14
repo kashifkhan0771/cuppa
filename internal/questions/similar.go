@@ -1,4 +1,4 @@
-package main
+package questions
 
 import (
 	"strings"
@@ -48,7 +48,7 @@ func normalize(text string) (map[string]bool, string) {
 
 // checkNearDuplicates compares every pair of questions.
 // This is fine for a few thousand questions.
-func (c *checker) checkNearDuplicates(files []sourceFile) {
+func (c *checker) checkNearDuplicates(files []File) {
 	var list []normalizedQuestion
 	for _, f := range files {
 		for _, q := range f.Questions {

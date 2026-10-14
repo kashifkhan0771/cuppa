@@ -22,10 +22,10 @@ jobs:
       - uses: actions/setup-go@v5
         with:
           go-version-file: go.mod
-      # runs go vet, gofmt, gosec and the rest of .golangci.yml
-      - uses: golangci/golangci-lint-action@v8
-        with:
-          version: v2.13.2
+      # runs go vet, gofmt, gosec and the rest of .golangci.yml,
+      # with the version pinned in the Makefile
+      - name: Run golangci-lint
+        run: make lint
 
   build:
     name: Build

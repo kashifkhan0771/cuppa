@@ -62,6 +62,9 @@ func TestResetClearsAndCountsCycles(t *testing.T) {
 	if data.Cycles != 2 || data.Version != fileVersion {
 		t.Errorf("file = %+v, want 2 cycles", data)
 	}
+	if cycles, err := h.Cycles(); cycles != 2 || err != nil {
+		t.Errorf("Cycles() = %d, %v", cycles, err)
+	}
 }
 
 func TestBadFiles(t *testing.T) {

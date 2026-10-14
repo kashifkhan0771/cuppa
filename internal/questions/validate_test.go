@@ -1,4 +1,4 @@
-package main
+package questions
 
 import (
 	"strings"
@@ -7,9 +7,10 @@ import (
 	"github.com/kashifkhan0771/cuppa/pkg/cuppa"
 )
 
-var testRules = rules{
-	tags:      map[string]bool{"work": true, "food": true},
-	blocklist: map[string]bool{"beer": true},
+var testRules = Rules{
+	Tags:      map[string]bool{"work": true, "food": true},
+	Blocklist: map[string]bool{"beer": true},
+	FileNames: true,
 }
 
 func goodQuestion() cuppa.Question {
@@ -25,8 +26,8 @@ func goodQuestion() cuppa.Question {
 	}
 }
 
-func goodFile(questions ...cuppa.Question) sourceFile {
-	return sourceFile{
+func goodFile(questions ...cuppa.Question) File {
+	return File{
 		Path:      "questions/icebreakers.yaml",
 		Category:  "icebreakers",
 		Name:      "Icebreakers",
@@ -36,10 +37,10 @@ func goodFile(questions ...cuppa.Question) sourceFile {
 }
 
 // errorsOnly drops warnings so tests can check real failures.
-func errorsOnly(problems []problem) []problem {
-	var out []problem
+func errorsOnly(problems []Problem) []Problem {
+	var out []Problem
 	for _, p := range problems {
-		if !p.warning {
+		if !p.Warning {
 			out = append(out, p)
 		}
 	}
@@ -47,7 +48,7 @@ func errorsOnly(problems []problem) []problem {
 }
 
 func TestValidateGoodData(t *testing.T) {
-	problems := validate([]sourceFile{goodFile(goodQuestion())}, nil, testRules)
+	problems := Validate([]File{goodFile(goodQuestion())}, nil, testRules)
 	if len(problems) != 0 {
 		t.Fatalf("want no problems, got %v", problems)
 	}
@@ -111,7 +112,7 @@ func TestValidateQuestionErrors(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			q := goodQuestion()
 			tt.change(&q)
-			problems := errorsOnly(validate([]sourceFile{goodFile(q)}, nil, testRules))
+			problems := errorsOnly(Validate([]File{goodFile(q)}, nil, testRules))
 			if !hasMessage(problems, tt.want) {
 				t.Fatalf("want error containing %q, got %v", tt.want, problems)
 			}
@@ -122,7 +123,7 @@ func TestValidateQuestionErrors(t *testing.T) {
 func TestValidateBlockedWordIsWholeWordOnly(t *testing.T) {
 	q := goodQuestion()
 	q.Text = "What is your favorite beers?" // "beers" is not "beer"
-	if problems := errorsOnly(validate([]sourceFile{goodFile(q)}, nil, testRules)); len(problems) != 0 {
+	if problems := errorsOnly(Validate([]File{goodFile(q)}, nil, testRules)); len(problems) != 0 {
 		t.Fatalf("want no errors, got %v", problems)
 	}
 }
@@ -130,8 +131,8 @@ func TestValidateBlockedWordIsWholeWordOnly(t *testing.T) {
 func TestValidateMissingQuestionMarkIsWarning(t *testing.T) {
 	q := goodQuestion()
 	q.Text = "Tell us your favorite snack."
-	problems := validate([]sourceFile{goodFile(q)}, nil, testRules)
-	if len(problems) != 1 || !problems[0].warning {
+	problems := Validate([]File{goodFile(q)}, nil, testRules)
+	if len(problems) != 1 || !problems[0].Warning {
 		t.Fatalf("want exactly one warning, got %v", problems)
 	}
 }
@@ -139,21 +140,21 @@ func TestValidateMissingQuestionMarkIsWarning(t *testing.T) {
 func TestValidateFileErrors(t *testing.T) {
 	tests := []struct {
 		name   string
-		change func(f *sourceFile)
+		change func(f *File)
 		want   string
 	}{
-		{"file name mismatch", func(f *sourceFile) { f.Path = "questions/other.yaml" }, "file name must be icebreakers.yaml"},
-		{"bad category", func(f *sourceFile) { f.Category = "Ice Breakers" }, "kebab-case"},
-		{"missing name", func(f *sourceFile) { f.Name = "" }, "name is required"},
-		{"bad prefix", func(f *sourceFile) { f.Prefix = "ICE" }, "2 to 5 lowercase letters"},
-		{"no questions", func(f *sourceFile) { f.Questions = nil }, "no questions"},
+		{"file name mismatch", func(f *File) { f.Path = "questions/other.yaml" }, "file name must be icebreakers.yaml"},
+		{"bad category", func(f *File) { f.Category = "Ice Breakers" }, "kebab-case"},
+		{"missing name", func(f *File) { f.Name = "" }, "name is required"},
+		{"bad prefix", func(f *File) { f.Prefix = "ICE" }, "2 to 5 lowercase letters"},
+		{"no questions", func(f *File) { f.Questions = nil }, "no questions"},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			f := goodFile(goodQuestion())
 			tt.change(&f)
-			if problems := validate([]sourceFile{f}, nil, testRules); !hasMessage(problems, tt.want) {
+			if problems := Validate([]File{f}, nil, testRules); !hasMessage(problems, tt.want) {
 				t.Fatalf("want error containing %q, got %v", tt.want, problems)
 			}
 		})
@@ -166,15 +167,15 @@ func TestValidateDuplicates(t *testing.T) {
 	q2.Text = "What is the best board game ever made?"
 
 	t.Run("same id twice", func(t *testing.T) {
-		problems := validate([]sourceFile{goodFile(q1, q2)}, nil, testRules)
+		problems := Validate([]File{goodFile(q1, q2)}, nil, testRules)
 		if !hasMessage(problems, "id already used") {
 			t.Fatalf("want duplicate id error, got %v", problems)
 		}
 	})
 
 	t.Run("id is retired", func(t *testing.T) {
-		retired := []retiredQuestion{{ID: "ice-0001"}}
-		problems := validate([]sourceFile{goodFile(q1)}, retired, testRules)
+		retired := []Retired{{ID: "ice-0001"}}
+		problems := Validate([]File{goodFile(q1)}, retired, testRules)
 		if !hasMessage(problems, "id already used in "+retiredFileName) {
 			t.Fatalf("want retired id error, got %v", problems)
 		}
@@ -182,18 +183,31 @@ func TestValidateDuplicates(t *testing.T) {
 
 	t.Run("same category and prefix twice", func(t *testing.T) {
 		q2.ID = "ice-0002"
-		problems := validate([]sourceFile{goodFile(q1), goodFile(q2)}, nil, testRules)
+		problems := Validate([]File{goodFile(q1), goodFile(q2)}, nil, testRules)
 		if !hasMessage(problems, "category \"icebreakers\" already defined") || !hasMessage(problems, "prefix \"ice\" already used") {
 			t.Fatalf("want category and prefix errors, got %v", problems)
 		}
 	})
 }
 
-func hasMessage(problems []problem, want string) bool {
+func hasMessage(problems []Problem, want string) bool {
 	for _, p := range problems {
-		if strings.Contains(p.message, want) {
+		if strings.Contains(p.Message, want) {
 			return true
 		}
 	}
 	return false
+}
+
+// a team pack: any tag, any file name, no blocked words
+func TestValidatePackRules(t *testing.T) {
+	q := goodQuestion()
+	q.Tags = []string{"our-own-tag"}
+	q.Text = "What is your favorite beer?"
+	f := goodFile(q)
+	f.Path = "packs/our-team.yaml"
+
+	if problems := errorsOnly(Validate([]File{f}, nil, Rules{})); len(problems) != 0 {
+		t.Fatalf("want no errors, got %v", problems)
+	}
 }

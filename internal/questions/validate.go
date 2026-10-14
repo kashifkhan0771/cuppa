@@ -1,4 +1,4 @@
-package main
+package questions
 
 import (
 	"fmt"
@@ -29,46 +29,48 @@ var (
 	githubHandle = regexp.MustCompile(`^[A-Za-z0-9-]{1,39}$`)
 )
 
-// problem is one thing wrong with the question data.
+// Problem is one thing wrong with the question data.
 // Warnings are printed but do not fail the check.
-type problem struct {
-	where   string
-	message string
-	warning bool
+type Problem struct {
+	Where   string
+	Message string
+	Warning bool
 }
 
-func (p problem) String() string {
+func (p Problem) String() string {
 	level := "error"
-	if p.warning {
+	if p.Warning {
 		level = "warning"
 	}
-	return fmt.Sprintf("%s: %s: %s", level, p.where, p.message)
+	return fmt.Sprintf("%s: %s: %s", level, p.Where, p.Message)
 }
 
-// rules holds the word lists from schema/.
-type rules struct {
-	tags      map[string]bool
-	blocklist map[string]bool
+// Rules are the checks that differ between the repo's questions/
+// folder and a team's private pack.
+type Rules struct {
+	Tags      map[string]bool // allowed tags; nil allows any tag
+	Blocklist map[string]bool // banned words; nil bans none
+	FileNames bool            // file name must match the category, like icebreakers.yaml
 }
 
 // checker collects problems while walking the data.
 type checker struct {
-	rules
-	problems []problem
+	Rules
+	problems []Problem
 }
 
 func (c *checker) errorf(where, format string, args ...any) {
-	c.problems = append(c.problems, problem{where: where, message: fmt.Sprintf(format, args...)})
+	c.problems = append(c.problems, Problem{Where: where, Message: fmt.Sprintf(format, args...)})
 }
 
 func (c *checker) warnf(where, format string, args ...any) {
-	c.problems = append(c.problems, problem{where: where, message: fmt.Sprintf(format, args...), warning: true})
+	c.problems = append(c.problems, Problem{Where: where, Message: fmt.Sprintf(format, args...), Warning: true})
 }
 
-// validate checks every file and question, then looks for
+// Validate checks every file and question, then looks for
 // duplicate IDs and near-duplicate questions across all files.
-func validate(files []sourceFile, retired []retiredQuestion, r rules) []problem {
-	c := &checker{rules: r}
+func Validate(files []File, retired []Retired, r Rules) []Problem {
+	c := &checker{Rules: r}
 
 	// retired IDs stay reserved, so seed the "seen" list with them
 	seenIDs := map[string]string{}
@@ -112,12 +114,12 @@ func questionWhere(path, id string) string {
 }
 
 // checkFile checks the header fields of one category file.
-func (c *checker) checkFile(f sourceFile, seenCategories, seenPrefixes map[string]string) {
+func (c *checker) checkFile(f File, seenCategories, seenPrefixes map[string]string) {
 	// the file name must match the category, e.g. icebreakers.yaml
 	wantName := f.Category + ".yaml"
 	if !kebabCase.MatchString(f.Category) {
 		c.errorf(f.Path, "category %q must be lowercase kebab-case", f.Category)
-	} else if filepath.Base(f.Path) != wantName {
+	} else if c.FileNames && filepath.Base(f.Path) != wantName {
 		c.errorf(f.Path, "file name must be %s to match category %q", wantName, f.Category)
 	}
 	if other, ok := seenCategories[f.Category]; ok {
@@ -225,7 +227,7 @@ func (c *checker) checkTags(where string, tags []string) {
 	for _, tag := range tags {
 		if !kebabCase.MatchString(tag) {
 			c.errorf(where, "tag %q must be lowercase kebab-case", tag)
-		} else if !c.tags[tag] {
+		} else if c.Tags != nil && !c.Tags[tag] {
 			c.errorf(where, "tag %q is not in schema/tags.txt", tag)
 		}
 		if seen[tag] {
@@ -241,7 +243,7 @@ func (c *checker) checkWords(where, s string) {
 		c.errorf(where, "use a plain hyphen, colon or comma instead of a long dash in %q", s)
 	}
 	for _, word := range splitWords(s) {
-		if c.blocklist[word] {
+		if c.Blocklist[word] {
 			c.errorf(where, "blocked word %q", word)
 		}
 	}

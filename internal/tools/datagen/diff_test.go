@@ -10,18 +10,14 @@ import (
 )
 
 func TestDiffQuestions(t *testing.T) {
-	kept := goodQuestion()
+	kept := cuppa.Question{ID: "ice-0001", Text: "What is your favorite snack?"}
 
-	edited := goodQuestion()
-	edited.ID = "ice-0002"
+	edited := cuppa.Question{ID: "ice-0002", Text: "What is your favorite snack?"}
 	editedNew := edited
 	editedNew.Text = "What is your favorite late-night snack?"
 
-	removed := goodQuestion()
-	removed.ID = "ice-0003"
-
-	added := goodQuestion()
-	added.ID = "ice-0004"
+	removed := cuppa.Question{ID: "ice-0003"}
+	added := cuppa.Question{ID: "ice-0004"}
 
 	changes := diffQuestions(
 		[]cuppa.Question{kept, edited, removed},

@@ -3,6 +3,10 @@
 # total test coverage must be above this percent
 MIN_COVERAGE := 80
 
+# golangci-lint is built from source with this repo's Go version, so it
+# always understands the code it checks; CI uses this same target
+GOLANGCI_LINT_VERSION := v2.14.0
+
 # compile every package; binaries go to bin/
 build:
 	go build -o bin/ ./...
@@ -13,7 +17,7 @@ test:
 
 # run the linters configured in .golangci.yml
 lint:
-	golangci-lint run
+	go run github.com/golangci/golangci-lint/v2/cmd/golangci-lint@$(GOLANGCI_LINT_VERSION) run
 
 # rewrite Go files into standard format
 fmt:

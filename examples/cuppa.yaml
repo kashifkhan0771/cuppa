@@ -1,0 +1,50 @@
+# Example cuppa config. Every key is optional except targets
+# (and targets only matter for "cuppa post").
+# Secrets come from environment variables with ${NAME}.
+version: 1
+
+schedule:
+  # whose midnight starts a new day in daily mode
+  timezone: Asia/Karachi
+
+selection:
+  # daily: same question for everyone with the same seed, no saved state
+  # random: any question each time
+  # no-repeat: never repeat until every question was used
+  mode: no-repeat
+  seed: team-alpha
+  categories: [icebreakers, this-or-that]
+  tags: []
+  exclude_tags: []
+  # safe fits any workplace; casual adds lighter questions
+  sfw: safe
+  locale: en
+
+data:
+  # your own questions, same format as the files in questions/
+  extra_questions: []
+
+history:
+  path: ~/.local/state/cuppa/history.json
+
+message:
+  template: "☕ *Today's watercooler:* {{ .Text }}"
+  poll_template: "☕ *Today's watercooler:* {{ .Text }}\n{{ range $i, $o := .Options }}{{ index $.Emojis $i }} {{ $o }}\n{{ end }}"
+
+targets:
+  - name: team-slack
+    type: slack
+    webhook: ${SLACK_WEBHOOK}
+
+  - name: eng-gchat
+    type: gchat
+    webhook: ${GCHAT_WEBHOOK}
+
+  # any other service: you choose the method, headers and body
+  - name: my-bot
+    type: webhook
+    url: ${MY_BOT_URL}
+    method: POST
+    headers:
+      Authorization: Bearer ${MY_BOT_TOKEN}
+    body: '{"content": {{ json .Rendered }}, "question_id": {{ json .Question.ID }}}'
