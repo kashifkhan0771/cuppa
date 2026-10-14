@@ -37,7 +37,7 @@ jobs:
       contents: write # upload release files, move the major tag
       packages: write # push Docker images to ghcr.io
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           ref: ${{ needs.release-please.outputs.tag_name }}
           fetch-depth: 0

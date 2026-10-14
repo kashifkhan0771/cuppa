@@ -17,10 +17,10 @@ jobs:
     name: Questions follow the rules (format, duplicates, blocked words)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       # the base branch, to compare questions against
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           ref: ${{ github.event.pull_request.base.sha }}
           path: base
