@@ -17,8 +17,8 @@ cron, Docker, Kubernetes, or your laptop.
 - **About 150 ready-made questions** in five categories: icebreakers, would
   you rather, this or that, fun facts about you, and hypotheticals. Every one
   is checked for inclusiveness, duplicates and blocked words.
-- **Three kinds of question:** open questions, polls (numbered options), and
-  this-or-that.
+- **Three kinds of question:** open questions, polls, and this-or-that.
+  Only the question is posted, and people reply to it.
 - **Safe by default.** Questions are `safe` (fit any workplace) or `casual`
   (lighter, for relaxed teams). You only get `safe` unless you ask for more.
 - **Seven chat targets:** Slack, Google Chat, Teams, Discord, Mattermost,
@@ -293,7 +293,7 @@ Secrets go in environment variables: write `webhook: ${SLACK_WEBHOOK}`.
 | `data.refresh_interval` | `24h` | at most one download per interval |
 | `history.path` | `~/.local/state/cuppa/history.json` | the no-repeat history (`$XDG_STATE_HOME` is honored; on Windows it is under `%LocalAppData%`) |
 | `message.template` | see below | the message for open questions |
-| `message.poll_template` | see below | the message for polls and this-or-that |
+| `message.poll_template` | same as `message.template` | the message for polls and this-or-that; set it to also list the options |
 | `targets[]` | none | where to post: `name`, `type`, and `webhook`, or `token` and `room_id` (Webex), or `url`, `method`, `headers`, `body` (webhook) |
 | `server.addr` | `127.0.0.1:8080` | where `serve` listens |
 | `server.token` | none | the token for `POST /v1/post` and `GET /v1/questions/next` |
@@ -304,10 +304,21 @@ config file's folder. Unknown keys are an error, so typos get caught.
 
 **Messages** are Go templates. `{{ .Bold "text" }}` writes bold for the app
 being posted to. The fields are `.Text`, `.ID`, `.Category`, `.Type`, `.Tags`,
-`.Options` and `.Emojis` (the numbers 1 to 6 for poll options). The default is:
+`.Options` and `.Emojis` (the numbers 1 to 6 for numbering options). The default
+is just the question, with no list of options, because the choices of a
+this-or-that question are already in its text:
 
 ```
 ☕ {{ .Bold "Today's watercooler:" }} {{ .Text }}
+```
+
+To list the options too, set `message.poll_template`
+(see [examples/cuppa.custom-message.yaml](examples/cuppa.custom-message.yaml)):
+
+```
+☕ {{ .Bold "Today's watercooler:" }} {{ .Text }}
+{{ range $i, $o := .Options }}{{ index $.Emojis $i }} {{ $o }}
+{{ end }}
 ```
 
 The generic `webhook` target also has `.Rendered` (the finished message),

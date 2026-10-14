@@ -1,6 +1,9 @@
 # Change how the message looks. Templates are Go templates.
 # {{ .Bold "x" }} writes bold the way each chat app wants it.
 # Other fields: .Text .Category .Type .Tags .Options .Emojis .ID
+# poll_template is used for poll and this-or-that questions. By default it is
+# the same as template, so only the question is posted. This one also lists
+# the options with numbers.
 version: 1
 message:
   template: "{{ .Bold \"Coffee break question\" }}\n{{ .Text }}"

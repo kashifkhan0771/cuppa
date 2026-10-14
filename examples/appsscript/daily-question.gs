@@ -103,13 +103,8 @@ function compareBytes_(a, b) {
   return 0;
 }
 
-// Slack and Google Chat both write bold as *text*.
-var EMOJIS_ = ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣', '6️⃣'];
-
+// Slack and Google Chat both write bold as *text*. Only the question is
+// posted, like cuppa's default: the choices are already in its text.
 function buildMessage_(q) {
-  var message = '☕ *Today\'s watercooler:* ' + q.text;
-  (q.options || []).forEach(function (option, i) {
-    message += '\n' + EMOJIS_[i] + ' ' + option;
-  });
-  return message;
+  return '☕ *Today\'s watercooler:* ' + q.text;
 }

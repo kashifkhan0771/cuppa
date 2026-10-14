@@ -37,11 +37,15 @@ var Modes = []string{ModeDaily, ModeRandom, ModeNoRepeat}
 // release of this major version. Change the @v1 when the major changes.
 const DefaultRefreshURL = "https://cdn.jsdelivr.net/gh/kashifkhan0771/cuppa@v1/dist/questions.json"
 
-// Default message templates. Emojis numbers the poll options, and
-// .Bold writes bold text the way each chat app expects it.
+// Default message templates. Every question is posted as plain text: the
+// choices of a this-or-that question are already in its text, so people
+// just reply. A team that wants the options listed sets poll_template to
+// one that loops over .Options (see examples/cuppa.custom-message.yaml).
+// .Bold writes bold text the way each chat app expects it, and .Emojis
+// has the numbers 1 to 6 for templates that number the options.
 const (
 	DefaultTemplate     = "☕ {{ .Bold \"Today's watercooler:\" }} {{ .Text }}"
-	DefaultPollTemplate = "☕ {{ .Bold \"Today's watercooler:\" }} {{ .Text }}\n{{ range $i, $o := .Options }}{{ index $.Emojis $i }} {{ $o }}\n{{ end }}"
+	DefaultPollTemplate = DefaultTemplate
 )
 
 // Config is the whole cuppa.yaml file.

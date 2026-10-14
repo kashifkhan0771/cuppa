@@ -43,7 +43,9 @@ history:
 # (*x* in Slack and Google Chat, **x** in the others).
 message:
   template: "☕ {{ .Bold \"Today's watercooler:\" }} {{ .Text }}"
-  poll_template: "☕ {{ .Bold \"Today's watercooler:\" }} {{ .Text }}\n{{ range $i, $o := .Options }}{{ index $.Emojis $i }} {{ $o }}\n{{ end }}"
+  # for poll and this-or-that questions. The default is the same as
+  # template (just the question). Uncomment this to add a numbered list of options:
+  # poll_template: "☕ {{ .Bold \"Today's watercooler:\" }} {{ .Text }}\n{{ range $i, $o := .Options }}{{ index $.Emojis $i }} {{ $o }}\n{{ end }}"
 
 targets:
   - name: team-slack

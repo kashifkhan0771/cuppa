@@ -149,8 +149,19 @@ func TestNextWithoutConfig(t *testing.T) {
 	}
 }
 
-func TestNextRendersPollOptions(t *testing.T) {
+// by default only the question is posted: the choices are in its text
+func TestNextPostsOnlyTheQuestion(t *testing.T) {
 	isolate(t)
+	r := run(t, "", "next", "--category", "this-or-that")
+	if r.code != exitOK || !strings.Contains(r.stdout, "☕") || strings.Contains(r.stdout, "1️⃣") || strings.Count(strings.TrimSpace(r.stdout), "\n") != 0 {
+		t.Fatalf("got %+v", r)
+	}
+}
+
+// a team can still ask for the options to be listed
+func TestNextListsOptionsWithPollTemplate(t *testing.T) {
+	isolate(t)
+	writeFile(t, "cuppa.yaml", "message:\n  poll_template: '{{ .Text }}{{ range $i, $o := .Options }} {{ index $.Emojis $i }} {{ $o }}{{ end }}'\n")
 	r := run(t, "", "next", "--category", "this-or-that")
 	if r.code != exitOK || !strings.Contains(r.stdout, "1️⃣ ") || !strings.Contains(r.stdout, "2️⃣ ") {
 		t.Fatalf("got %+v", r)
