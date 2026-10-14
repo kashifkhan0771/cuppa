@@ -66,7 +66,7 @@ runs:
   steps:
     # cuppa is built from the action's own source, so the version always
     # matches the tag in "uses: kashifkhan0771/cuppa@<tag>"
-    - uses: actions/setup-go@v5
+    - uses: actions/setup-go@v7
       with:
         go-version-file: ${{ github.action_path }}/go.mod
         cache-dependency-path: ${{ github.action_path }}/go.sum
